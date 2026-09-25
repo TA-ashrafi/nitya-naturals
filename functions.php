@@ -82,6 +82,55 @@ function nitya_naturals_auto_setup_pages() {
         update_option('show_on_front', 'page');
         update_option('page_on_front', $page_ids['home']);
     }
+
+    // Auto-populate default sidebar widgets layer-wise
+    $sidebars = get_option('sidebars_widgets', array());
+    if (empty($sidebars['home-widgets'])) {
+        $sidebars['home-widgets'] = array(
+            'nitya_home_banner_widget-1',
+            'nitya_home_about_widget-1',
+            'nitya_one_stop_widget-1',
+            'nitya_capabilities_widget-1',
+            'nitya_mockup_banner_widget-1',
+            'nitya_services_widget-1',
+            'nitya_chyawanprash_widget-1',
+        );
+    }
+    if (empty($sidebars['about-widgets'])) {
+        $sidebars['about-widgets'] = array(
+            'nitya_about_main_widget-1',
+            'nitya_our_legacy_widget-1',
+            'nitya_our_founder_widget-1',
+            'nitya_management_widget-1',
+        );
+    }
+    if (empty($sidebars['product-range-widgets'])) {
+        $sidebars['product-range-widgets'] = array(
+            'nitya_product_range_widget-1',
+        );
+    }
+    update_option('sidebars_widgets', $sidebars);
+
+    // Initialize widget instances with defaults
+    $widgets_to_init = array(
+        'widget_nitya_home_banner_widget',
+        'widget_nitya_home_about_widget',
+        'widget_nitya_one_stop_widget',
+        'widget_nitya_capabilities_widget',
+        'widget_nitya_mockup_banner_widget',
+        'widget_nitya_services_widget',
+        'widget_nitya_chyawanprash_widget',
+        'widget_nitya_about_main_widget',
+        'widget_nitya_our_legacy_widget',
+        'widget_nitya_our_founder_widget',
+        'widget_nitya_management_widget',
+        'widget_nitya_product_range_widget',
+    );
+    foreach ($widgets_to_init as $widget_opt) {
+        if (!get_option($widget_opt)) {
+            update_option($widget_opt, array(1 => array(), '_multiwidget' => 1));
+        }
+    }
 }
 add_action('after_switch_theme', 'nitya_naturals_auto_setup_pages');
 
@@ -115,6 +164,37 @@ function nitya_naturals_widgets_init() {
         'after_widget'  => '</div>',
         'before_title'  => '<h3 class="widget-title">',
         'after_title'   => '</h3>',
+    ));
+
+    // Dedicated Page Widget Areas (Sidebars) for Customizer & Widgets Screen
+    register_sidebar(array(
+        'name'          => __('Home Page Sections', 'nitya-naturals'),
+        'id'            => 'home-widgets',
+        'description'   => __('Add and reorder section widgets layer-wise for the Home Page.', 'nitya-naturals'),
+        'before_widget' => '<div id="%1$s" class="nitya-section-widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h2 class="section-title widget-title">',
+        'after_title'   => '</h2>',
+    ));
+
+    register_sidebar(array(
+        'name'          => __('About Us Page Sections', 'nitya-naturals'),
+        'id'            => 'about-widgets',
+        'description'   => __('Add and reorder section widgets layer-wise for the About Us Page.', 'nitya-naturals'),
+        'before_widget' => '<div id="%1$s" class="nitya-section-widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h2 class="section-title widget-title">',
+        'after_title'   => '</h2>',
+    ));
+
+    register_sidebar(array(
+        'name'          => __('Product Range Page Sections', 'nitya-naturals'),
+        'id'            => 'product-range-widgets',
+        'description'   => __('Add and reorder section widgets layer-wise for the Product Range Page.', 'nitya-naturals'),
+        'before_widget' => '<div id="%1$s" class="nitya-section-widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h2 class="section-title widget-title">',
+        'after_title'   => '</h2>',
     ));
 }
 add_action('widgets_init', 'nitya_naturals_widgets_init');

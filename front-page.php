@@ -1,6 +1,6 @@
 <?php
 /**
- * Front Page Template - Modularized with Widgets
+ * Front Page Template - Dynamic Widgets Sidebar
  */
 
 get_header();
@@ -8,26 +8,19 @@ get_header();
 
 <main id="primary" class="site-main">
 
-	<!-- Hero Banner Widget -->
-	<?php get_template_part('template-parts/widgets/widget-home-banner'); ?>
-
-	<!-- About Us Summary Widget -->
-	<?php get_template_part('template-parts/widgets/widget-home-about'); ?>
-
-	<!-- What Makes It Special / One Stop Shop Widget -->
-	<?php get_template_part('template-parts/widgets/widget-one-stop'); ?>
-
-	<!-- Capabilities Widget (Dosage Form, Existing Products, NPD) -->
-	<?php get_template_part('template-parts/widgets/widget-capabilities'); ?>
-
-	<!-- Mockup Showcase Widget -->
-	<?php get_template_part('template-parts/widgets/widget-mockup-banner'); ?>
-
-	<!-- Services Process Widget -->
-	<?php get_template_part('template-parts/widgets/widget-services'); ?>
-
-	<!-- Chyawanprash Facility Widget -->
-	<?php get_template_part('template-parts/widgets/widget-chyawanprash'); ?>
+<?php
+if (is_active_sidebar('home-widgets')) :
+	dynamic_sidebar('home-widgets');
+else :
+	get_template_part('template-parts/widgets/widget-home-banner');
+	get_template_part('template-parts/widgets/widget-home-about');
+	get_template_part('template-parts/widgets/widget-one-stop');
+	get_template_part('template-parts/widgets/widget-capabilities');
+	get_template_part('template-parts/widgets/widget-mockup-banner');
+	get_template_part('template-parts/widgets/widget-services');
+	get_template_part('template-parts/widgets/widget-chyawanprash');
+endif;
+?>
 
 	<!-- Book Factory Visit Callout -->
 	<section class="section" style="background: var(--primary-color); color: #fff; text-align: center;">
