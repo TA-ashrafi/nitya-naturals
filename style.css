@@ -3,7 +3,7 @@ Theme Name: Nitya Naturals Theme
 Theme URI: https://www.nityanaturals.com/
 Author: Nitya Naturals Team
 Description: Custom WordPress Theme for Nitya Naturals - Private Labeling and Contract Manufacturing
-Version: 1.0.0
+Version: 1.0.1
 Text Domain: nitya-naturals
 */
 
@@ -78,13 +78,13 @@ img {
   padding: 0 30px;
 }
 
-/* Header Styles */
+/* Header Styles & Sticky Shrinkage */
 .site-header {
   position: relative;
   background: var(--bg-white);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   z-index: 1000;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease-in-out;
 }
 
 .site-header.is-sticky {
@@ -92,7 +92,8 @@ img {
   top: 0;
   left: 0;
   right: 0;
-  animation: slideDown 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  animation: slideDown 0.3s ease-in-out;
 }
 
 @keyframes slideDown {
@@ -104,8 +105,14 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0;
+  padding: 15px 0;
   min-height: 80px;
+  transition: all 0.3s ease-in-out;
+}
+
+.site-header.is-sticky .header-inner {
+  padding: 6px 0;
+  min-height: 60px;
 }
 
 .site-logo {
@@ -116,6 +123,11 @@ img {
 .site-logo img {
   max-height: 65px;
   width: auto;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.site-header.is-sticky .site-logo img {
+  max-height: 48px;
 }
 
 /* Navigation */
