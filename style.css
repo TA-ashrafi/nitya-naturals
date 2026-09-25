@@ -910,3 +910,46 @@ img {
     max-height: 32px;
   }
 }
+
+/* ============================================
+   PRODUCT SEARCH BAR & COUNTER STYLES
+   ============================================ */
+.product-search-wrapper {
+  position: relative;
+  max-width: 650px;
+  margin: 0 auto 15px;
+}
+
+.product-search-input {
+  width: 100%;
+  padding: 12px 45px 12px 20px;
+  font-size: 15px;
+  border: 2px solid var(--border-color, #e2e8f0);
+  border-radius: 30px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: inherit;
+}
+
+.product-search-input:focus {
+  border-color: var(--primary-color, #2b5e32);
+  box-shadow: 0 0 0 3px rgba(43, 94, 50, 0.15);
+}
+
+.product-search-icon {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a0aec0;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.product-count {
+  text-align: center;
+  font-size: 14px;
+  color: #718096;
+  margin-bottom: 25px;
+  font-weight: 600;
+}

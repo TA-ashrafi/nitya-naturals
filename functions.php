@@ -474,3 +474,8 @@ function nitya_naturals_customizer_css() {
     <?php
 }
 add_action('wp_head', 'nitya_naturals_customizer_css');
+
+/**
+ * Load Custom Widgets
+ */
+require_once get_template_directory() . '/inc/widgets.php';
