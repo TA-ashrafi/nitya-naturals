@@ -54,22 +54,25 @@ document.addEventListener('DOMContentLoaded', function () {
   const menuToggle = document.querySelector('.mobile-menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu-wrapper');
   const mobileOverlay = document.getElementById('mobile-menu-overlay');
-  const mobileCloseBtn = document.getElementById('mobile-menu-close');
 
   function openMobileMenu() {
     if (!mobileMenu) return;
     mobileMenu.classList.add('is-active');
+    if (menuToggle) {
+      menuToggle.classList.add('is-active');
+      menuToggle.setAttribute('aria-expanded', 'true');
+    }
     if (mobileOverlay) mobileOverlay.classList.add('is-active');
-    if (menuToggle) menuToggle.setAttribute('aria-expanded', 'true');
-    document.body.classList.add('mobile-menu-open');
   }
 
   function closeMobileMenu() {
     if (!mobileMenu) return;
     mobileMenu.classList.remove('is-active');
+    if (menuToggle) {
+      menuToggle.classList.remove('is-active');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
     if (mobileOverlay) mobileOverlay.classList.remove('is-active');
-    if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('mobile-menu-open');
   }
 
   if (menuToggle && mobileMenu) {
@@ -83,34 +86,25 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
 
-    if (mobileCloseBtn) {
-      mobileCloseBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        closeMobileMenu();
-      });
-    }
-
     if (mobileOverlay) {
       mobileOverlay.addEventListener('click', closeMobileMenu);
     }
 
-    // Mobile Submenu Accordion Handler
+    // Mobile Submenu Accordion
     const mobileDropdownItems = mobileMenu.querySelectorAll('li.menu-item-has-children');
     mobileDropdownItems.forEach(function (item) {
       const parentWrapper = item.querySelector('.mobile-parent-wrapper');
-      const link = item.querySelector(':scope > a') || (parentWrapper ? parentWrapper.querySelector('a') : null);
+      const link = parentWrapper ? parentWrapper.querySelector('a') : item.querySelector('a');
       const btn = item.querySelector('.submenu-toggle-btn');
 
       function toggleSubmenu(e) {
         if (window.innerWidth <= 991) {
-          // If clicking link with href="#" or toggle button
-          if (btn || (link && (link.getAttribute('href') === '#' || link.getAttribute('href') === ''))) {
-            e.preventDefault();
-          }
+          e.preventDefault();
+          e.stopPropagation();
           const isCurrentlyOpen = item.classList.contains('is-open');
 
-          // Optionally close sibling open dropdowns
-          mobileDropdownItems.forEach(function(otherItem) {
+          // Close other submenus
+          mobileDropdownItems.forEach(function (otherItem) {
             if (otherItem !== item) {
               otherItem.classList.remove('is-open');
             }
@@ -130,26 +124,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (link) {
         link.addEventListener('click', function (e) {
-          if (link.getAttribute('href') === '#' || link.getAttribute('href') === '' || !link.getAttribute('href')) {
-            e.preventDefault();
+          const href = link.getAttribute('href');
+          if (!href || href === '#' || href === '') {
             toggleSubmenu(e);
           } else {
-            // It's a real link, navigate and close menu
             closeMobileMenu();
           }
         });
       }
     });
 
-    // Close menu when clicking a normal nav link inside mobile menu
-    const mobileNavLinks = mobileMenu.querySelectorAll('a:not([href="#"])');
-    mobileNavLinks.forEach(function (navLink) {
-      navLink.addEventListener('click', function () {
-        closeMobileMenu();
-      });
+    // Close on link click
+    const normalLinks = mobileMenu.querySelectorAll('a:not([href="#"])');
+    normalLinks.forEach(function (link) {
+      link.addEventListener('click', closeMobileMenu);
     });
 
-    // Close on resize to desktop
+    // Close on outside click
+    document.addEventListener('click', function (e) {
+      if (!mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+        if (mobileMenu.classList.contains('is-active')) {
+          closeMobileMenu();
+        }
+      }
+    });
+
+    // Close on desktop resize
     window.addEventListener('resize', function () {
       if (window.innerWidth > 991 && mobileMenu.classList.contains('is-active')) {
         closeMobileMenu();

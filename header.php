@@ -64,30 +64,28 @@
 			</nav>
 
 			<!-- MOBILE TOGGLE -->
-			<button class="mobile-menu-toggle" aria-controls="mobile-menu-wrapper" aria-expanded="false" aria-label="<?php esc_attr_e('Toggle Navigation', 'nitya-naturals'); ?>">
-				<i class="fa-solid fa-bars"></i>
+			<button type="button" class="mobile-menu-toggle" aria-controls="mobile-menu-wrapper" aria-expanded="false" aria-label="<?php esc_attr_e('Toggle Navigation', 'nitya-naturals'); ?>">
+				<span class="hamburger-icon">
+					<span></span>
+					<span></span>
+					<span></span>
+				</span>
 			</button>
 
 		</div>
 
-		<!-- MOBILE OVERLAY -->
+		<!-- MOBILE MENU OVERLAY -->
 		<div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
 
-		<!-- MOBILE MENU -->
+		<!-- MOBILE MENU WRAPPER -->
 		<div class="mobile-menu-wrapper" id="mobile-menu-wrapper">
-			<div class="mobile-menu-header">
-				<span class="mobile-menu-title"><?php esc_html_e('MENU', 'nitya-naturals'); ?></span>
-				<button class="mobile-menu-close" id="mobile-menu-close" aria-label="<?php esc_attr_e('Close Menu', 'nitya-naturals'); ?>">
-					<i class="fa-solid fa-xmark"></i>
-				</button>
-			</div>
 			<ul class="menu">
 				<li><a href="<?php echo esc_url(home_url('/about-us/')); ?>"><?php esc_html_e('ABOUT US', 'nitya-naturals'); ?></a></li>
 				<li class="menu-item-has-children">
 					<div class="mobile-parent-wrapper">
 						<a href="#"><?php esc_html_e('PRODUCTS', 'nitya-naturals'); ?></a>
 						<button type="button" class="submenu-toggle-btn" aria-label="<?php esc_attr_e('Toggle Submenu', 'nitya-naturals'); ?>">
-							<i class="fa-solid fa-chevron-down"></i>
+							<span class="chevron-icon"></span>
 						</button>
 					</div>
 					<ul class="sub-menu">
@@ -100,7 +98,7 @@
 					<div class="mobile-parent-wrapper">
 						<a href="#"><?php esc_html_e('SERVICES', 'nitya-naturals'); ?></a>
 						<button type="button" class="submenu-toggle-btn" aria-label="<?php esc_attr_e('Toggle Submenu', 'nitya-naturals'); ?>">
-							<i class="fa-solid fa-chevron-down"></i>
+							<span class="chevron-icon"></span>
 						</button>
 					</div>
 					<ul class="sub-menu">
