@@ -8,7 +8,7 @@ if ($mockup_img) :
 ?>
 <section class="section section-bg-light nitya-widget-mockup">
 	<div class="container" style="text-align: center;">
-		<img src="<?php echo esc_url($mockup_img); ?>" alt="<?php esc_attr_e('Nitya Naturals Oils & Liquids', 'nitya-naturals'); ?>" style="margin: 0 auto; max-width: 750px; border-radius: 8px;">
+		<img src="<?php echo esc_url($mockup_img); ?>" alt="<?php esc_attr_e('Nitya Naturals Oils & Liquids', 'nitya-naturals'); ?>" style="margin: 0 auto; max-width: 100%; height: auto; border-radius: 8px;">
 	</div>
 </section>
 <?php endif; ?>
