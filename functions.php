@@ -248,7 +248,11 @@ function nitya_naturals_auto_setup_pages() {
 
             if (!$existing->have_posts()) {
                 for ($i = 1; $i <= 9; $i++) {
-                    $prod_title = sprintf('%s Care Product %d', $cat_name, $i);
+                    if (strripos($cat_name, 'care') !== false) {
+                        $prod_title = sprintf('%s Product %d', $cat_name, $i);
+                    } else {
+                        $prod_title = sprintf('%s Care Product %d', $cat_name, $i);
+                    }
                     $prod_slug  = sanitize_title($prod_title);
 
                     $prod_id = wp_insert_post(array(
@@ -269,39 +273,74 @@ function nitya_naturals_auto_setup_pages() {
                         update_post_meta($prod_id, '_product_gallery_images', $default_gallery_images);
                     }
                 }
+            } else {
+                // Fix double "Care Care" titles in existing products if present
+                $all_cat_prods = new WP_Query(array(
+                    'post_type'      => 'product',
+                    'posts_per_page' => -1,
+                    'tax_query'      => array(
+                        array(
+                            'taxonomy' => 'product_cat',
+                            'field'    => 'term_id',
+                            'terms'    => $term_id
+                        )
+                    )
+                ));
+                if ($all_cat_prods->have_posts()) {
+                    while ($all_cat_prods->have_posts()) {
+                        $all_cat_prods->the_post();
+                        $curr_title = get_the_title();
+                        if (strpos($curr_title, 'Care Care') !== false) {
+                            $fixed_title = str_replace('Care Care', 'Care', $curr_title);
+                            wp_update_post(array(
+                                'ID'         => get_the_ID(),
+                                'post_title' => $fixed_title,
+                                'post_name'  => sanitize_title($fixed_title)
+                            ));
+                        }
+                    }
+                    wp_reset_postdata();
+                }
             }
         }
     }
 
-    // Auto populate sidebars with default widgets if empty
+    // Clean up invalid/dummy widget IDs in sidebars_widgets if they don't have actual option settings
     $sidebars_widgets = get_option('sidebars_widgets');
-    if (empty($sidebars_widgets['home-widgets'])) {
-        $sidebars_widgets['home-widgets'] = array(
-            'nitya_home_banner_widget-1',
-            'nitya_home_about_widget-1',
-            'nitya_one_stop_widget-1',
-            'nitya_capabilities_widget-1',
-            'nitya_mockup_banner_widget-1',
-            'nitya_services_widget-1',
-            'nitya_chyawanprash_widget-1'
-        );
+    if (is_array($sidebars_widgets)) {
+        foreach (array('home-widgets', 'about-widgets', 'categories-widgets', 'product-range-widgets') as $sb_id) {
+            if (!empty($sidebars_widgets[$sb_id]) && is_array($sidebars_widgets[$sb_id])) {
+                $valid_widgets = array();
+                foreach ($sidebars_widgets[$sb_id] as $w_id) {
+                    // Extract widget base ID (e.g. nitya_home_banner_widget)
+                    $parts = explode('-', $w_id);
+                    array_pop($parts);
+                    $base_id = implode('-', $parts);
+                    $widget_opts = get_option('widget_' . $base_id);
+                    if (!empty($widget_opts) && is_array($widget_opts)) {
+                        $valid_widgets[] = $w_id;
+                    }
+                }
+                $sidebars_widgets[$sb_id] = $valid_widgets;
+            }
+        }
+        update_option('sidebars_widgets', $sidebars_widgets);
     }
-    if (empty($sidebars_widgets['about-widgets'])) {
-        $sidebars_widgets['about-widgets'] = array(
-            'nitya_about_main_widget-1',
-            'nitya_our_legacy_widget-1',
-            'nitya_our_founder_widget-1',
-            'nitya_management_widget-1'
-        );
-    }
-    if (empty($sidebars_widgets['product-range-widgets'])) {
-        $sidebars_widgets['product-range-widgets'] = array(
-            'nitya_product_range_widget-1'
-        );
-    }
-    update_option('sidebars_widgets', $sidebars_widgets);
+
+    flush_rewrite_rules();
 }
 add_action('after_switch_theme', 'nitya_naturals_auto_setup_pages');
+
+/**
+ * Ensure auto setup runs automatically in WP Admin if not already done
+ */
+function nitya_naturals_ensure_data_seeded() {
+    if (!get_option('nitya_data_seeded_v3')) {
+        nitya_naturals_auto_setup_pages();
+        update_option('nitya_data_seeded_v3', 1);
+    }
+}
+add_action('admin_init', 'nitya_naturals_ensure_data_seeded');
 
 /**
  * Register Widget Areas
