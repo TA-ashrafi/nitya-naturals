@@ -8,26 +8,18 @@ get_header();
 
 <main id="primary" class="site-main">
 
-	<!-- Hero Banner Widget -->
-	<?php get_template_part('template-parts/widgets/widget-home-banner'); ?>
-
-	<!-- About Us Summary Widget -->
-	<?php get_template_part('template-parts/widgets/widget-home-about'); ?>
-
-	<!-- What Makes It Special / One Stop Shop Widget -->
-	<?php get_template_part('template-parts/widgets/widget-one-stop'); ?>
-
-	<!-- Capabilities Widget (Dosage Form, Existing Products, NPD) -->
-	<?php get_template_part('template-parts/widgets/widget-capabilities'); ?>
-
-	<!-- Mockup Showcase Widget -->
-	<?php get_template_part('template-parts/widgets/widget-mockup-banner'); ?>
-
-	<!-- Services Process Widget -->
-	<?php get_template_part('template-parts/widgets/widget-services'); ?>
-
-	<!-- Chyawanprash Facility Widget -->
-	<?php get_template_part('template-parts/widgets/widget-chyawanprash'); ?>
+	<?php if (is_active_sidebar('home-widgets')) : ?>
+		<?php dynamic_sidebar('home-widgets'); ?>
+	<?php else : ?>
+		<!-- Default Fallback Widgets for Home Page -->
+		<?php get_template_part('template-parts/widgets/widget-home-banner'); ?>
+		<?php get_template_part('template-parts/widgets/widget-home-about'); ?>
+		<?php get_template_part('template-parts/widgets/widget-one-stop'); ?>
+		<?php get_template_part('template-parts/widgets/widget-capabilities'); ?>
+		<?php get_template_part('template-parts/widgets/widget-mockup-banner'); ?>
+		<?php get_template_part('template-parts/widgets/widget-services'); ?>
+		<?php get_template_part('template-parts/widgets/widget-chyawanprash'); ?>
+	<?php endif; ?>
 
 	<!-- Book Factory Visit Callout -->
 	<section class="section" style="background: var(--primary-color); color: #fff; text-align: center;">

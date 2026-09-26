@@ -14,8 +14,12 @@ get_header();
 		</div>
 	</div>
 
-	<!-- Product Range Catalog Table Widget -->
-	<?php get_template_part('template-parts/widgets/widget-product-range'); ?>
+	<?php if (is_active_sidebar('product-range-widgets')) : ?>
+		<?php dynamic_sidebar('product-range-widgets'); ?>
+	<?php else : ?>
+		<!-- Product Range Catalog Table Widget -->
+		<?php get_template_part('template-parts/widgets/widget-product-range'); ?>
+	<?php endif; ?>
 
 </main>
 

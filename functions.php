@@ -24,6 +24,125 @@ function nitya_naturals_setup() {
 endif;
 add_action('after_setup_theme', 'nitya_naturals_setup');
 
+/**
+ * Register Product Custom Post Type and Product Category Taxonomy
+ */
+function nitya_naturals_register_product_cpt() {
+    $labels = array(
+        'name'               => _x('Products', 'post type general name', 'nitya-naturals'),
+        'singular_name'      => _x('Product', 'post type singular name', 'nitya-naturals'),
+        'menu_name'          => _x('Products', 'admin menu', 'nitya-naturals'),
+        'name_admin_bar'     => _x('Product', 'add new on admin bar', 'nitya-naturals'),
+        'add_new'            => _x('Add New', 'product', 'nitya-naturals'),
+        'add_new_item'       => __('Add New Product', 'nitya-naturals'),
+        'new_item'           => __('New Product', 'nitya-naturals'),
+        'edit_item'          => __('Edit Product', 'nitya-naturals'),
+        'view_item'          => __('View Product', 'nitya-naturals'),
+        'all_items'          => __('All Products', 'nitya-naturals'),
+        'search_items'       => __('Search Products', 'nitya-naturals'),
+        'not_found'          => __('No products found.', 'nitya-naturals'),
+        'not_found_in_trash' => __('No products found in Trash.', 'nitya-naturals')
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => array('slug' => 'product', 'with_front' => false),
+        'capability_type'    => 'post',
+        'has_archive'        => 'products',
+        'hierarchical'       => false,
+        'menu_position'      => 5,
+        'menu_icon'          => 'dashicons-products',
+        'supports'           => array('title', 'editor', 'thumbnail', 'excerpt'),
+        'show_in_rest'       => true,
+    );
+
+    register_post_type('product', $args);
+
+    // Register Product Category Taxonomy
+    $cat_labels = array(
+        'name'              => _x('Product Categories', 'taxonomy general name', 'nitya-naturals'),
+        'singular_name'     => _x('Product Category', 'taxonomy singular name', 'nitya-naturals'),
+        'search_items'      => __('Search Categories', 'nitya-naturals'),
+        'all_items'         => __('All Categories', 'nitya-naturals'),
+        'parent_item'       => __('Parent Category', 'nitya-naturals'),
+        'parent_item_colon' => __('Parent Category:', 'nitya-naturals'),
+        'edit_item'         => __('Edit Category', 'nitya-naturals'),
+        'update_item'       => __('Update Category', 'nitya-naturals'),
+        'add_new_item'      => __('Add New Category', 'nitya-naturals'),
+        'new_item_name'     => __('New Category Name', 'nitya-naturals'),
+        'menu_name'         => __('Categories', 'nitya-naturals'),
+    );
+
+    register_taxonomy('product_cat', array('product'), array(
+        'hierarchical'      => true,
+        'labels'            => $cat_labels,
+        'show_ui'           => true,
+        'show_in_rest'      => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'rewrite'           => array('slug' => 'product-category', 'with_front' => false),
+    ));
+}
+add_action('init', 'nitya_naturals_register_product_cpt');
+
+/**
+ * Product Gallery Meta Box in Admin
+ */
+function nitya_naturals_add_product_gallery_metabox() {
+    add_meta_box(
+        'nitya_product_gallery',
+        __('Product Gallery Images (URLs or Attachment IDs)', 'nitya-naturals'),
+        'nitya_naturals_product_gallery_metabox_callback',
+        'product',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'nitya_naturals_add_product_gallery_metabox');
+
+function nitya_naturals_product_gallery_metabox_callback($post) {
+    wp_nonce_field('nitya_product_gallery_nonce', 'product_gallery_nonce');
+    $gallery_images = get_post_meta($post->ID, '_product_gallery_images', true);
+    if (!is_array($gallery_images)) {
+        $gallery_images = array();
+    }
+    $gallery_text = implode("\n", $gallery_images);
+    ?>
+    <p><strong><?php esc_html_e('Enter Image URLs (one per line, up to 10+ photos):', 'nitya-naturals'); ?></strong></p>
+    <textarea name="product_gallery_images" rows="5" style="width:100%;font-family:monospace;"><?php echo esc_textarea($gallery_text); ?></textarea>
+    <p class="description"><?php esc_html_e('These images will be displayed on the product page as additional photos in the left gallery slider/thumbnails.', 'nitya-naturals'); ?></p>
+    <?php
+}
+
+function nitya_naturals_save_product_gallery($post_id) {
+    if (!isset($_POST['product_gallery_nonce']) || !wp_verify_nonce($_POST['product_gallery_nonce'], 'nitya_product_gallery_nonce')) {
+        return;
+    }
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+    if (isset($_POST['product_gallery_images'])) {
+        $lines = explode("\n", str_replace("\r", "", $_POST['product_gallery_images']));
+        $cleaned = array();
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if (!empty($line)) {
+                $cleaned[] = esc_url_raw($line);
+            }
+        }
+        update_post_meta($post_id, '_product_gallery_images', $cleaned);
+    }
+}
+add_action('save_post_product', 'nitya_naturals_save_product_gallery');
+
 function nitya_naturals_scripts() {
     // Fonts
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Mulish:wght@300;400;600;700&display=swap', array(), null);
@@ -82,6 +201,34 @@ function nitya_naturals_auto_setup_pages() {
         update_option('show_on_front', 'page');
         update_option('page_on_front', $page_ids['home']);
     }
+
+    // Auto populate sidebars with default widgets if empty
+    $sidebars_widgets = get_option('sidebars_widgets');
+    if (empty($sidebars_widgets['home-widgets'])) {
+        $sidebars_widgets['home-widgets'] = array(
+            'nitya_home_banner_widget-1',
+            'nitya_home_about_widget-1',
+            'nitya_one_stop_widget-1',
+            'nitya_capabilities_widget-1',
+            'nitya_mockup_banner_widget-1',
+            'nitya_services_widget-1',
+            'nitya_chyawanprash_widget-1'
+        );
+    }
+    if (empty($sidebars_widgets['about-widgets'])) {
+        $sidebars_widgets['about-widgets'] = array(
+            'nitya_about_main_widget-1',
+            'nitya_our_legacy_widget-1',
+            'nitya_our_founder_widget-1',
+            'nitya_management_widget-1'
+        );
+    }
+    if (empty($sidebars_widgets['product-range-widgets'])) {
+        $sidebars_widgets['product-range-widgets'] = array(
+            'nitya_product_range_widget-1'
+        );
+    }
+    update_option('sidebars_widgets', $sidebars_widgets);
 }
 add_action('after_switch_theme', 'nitya_naturals_auto_setup_pages');
 
@@ -89,6 +236,61 @@ add_action('after_switch_theme', 'nitya_naturals_auto_setup_pages');
  * Register Widget Areas
  */
 function nitya_naturals_widgets_init() {
+    // Home Page Widgets Sidebar
+    register_sidebar(array(
+        'name'          => __('Home Page Widget Area', 'nitya-naturals'),
+        'id'            => 'home-widgets',
+        'description'   => __('Add widgets here for the Home page.', 'nitya-naturals'),
+        'before_widget' => '<div id="%1$s" class="nitya-page-widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h2 class="widget-title">',
+        'after_title'   => '</h2>',
+    ));
+
+    // About Us Page Widgets Sidebar
+    register_sidebar(array(
+        'name'          => __('About Us Page Widget Area', 'nitya-naturals'),
+        'id'            => 'about-widgets',
+        'description'   => __('Add widgets here for the About Us page.', 'nitya-naturals'),
+        'before_widget' => '<div id="%1$s" class="nitya-page-widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h2 class="widget-title">',
+        'after_title'   => '</h2>',
+    ));
+
+    // Product Categories Page Widgets Sidebar
+    register_sidebar(array(
+        'name'          => __('Product Categories Widget Area', 'nitya-naturals'),
+        'id'            => 'categories-widgets',
+        'description'   => __('Add widgets here for the Product Categories page.', 'nitya-naturals'),
+        'before_widget' => '<div id="%1$s" class="nitya-page-widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h2 class="widget-title">',
+        'after_title'   => '</h2>',
+    ));
+
+    // Product Range Page Widgets Sidebar
+    register_sidebar(array(
+        'name'          => __('Product Range Widget Area', 'nitya-naturals'),
+        'id'            => 'product-range-widgets',
+        'description'   => __('Add widgets here for the Product Range page.', 'nitya-naturals'),
+        'before_widget' => '<div id="%1$s" class="nitya-page-widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h2 class="widget-title">',
+        'after_title'   => '</h2>',
+    ));
+
+    // General Sidebar Area
+    register_sidebar(array(
+        'name'          => __('Main Sidebar', 'nitya-naturals'),
+        'id'            => 'sidebar-1',
+        'description'   => __('Main sidebar for pages and posts.', 'nitya-naturals'),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3 class="widget-title">',
+        'after_title'   => '</h3>',
+    ));
+
     register_sidebar(array(
         'name'          => __('Footer Column 1', 'nitya-naturals'),
         'id'            => 'footer-1',
@@ -210,6 +412,113 @@ function nitya_naturals_customize_register($wp_customize) {
         'section' => 'nitya_footer_section',
         'type'    => 'text',
     ));
+
+    // Color & Hover Customization Section
+    $wp_customize->add_section('nitya_colors_section', array(
+        'title'    => __('Theme Colors & Hover Effects', 'nitya-naturals'),
+        'priority' => 22,
+        'description' => __('Customize primary, secondary, text, background, header, footer, and hover colors across the entire website.', 'nitya-naturals'),
+    ));
+
+    // Primary Brand Color
+    $wp_customize->add_setting('nitya_primary_color', array(
+        'default'           => '#42512b',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ));
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'nitya_primary_color', array(
+        'label'    => __('Primary Color', 'nitya-naturals'),
+        'section'  => 'nitya_colors_section',
+    )));
+
+    // Secondary Brand Color
+    $wp_customize->add_setting('nitya_secondary_color', array(
+        'default'           => '#0e7d46',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ));
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'nitya_secondary_color', array(
+        'label'    => __('Secondary Color', 'nitya-naturals'),
+        'section'  => 'nitya_colors_section',
+    )));
+
+    // Accent Color
+    $wp_customize->add_setting('nitya_accent_color', array(
+        'default'           => '#40904c',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ));
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'nitya_accent_color', array(
+        'label'    => __('Accent Color', 'nitya-naturals'),
+        'section'  => 'nitya_colors_section',
+    )));
+
+    // Heading Text Color
+    $wp_customize->add_setting('nitya_heading_color', array(
+        'default'           => '#222222',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ));
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'nitya_heading_color', array(
+        'label'    => __('Heading Text Color', 'nitya-naturals'),
+        'section'  => 'nitya_colors_section',
+    )));
+
+    // Body Text Color
+    $wp_customize->add_setting('nitya_body_color', array(
+        'default'           => '#747474',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ));
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'nitya_body_color', array(
+        'label'    => __('Body Text Color', 'nitya-naturals'),
+        'section'  => 'nitya_colors_section',
+    )));
+
+    // Header Background Color
+    $wp_customize->add_setting('nitya_header_bg_color', array(
+        'default'           => '#ffffff',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ));
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'nitya_header_bg_color', array(
+        'label'    => __('Header Background Color', 'nitya-naturals'),
+        'section'  => 'nitya_colors_section',
+    )));
+
+    // Footer Background Color
+    $wp_customize->add_setting('nitya_footer_bg_color', array(
+        'default'           => '#1c2419',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ));
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'nitya_footer_bg_color', array(
+        'label'    => __('Footer Background Color', 'nitya-naturals'),
+        'section'  => 'nitya_colors_section',
+    )));
+
+    // Link & Hover Color
+    $wp_customize->add_setting('nitya_hover_color', array(
+        'default'           => '#42512b',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ));
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'nitya_hover_color', array(
+        'label'    => __('Hover Effect Color', 'nitya-naturals'),
+        'section'  => 'nitya_colors_section',
+    )));
+
+    // Button Background Color
+    $wp_customize->add_setting('nitya_button_bg_color', array(
+        'default'           => '#0e7d46',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ));
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'nitya_button_bg_color', array(
+        'label'    => __('Button Background Color', 'nitya-naturals'),
+        'section'  => 'nitya_colors_section',
+    )));
+
+    // Button Hover Background Color
+    $wp_customize->add_setting('nitya_button_hover_bg_color', array(
+        'default'           => '#42512b',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ));
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'nitya_button_hover_bg_color', array(
+        'label'    => __('Button Hover Background Color', 'nitya-naturals'),
+        'section'  => 'nitya_colors_section',
+    )));
 
     // Typography Settings Section
     $wp_customize->add_section('nitya_typography_section', array(
@@ -466,10 +775,52 @@ function nitya_naturals_customizer_css() {
     $body_font_size = get_theme_mod('nitya_body_font_size', '15');
     $heading_font_size = get_theme_mod('nitya_heading_font_size', '28');
 
+    $primary_color     = get_theme_mod('nitya_primary_color', '#42512b');
+    $secondary_color   = get_theme_mod('nitya_secondary_color', '#0e7d46');
+    $accent_color      = get_theme_mod('nitya_accent_color', '#40904c');
+    $heading_color     = get_theme_mod('nitya_heading_color', '#222222');
+    $body_color        = get_theme_mod('nitya_body_color', '#747474');
+    $header_bg         = get_theme_mod('nitya_header_bg_color', '#ffffff');
+    $footer_bg         = get_theme_mod('nitya_footer_bg_color', '#1c2419');
+    $hover_color       = get_theme_mod('nitya_hover_color', '#42512b');
+    $btn_bg            = get_theme_mod('nitya_button_bg_color', '#0e7d46');
+    $btn_hover_bg      = get_theme_mod('nitya_button_hover_bg_color', '#42512b');
+
     ?>
     <style type="text/css">
-        body { font-size: <?php echo esc_attr($body_font_size); ?>px; }
-        .section-title, h2.section-title { font-size: <?php echo esc_attr($heading_font_size); ?>px; }
+        :root {
+            --primary-color: <?php echo esc_attr($primary_color); ?>;
+            --secondary-color: <?php echo esc_attr($secondary_color); ?>;
+            --accent-color: <?php echo esc_attr($accent_color); ?>;
+            --heading-color: <?php echo esc_attr($heading_color); ?>;
+            --body-color: <?php echo esc_attr($body_color); ?>;
+            --bg-white: <?php echo esc_attr($header_bg); ?>;
+        }
+        body {
+            font-size: <?php echo esc_attr($body_font_size); ?>px;
+            color: <?php echo esc_attr($body_color); ?>;
+        }
+        h1, h2, h3, h4, h5, h6, .section-title {
+            color: <?php echo esc_attr($heading_color); ?>;
+        }
+        .section-title, h2.section-title {
+            font-size: <?php echo esc_attr($heading_font_size); ?>px;
+        }
+        .site-header {
+            background-color: <?php echo esc_attr($header_bg); ?>;
+        }
+        .site-footer {
+            background-color: <?php echo esc_attr($footer_bg); ?>;
+        }
+        a:hover {
+            color: <?php echo esc_attr($hover_color); ?>;
+        }
+        .btn-submit, button[type="submit"], input[type="submit"] {
+            background-color: <?php echo esc_attr($btn_bg); ?>;
+        }
+        .btn-submit:hover, button[type="submit"]:hover, input[type="submit"]:hover {
+            background-color: <?php echo esc_attr($btn_hover_bg); ?>;
+        }
     </style>
     <?php
 }
