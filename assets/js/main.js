@@ -174,4 +174,42 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // ============================================
+  // 5. LIVE PRODUCT SEARCH FILTER
+  // ============================================
+  const productSearch = document.getElementById('productSearch');
+  const productTable = document.getElementById('productTable');
+  const productCount = document.getElementById('productCount');
+
+  if (productSearch && productTable) {
+    const rows = productTable.querySelectorAll('tbody tr');
+    const totalCount = rows.length;
+
+    function filterProducts() {
+      const query = productSearch.value.toLowerCase().trim();
+      let visibleCount = 0;
+
+      rows.forEach(function (row) {
+        const text = row.textContent.toLowerCase();
+        if (!query || text.indexOf(query) !== -1) {
+          row.style.display = '';
+          visibleCount++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      if (productCount) {
+        if (query === '') {
+          productCount.textContent = 'Showing all ' + totalCount + ' products';
+        } else {
+          productCount.textContent = 'Showing ' + visibleCount + ' of ' + totalCount + ' products';
+        }
+      }
+    }
+
+    productSearch.addEventListener('input', filterProducts);
+    filterProducts();
+  }
+
 });
