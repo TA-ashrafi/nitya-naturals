@@ -70,12 +70,26 @@
 
 		</div>
 
+		<!-- MOBILE OVERLAY -->
+		<div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
 		<!-- MOBILE MENU -->
 		<div class="mobile-menu-wrapper" id="mobile-menu-wrapper">
+			<div class="mobile-menu-header">
+				<span class="mobile-menu-title"><?php esc_html_e('MENU', 'nitya-naturals'); ?></span>
+				<button class="mobile-menu-close" id="mobile-menu-close" aria-label="<?php esc_attr_e('Close Menu', 'nitya-naturals'); ?>">
+					<i class="fa-solid fa-xmark"></i>
+				</button>
+			</div>
 			<ul class="menu">
 				<li><a href="<?php echo esc_url(home_url('/about-us/')); ?>"><?php esc_html_e('ABOUT US', 'nitya-naturals'); ?></a></li>
 				<li class="menu-item-has-children">
-					<a href="#"><?php esc_html_e('PRODUCTS', 'nitya-naturals'); ?></a>
+					<div class="mobile-parent-wrapper">
+						<a href="#"><?php esc_html_e('PRODUCTS', 'nitya-naturals'); ?></a>
+						<button type="button" class="submenu-toggle-btn" aria-label="<?php esc_attr_e('Toggle Submenu', 'nitya-naturals'); ?>">
+							<i class="fa-solid fa-chevron-down"></i>
+						</button>
+					</div>
 					<ul class="sub-menu">
 						<li><a href="<?php echo esc_url(home_url('/ayurvedic-medicine-manufacturer/')); ?>"><?php esc_html_e('Product Range', 'nitya-naturals'); ?></a></li>
 						<li><a href="<?php echo esc_url(home_url('/best-manufacturer-of-ayurved-medicines/')); ?>"><?php esc_html_e('Product Categories', 'nitya-naturals'); ?></a></li>
@@ -83,7 +97,12 @@
 					</ul>
 				</li>
 				<li class="menu-item-has-children">
-					<a href="#"><?php esc_html_e('SERVICES', 'nitya-naturals'); ?></a>
+					<div class="mobile-parent-wrapper">
+						<a href="#"><?php esc_html_e('SERVICES', 'nitya-naturals'); ?></a>
+						<button type="button" class="submenu-toggle-btn" aria-label="<?php esc_attr_e('Toggle Submenu', 'nitya-naturals'); ?>">
+							<i class="fa-solid fa-chevron-down"></i>
+						</button>
+					</div>
 					<ul class="sub-menu">
 						<li><a href="<?php echo esc_url(home_url('/herbal-manufacturer/')); ?>"><?php esc_html_e('Planning & Selection', 'nitya-naturals'); ?></a></li>
 						<li><a href="<?php echo esc_url(home_url('/third-party-manufacturing/')); ?>"><?php esc_html_e('Manufacturing', 'nitya-naturals'); ?></a></li>
