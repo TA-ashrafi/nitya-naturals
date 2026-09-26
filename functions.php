@@ -202,6 +202,77 @@ function nitya_naturals_auto_setup_pages() {
         update_option('page_on_front', $page_ids['home']);
     }
 
+    // Auto Create Product Categories and Sample Products
+    $all_cats = array(
+        'Allergy', 'Antacid', 'Anti-Viral', 'Blood Circulation', 'Blood Purifier',
+        'Blood Thinner', 'Cardiac care', 'Cholesterol', 'Cyst', 'Diabetes',
+        'Digestion', 'Eye Care', 'Fertility', 'Gout', 'Hair',
+        'Health Supplement', 'Immunity', 'Inflammation', 'Joint/Ortho Care', 'Kidney Care',
+        'Lactation', 'Laxative', 'Liver Care', 'Lung Care', 'Massage Oils',
+        'Memory', 'Men’s Health', 'Menopause', 'Mental Health', 'Metabolism',
+        'Mouthwash', 'Muscular Health', 'Nasal Care', 'Nasal Drop', 'Nervine Health',
+        'Oral Care', 'Osteoarthritis', 'Oils', 'Pain Management', 'Skin Care',
+        'Stress & Anxiety', 'Throat Care', 'Thyroid', 'Tumour & Fistula', 'Uncategorized',
+        'Virility/Vigor', 'Vitality/Vigor', 'Water retention', 'Weight Metabolism', 'Womens Health'
+    );
+
+    $default_gallery_images = array(
+        get_template_directory_uri() . '/assets/images/Free_Dropddper_Bottle_Mockup-copy-1024x768.jpg',
+        get_template_directory_uri() . '/assets/images/8.png',
+        get_template_directory_uri() . '/assets/images/9-3-1536x768.png',
+        get_template_directory_uri() . '/assets/images/10-2-scaled.png',
+        get_template_directory_uri() . '/assets/images/What-Makes-it-Special.png'
+    );
+
+    foreach ($all_cats as $cat_name) {
+        $term = term_exists($cat_name, 'product_cat');
+        if (!$term) {
+            $term = wp_insert_term($cat_name, 'product_cat');
+        }
+
+        $term_id = is_array($term) ? $term['term_id'] : (is_object($term) ? $term->term_id : 0);
+
+        if ($term_id && !is_wp_error($term_id)) {
+            // Check if products exist for this category
+            $existing = new WP_Query(array(
+                'post_type'      => 'product',
+                'posts_per_page' => 1,
+                'tax_query'      => array(
+                    array(
+                        'taxonomy' => 'product_cat',
+                        'field'    => 'term_id',
+                        'terms'    => $term_id
+                    )
+                )
+            ));
+
+            if (!$existing->have_posts()) {
+                for ($i = 1; $i <= 9; $i++) {
+                    $prod_title = sprintf('%s Care Product %d', $cat_name, $i);
+                    $prod_slug  = sanitize_title($prod_title);
+
+                    $prod_id = wp_insert_post(array(
+                        'post_title'   => $prod_title,
+                        'post_name'    => $prod_slug,
+                        'post_content' => sprintf(
+                            '<h3>About %s</h3><p>This premium Ayurvedic formulation is specially crafted for <strong>%s</strong> support. Manufactured in our US FDA compliant and GMP certified facility under strict quality standards. Ideal for contract manufacturing and private labeling in your own brand name.</p><h4>Key Features:</h4><ul><li>100%% Pure Organic Herbal Extracts</li><li>Formulated by Experienced Ayurvedic Experts</li><li>Free from Artificial Colors, Flavors and Preservatives</li><li>Customizable Packaging & Dosage Forms (Capsules, Tablets, Syrups, Oils)</li></ul>',
+                            $prod_title,
+                            $cat_name
+                        ),
+                        'post_excerpt' => sprintf('Premium Ayurvedic formulation for %s support. High quality GMP certified manufacturing.', $cat_name),
+                        'post_status'  => 'publish',
+                        'post_type'    => 'product'
+                    ));
+
+                    if ($prod_id && !is_wp_error($prod_id)) {
+                        wp_set_object_terms($prod_id, (int)$term_id, 'product_cat');
+                        update_post_meta($prod_id, '_product_gallery_images', $default_gallery_images);
+                    }
+                }
+            }
+        }
+    }
+
     // Auto populate sidebars with default widgets if empty
     $sidebars_widgets = get_option('sidebars_widgets');
     if (empty($sidebars_widgets['home-widgets'])) {
