@@ -1,62 +1,19 @@
 <?php
 /**
- * Widget Template: Our Services Section (4-Step Timeline Workflow)
+ * Widget Template: Services Process Section
  */
-$title = isset($args['title']) ? $args['title'] : get_theme_mod('nitya_home_services_title', 'OUR END-TO-END SERVICES');
-$desc  = isset($args['desc']) ? $args['desc'] : get_theme_mod('nitya_home_services_desc', 'A structured, transparent 4-step workflow to bring your herbal product vision to market efficiently.');
 ?>
-<section class="section nitya-widget-services">
-	<div class="container">
-		<div class="section-heading-box">
-			<span class="sub-heading-badge"><i class="fa-solid fa-diagram-project"></i> STREAMLINED PROCESS</span>
-			<h2 class="section-title-center"><?php echo esc_html($title); ?></h2>
-			<p class="section-desc-center"><?php echo esc_html($desc); ?></p>
-		</div>
+<section class="section" id="services">
+  <div class="wrap">
+    <div class="eyebrow-rule" data-reveal><span class="kicker"><?php esc_html_e('Our Services', 'nitya-naturals'); ?></span></div>
+    <h2 class="h2" data-reveal style="max-width:20ch"><?php esc_html_e('A step-by-step process,', 'nitya-naturals'); ?> <em><?php esc_html_e('stress-free and reliable.', 'nitya-naturals'); ?></em></h2>
+    <p class="lead" data-reveal style="margin-top:22px"><?php esc_html_e('Our team assists you through every stage to fulfil all your manufacturing and private labeling requirements.', 'nitya-naturals'); ?></p>
 
-		<div class="services-process-cards">
-			<!-- STEP 1 -->
-			<div class="service-process-card">
-				<span class="process-number-tag">01</span>
-				<div class="process-icon-circle">
-					<i class="fa-regular fa-calendar-check"></i>
-				</div>
-				<h3><a href="<?php echo esc_url(home_url('/herbal-manufacturer/')); ?>"><?php esc_html_e('Planning & Formulation', 'nitya-naturals'); ?></a></h3>
-				<p><?php esc_html_e('Select from stock formulations or collaborate with our R&D team on custom botanical ingredients.', 'nitya-naturals'); ?></p>
-				<a href="<?php echo esc_url(home_url('/herbal-manufacturer/')); ?>" class="process-link-btn"><?php esc_html_e('Learn More', 'nitya-naturals'); ?> <i class="fa-solid fa-chevron-right"></i></a>
-			</div>
-
-			<!-- STEP 2 -->
-			<div class="service-process-card">
-				<span class="process-number-tag">02</span>
-				<div class="process-icon-circle">
-					<i class="fa-solid fa-gears"></i>
-				</div>
-				<h3><a href="<?php echo esc_url(home_url('/third-party-manufacturing/')); ?>"><?php esc_html_e('cGMP Manufacturing', 'nitya-naturals'); ?></a></h3>
-				<p><?php esc_html_e('High-precision manufacturing across tablets, capsules, syrups, oils, and traditional pastes.', 'nitya-naturals'); ?></p>
-				<a href="<?php echo esc_url(home_url('/third-party-manufacturing/')); ?>" class="process-link-btn"><?php esc_html_e('Learn More', 'nitya-naturals'); ?> <i class="fa-solid fa-chevron-right"></i></a>
-			</div>
-
-			<!-- STEP 3 -->
-			<div class="service-process-card">
-				<span class="process-number-tag">03</span>
-				<div class="process-icon-circle">
-					<i class="fa-solid fa-box-open"></i>
-				</div>
-				<h3><a href="<?php echo esc_url(home_url('/private-label/')); ?>"><?php esc_html_e('Packaging & Labeling', 'nitya-naturals'); ?></a></h3>
-				<p><?php esc_html_e('Custom food-grade containers, compliant label design, barcode creation, and safety seals.', 'nitya-naturals'); ?></p>
-				<a href="<?php echo esc_url(home_url('/private-label/')); ?>" class="process-link-btn"><?php esc_html_e('Learn More', 'nitya-naturals'); ?> <i class="fa-solid fa-chevron-right"></i></a>
-			</div>
-
-			<!-- STEP 4 -->
-			<div class="service-process-card">
-				<span class="process-number-tag">04</span>
-				<div class="process-icon-circle">
-					<i class="fa-solid fa-truck-fast"></i>
-				</div>
-				<h3><a href="<?php echo esc_url(home_url('/export-medicine/')); ?>"><?php esc_html_e('Global Fulfillment', 'nitya-naturals'); ?></a></h3>
-				<p><?php esc_html_e('International export documentation, customs clearance, and worldwide freight dispatch.', 'nitya-naturals'); ?></p>
-				<a href="<?php echo esc_url(home_url('/export-medicine/')); ?>" class="process-link-btn"><?php esc_html_e('Learn More', 'nitya-naturals'); ?> <i class="fa-solid fa-chevron-right"></i></a>
-			</div>
-		</div>
-	</div>
+    <div class="timeline">
+      <article class="step" data-reveal><span class="step-dot"></span><span class="step-n">01</span><h3><?php esc_html_e('Planning & Selection', 'nitya-naturals'); ?></h3><p><?php esc_html_e('Select existing formulas or collaborate on custom formulations suited to your market.', 'nitya-naturals'); ?></p></article>
+      <article class="step" data-reveal><span class="step-dot"></span><span class="step-n">02</span><h3><?php esc_html_e('Manufacturing', 'nitya-naturals'); ?></h3><p><?php esc_html_e('State-of-the-art cGMP production across tablets, capsules, liquids and pastes.', 'nitya-naturals'); ?></p></article>
+      <article class="step" data-reveal><span class="step-dot"></span><span class="step-n">03</span><h3><?php esc_html_e('Packaging & Labeling', 'nitya-naturals'); ?></h3><p><?php esc_html_e('Full design and compliance labeling support in food-grade containers.', 'nitya-naturals'); ?></p></article>
+      <article class="step" data-reveal><span class="step-dot"></span><span class="step-n">04</span><h3><?php esc_html_e('Fulfilment & Transport', 'nitya-naturals'); ?></h3><p><?php esc_html_e('Seamless logistics and export delivery across international markets.', 'nitya-naturals'); ?></p></article>
+    </div>
+  </div>
 </section>

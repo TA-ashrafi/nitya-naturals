@@ -1,179 +1,172 @@
 /**
  * Nitya Naturals Theme - Main JavaScript
- * Modern Header Sticky Shrink + Mobile Accordion Navigation
+ * Interactive functionality for sticky header, mobile burger menu,
+ * scroll reveals, animated stats counters, scroll-spy nav, and WhatsApp RFQ form handoff.
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-
-  // ============================================
-  // 1. STICKY HEADER SHRINK EFFECT
-  // ============================================
-  const header = document.querySelector('.site-header');
-  const scrollThreshold = 60;
-
-  function handleStickyHeader() {
-    if (!header) return;
-
-    const scrollY = window.scrollY || window.pageYOffset;
-
-    if (scrollY > scrollThreshold) {
-      if (!header.classList.contains('is-sticky')) {
-        header.classList.add('is-sticky');
-      }
-    } else {
-      if (header.classList.contains('is-sticky')) {
-        header.classList.remove('is-sticky');
-      }
-    }
+  /* Sticky header border and shadow toggle */
+  var head = document.getElementById("siteHead");
+  if (head) {
+    var onScroll = function () {
+      head.classList.toggle("is-stuck", window.scrollY > 12);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
   }
 
-  let ticking = false;
-  window.addEventListener('scroll', function () {
-    if (!ticking) {
-      window.requestAnimationFrame(function () {
-        handleStickyHeader();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
-
-  handleStickyHeader();
-
-  // ============================================
-  // 2. MOBILE MENU TOGGLE & ACCORDION
-  // ============================================
-  const menuToggle = document.querySelector('.mobile-menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu-wrapper');
-  const mobileOverlay = document.getElementById('mobile-menu-overlay');
-  const mobileCloseBtn = document.getElementById('mobile-menu-close');
-
-  function openMobileMenu() {
-    if (!mobileMenu) return;
-    mobileMenu.classList.add('is-active');
-    if (mobileOverlay) mobileOverlay.classList.add('is-active');
-    if (menuToggle) menuToggle.setAttribute('aria-expanded', 'true');
-    document.body.classList.add('mobile-menu-open');
-  }
-
-  function closeMobileMenu() {
-    if (!mobileMenu) return;
-    mobileMenu.classList.remove('is-active');
-    if (mobileOverlay) mobileOverlay.classList.remove('is-active');
-    if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('mobile-menu-open');
-  }
-
-  if (menuToggle && mobileMenu) {
-    menuToggle.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      if (mobileMenu.classList.contains('is-active')) {
-        closeMobileMenu();
-      } else {
-        openMobileMenu();
+  /* Mobile burger menu panel toggle */
+  var burger = document.getElementById("burger");
+  var panel = document.getElementById("mobilePanel");
+  if (burger && panel) {
+    burger.addEventListener("click", function () {
+      var open = panel.classList.toggle("is-open");
+      burger.classList.toggle("is-open", open);
+      burger.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    panel.addEventListener("click", function (e) {
+      if (e.target.tagName === "A") {
+        panel.classList.remove("is-open");
+        burger.classList.remove("is-open");
+        burger.setAttribute("aria-expanded", "false");
       }
     });
+  }
 
-    if (mobileCloseBtn) {
-      mobileCloseBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        closeMobileMenu();
-      });
-    }
-
-    if (mobileOverlay) {
-      mobileOverlay.addEventListener('click', closeMobileMenu);
-    }
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && mobileMenu.classList.contains('is-active')) {
-        closeMobileMenu();
-      }
-    });
-
-    const mobileDropdownItems = mobileMenu.querySelectorAll('li.menu-item-has-children');
-    mobileDropdownItems.forEach(function (item) {
-      const btn = item.querySelector('.submenu-toggle-btn');
-
-      function toggleSubmenu(e) {
-        if (e) {
-          e.preventDefault();
-          e.stopPropagation();
+  /* Reveal on scroll */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add("in");
+          io.unobserve(en.target);
         }
-        const isCurrentlyOpen = item.classList.contains('is-open');
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    document.querySelectorAll("[data-reveal]").forEach(function (el) { io.observe(el); });
 
-        mobileDropdownItems.forEach(function(otherItem) {
-          if (otherItem !== item) {
-            otherItem.classList.remove('is-open');
-          }
+    /* Animated stats counters */
+    var counted = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var el = en.target, target = parseInt(el.dataset.count, 10), start = null, dur = 1400;
+        var step = function (t) {
+          if (!start) start = t;
+          var p = Math.min((t - start) / dur, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = target >= 1000 ? Math.round(eased * target) : Math.round(eased * target);
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+        counted.unobserve(el);
+      });
+    }, { threshold: 0.6 });
+    document.querySelectorAll("[data-count]").forEach(function (el) { counted.observe(el); });
+
+    /* Active nav link scroll-spy */
+    var links = Array.prototype.slice.call(document.querySelectorAll("#navLinks a"));
+    var sections = links.map(function (a) {
+      var href = a.getAttribute("href");
+      if (href && href.indexOf('#') !== -1) {
+        var id = href.substring(href.indexOf('#'));
+        return id.length > 1 ? document.querySelector(id) : null;
+      }
+      return null;
+    }).filter(Boolean);
+
+    if (sections.length) {
+      var spy = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          links.forEach(function (a) {
+            var href = a.getAttribute("href");
+            if (href) {
+              a.classList.toggle("is-active", href.indexOf('#' + en.target.id) !== -1);
+            }
+          });
         });
-
-        if (!isCurrentlyOpen) {
-          item.classList.add('is-open');
-        } else {
-          item.classList.remove('is-open');
-        }
-      }
-
-      if (btn) {
-        btn.addEventListener('click', toggleSubmenu);
-      }
-    });
-
-    const mobileNavLinks = mobileMenu.querySelectorAll('a');
-    mobileNavLinks.forEach(function (navLink) {
-      navLink.addEventListener('click', function () {
-        closeMobileMenu();
-      });
-    });
-
-    window.addEventListener('resize', function () {
-      if (window.innerWidth > 991 && mobileMenu.classList.contains('is-active')) {
-        closeMobileMenu();
-      }
-    });
+      }, { rootMargin: "-45% 0px -50% 0px" });
+      sections.forEach(function (s) { if (s) spy.observe(s); });
+    }
+  } else {
+    // Fallback if IntersectionObserver is unsupported
+    document.querySelectorAll("[data-reveal]").forEach(function (el) { el.classList.add("in"); });
+    document.querySelectorAll("[data-count]").forEach(function (el) { el.textContent = el.dataset.count; });
   }
 
-  // ============================================
-  // 3. BACK TO TOP BUTTON
-  // ============================================
-  const backToTop = document.querySelector('.back-to-top');
-  if (backToTop) {
-    window.addEventListener('scroll', function () {
-      if (window.scrollY > 300) {
-        backToTop.classList.add('is-visible');
-      } else {
-        backToTop.classList.remove('is-visible');
-      }
-    });
+  /* Development brief form -> WhatsApp handoff */
+  var form = document.getElementById("rfqForm");
+  var success = document.getElementById("formSuccess");
+  var fallback = document.getElementById("waFallback");
 
-    backToTop.addEventListener('click', function (e) {
+  if (form) {
+    var setError = function (input, on) {
+      if (input && input.closest(".field")) {
+        input.closest(".field").classList.toggle("has-error", on);
+      }
+    };
+
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+      var v = function (id) {
+        var el = document.getElementById(id);
+        return el ? el.value.trim() : '';
+      };
+      var bad = [];
+      var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v("email"));
+      bad.push([document.getElementById("pname"), !v("pname")]);
+      bad.push([document.getElementById("company"), !v("company")]);
+      bad.push([document.getElementById("email"), !emailOk]);
+      bad.push([document.getElementById("phone"), v("phone").replace(/\D/g, "").length < 8]);
+      bad.push([document.getElementById("moq"), !v("moq")]);
+      bad.forEach(function (b) { setError(b[0], b[1]); });
+      if (bad.some(function (b) { return b[1]; })) {
+        var first = form.querySelector(".has-error input, .has-error textarea");
+        if (first) first.focus();
+        return;
+      }
+      var msg =
+        "New product development brief — Nitya Naturals%0A%0A" +
+        "Product name: " + encodeURIComponent(v("pname")) + "%0A" +
+        "Company: " + encodeURIComponent(v("company")) + "%0A" +
+        "Email: " + encodeURIComponent(v("email")) + "%0A" +
+        "Phone: " + encodeURIComponent(v("phone")) + "%0A" +
+        "Composition: " + encodeURIComponent(v("composition") || "—") + "%0A" +
+        "Dosage form: " + encodeURIComponent(v("form")) + "%0A" +
+        "MOQ / volume: " + encodeURIComponent(v("moq")) + "%0A" +
+        "Functions & position: " + encodeURIComponent(v("brief") || "—");
+      var url = "https://wa.me/917524098888?text=" + msg;
+      if (fallback) fallback.href = url;
+      window.open(url, "_blank");
+      form.style.display = "none";
+      if (success) {
+        success.classList.add("is-on");
+        success.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    });
+
+    /* Clear error as the user types */
+    form.addEventListener("input", function (e) {
+      var f = e.target.closest(".field");
+      if (f) f.classList.remove("has-error");
     });
   }
 
-  // ============================================
-  // 4. LIVE PRODUCT SEARCH FILTER
-  // ============================================
-  const productSearch = document.getElementById('productSearch');
-  const productTable = document.getElementById('productTable');
-  const productCount = document.getElementById('productCount');
+  /* Live product catalog search filter for inner pages */
+  var productSearch = document.getElementById('productSearch');
+  var productTable = document.getElementById('productTable');
+  var productCount = document.getElementById('productCount');
 
   if (productSearch && productTable) {
-    const rows = productTable.querySelectorAll('tbody tr');
-    const totalCount = rows.length;
+    var rows = productTable.querySelectorAll('tbody tr');
+    var totalCount = rows.length;
 
     function filterProducts() {
-      const query = productSearch.value.toLowerCase().trim();
-      let visibleCount = 0;
+      var query = productSearch.value.toLowerCase().trim();
+      var visibleCount = 0;
 
       rows.forEach(function (row) {
-        const text = row.textContent.toLowerCase();
+        var text = row.textContent.toLowerCase();
         if (!query || text.indexOf(query) !== -1) {
           row.style.display = '';
           visibleCount++;
@@ -194,5 +187,4 @@ document.addEventListener('DOMContentLoaded', function () {
     productSearch.addEventListener('input', filterProducts);
     filterProducts();
   }
-
 });

@@ -10,142 +10,51 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<div id="page" class="site">
+<div id="top" class="site">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e('Skip to content', 'nitya-naturals'); ?></a>
 
-	<!-- TOP CONTACT BAR -->
-	<div class="header-top-bar">
-		<div class="container header-top-inner">
-			<div class="top-bar-left">
-				<span class="top-info-item"><i class="fa-solid fa-award"></i> Baidyanath Export Division</span>
-				<span class="top-info-item"><i class="fa-solid fa-shield-halved"></i> cGMP & US FDA Compliant Facility</span>
-			</div>
-			<div class="top-bar-right">
-				<a href="tel:+917524098888" class="top-contact-link"><i class="fa-solid fa-phone"></i> +91 75240 98888</a>
-				<a href="mailto:exports@nityanaturals.com" class="top-contact-link"><i class="fa-solid fa-envelope"></i> exports@nityanaturals.com</a>
-			</div>
-		</div>
+	<!-- ============ UTILITY BAR ============ -->
+	<div class="topbar">
+	  <div class="wrap">
+	    <span>Export division of <b>Baidyanath Ayurveda Naini</b> &nbsp;·&nbsp; Ayurveda since 1917</span>
+	    <span class="hide-sm"><a href="tel:+917524098888">+91 75240 98888</a> &nbsp;·&nbsp; <a href="mailto:exports@nityanaturals.com">exports@nityanaturals.com</a></span>
+	  </div>
 	</div>
 
-	<!-- MAIN STICKY HEADER -->
-	<header id="masthead" class="site-header modern-header">
-		<div class="header-inner container">
+	<!-- ============ HEADER ============ -->
+	<header class="site-head" id="siteHead">
+	  <div class="wrap head-inner">
+	    <a class="brand" href="<?php echo esc_url(home_url('/')); ?>" aria-label="Nitya Naturals home">
+	      <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+	        <circle cx="24" cy="24" r="22.5" stroke="#C9A227" stroke-width="1.2"/>
+	        <path d="M24 37c0-9 5-15 12-17-1 10-6 15-12 17Z" fill="#6B8F71"/>
+	        <path d="M24 37c0-9-5-15-12-17 1 10 6 15 12 17Z" fill="#2A5747"/>
+	        <path d="M24 37V19" stroke="#0F2A21" stroke-width="1.4" stroke-linecap="round"/>
+	        <circle cx="24" cy="14" r="3.4" fill="#C9A227"/>
+	      </svg>
+	      <span>
+	        <span class="brand-name">NITYA</span>
+	        <span class="brand-sub">Naturals</span>
+	      </span>
+	    </a>
 
-			<!-- LEFT BRAND LOGO -->
-			<div class="site-logo">
-				<?php
-				if (has_custom_logo()) {
-					the_custom_logo();
-				} else {
-					$logo_url = get_template_directory_uri() . '/assets/images/Nitya-Naturals_FINAL-WhiteLogo.png';
-					?>
-					<a href="<?php echo esc_url(home_url('/')); ?>" rel="home" class="logo-link">
-						<img src="<?php echo esc_url($logo_url); ?>" alt="<?php bloginfo('name'); ?> Logo" class="logo-img">
-					</a>
-					<?php
-				}
-				?>
-			</div>
+	    <nav class="nav" id="navLinks">
+	      <a href="<?php echo esc_url(is_front_page() ? '#about' : home_url('/#about')); ?>"><?php esc_html_e('About Us', 'nitya-naturals'); ?></a>
+	      <a href="<?php echo esc_url(is_front_page() ? '#products' : home_url('/#products')); ?>"><?php esc_html_e('Products', 'nitya-naturals'); ?></a>
+	      <a href="<?php echo esc_url(is_front_page() ? '#services' : home_url('/#services')); ?>"><?php esc_html_e('Services', 'nitya-naturals'); ?></a>
+	      <a href="<?php echo esc_url(is_front_page() ? '#contact' : home_url('/#contact')); ?>"><?php esc_html_e('Contact Us', 'nitya-naturals'); ?></a>
+	    </nav>
 
-			<!-- CENTER MAIN NAVIGATION -->
-			<nav class="nav-center">
-				<ul class="menu">
-					<li><a href="<?php echo esc_url(home_url('/about-us/')); ?>"><?php esc_html_e('ABOUT US', 'nitya-naturals'); ?></a></li>
-					<li class="menu-item-has-children">
-						<a href="#"><?php esc_html_e('PRODUCTS', 'nitya-naturals'); ?> <i class="fa-solid fa-chevron-down nav-arrow"></i></a>
-						<ul class="sub-menu">
-							<li><a href="<?php echo esc_url(home_url('/ayurvedic-medicine-manufacturer/')); ?>"><?php esc_html_e('Product Range', 'nitya-naturals'); ?></a></li>
-							<li><a href="<?php echo esc_url(home_url('/best-manufacturer-of-ayurved-medicines/')); ?>"><?php esc_html_e('Product Categories', 'nitya-naturals'); ?></a></li>
-							<li><a href="<?php echo esc_url(home_url('/how-to-register-ayurvedic-medicine-in-india/')); ?>"><?php esc_html_e('Product Development Form', 'nitya-naturals'); ?></a></li>
-						</ul>
-					</li>
-					<li class="menu-item-has-children">
-						<a href="#"><?php esc_html_e('SERVICES', 'nitya-naturals'); ?> <i class="fa-solid fa-chevron-down nav-arrow"></i></a>
-						<ul class="sub-menu">
-							<li><a href="<?php echo esc_url(home_url('/herbal-manufacturer/')); ?>"><?php esc_html_e('Planning & Selection', 'nitya-naturals'); ?></a></li>
-							<li><a href="<?php echo esc_url(home_url('/third-party-manufacturing/')); ?>"><?php esc_html_e('Manufacturing', 'nitya-naturals'); ?></a></li>
-							<li><a href="<?php echo esc_url(home_url('/private-label/')); ?>"><?php esc_html_e('Packaging & Labeling', 'nitya-naturals'); ?></a></li>
-							<li><a href="<?php echo esc_url(home_url('/export-medicine/')); ?>"><?php esc_html_e('Fulfillment & Transportation', 'nitya-naturals'); ?></a></li>
-						</ul>
-					</li>
-					<li><a href="<?php echo esc_url(home_url('/start-your-own-supplement-business/')); ?>"><?php esc_html_e('CONTACT US', 'nitya-naturals'); ?></a></li>
-				</ul>
-			</nav>
-
-			<!-- RIGHT HEADER CTA BUTTON -->
-			<div class="header-action-col">
-				<a href="<?php echo esc_url(home_url('/start-your-own-supplement-business/')); ?>" class="header-btn-quote">
-					<i class="fa-solid fa-paper-plane"></i> Get Quote
-				</a>
-			</div>
-
-			<!-- MOBILE TOGGLE -->
-			<button class="mobile-menu-toggle" aria-controls="mobile-menu-wrapper" aria-expanded="false" aria-label="<?php esc_attr_e('Toggle Navigation', 'nitya-naturals'); ?>">
-				<i class="fa-solid fa-bars mobile-menu-icon"></i>
-				<span class="mobile-menu-label"><?php esc_html_e('MENU', 'nitya-naturals'); ?></span>
-			</button>
-
-		</div>
-
-		<!-- MOBILE OVERLAY & FULLSCREEN MENU -->
-		<div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
-
-		<div class="mobile-menu-wrapper" id="mobile-menu-wrapper" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e('Mobile Navigation', 'nitya-naturals'); ?>">
-			<div class="mobile-menu-header">
-				<div class="mobile-menu-brand">
-					<?php
-					$mobile_logo = get_template_directory_uri() . '/assets/images/Nitya-Naturals_FINAL-WhiteLogo.png';
-					?>
-					<img src="<?php echo esc_url($mobile_logo); ?>" alt="<?php bloginfo('name'); ?>" class="mobile-logo-img">
-				</div>
-				<button class="mobile-menu-close" id="mobile-menu-close" aria-label="<?php esc_attr_e('Close Menu', 'nitya-naturals'); ?>">
-					<i class="fa-solid fa-xmark"></i>
-				</button>
-			</div>
-
-			<div class="mobile-menu-content">
-				<ul class="menu">
-					<li><a href="<?php echo esc_url(home_url('/about-us/')); ?>"><?php esc_html_e('ABOUT US', 'nitya-naturals'); ?></a></li>
-					<li class="menu-item-has-children">
-						<div class="mobile-parent-wrapper">
-							<a href="<?php echo esc_url(home_url('/ayurvedic-medicine-manufacturer/')); ?>"><?php esc_html_e('PRODUCTS', 'nitya-naturals'); ?></a>
-							<button type="button" class="submenu-toggle-btn" aria-label="<?php esc_attr_e('Toggle Submenu', 'nitya-naturals'); ?>">
-								<i class="fa-solid fa-chevron-down"></i>
-							</button>
-						</div>
-						<ul class="sub-menu">
-							<li><a href="<?php echo esc_url(home_url('/ayurvedic-medicine-manufacturer/')); ?>"><?php esc_html_e('Product Range', 'nitya-naturals'); ?></a></li>
-							<li><a href="<?php echo esc_url(home_url('/best-manufacturer-of-ayurved-medicines/')); ?>"><?php esc_html_e('Product Categories', 'nitya-naturals'); ?></a></li>
-							<li><a href="<?php echo esc_url(home_url('/how-to-register-ayurvedic-medicine-in-india/')); ?>"><?php esc_html_e('Product Development Form', 'nitya-naturals'); ?></a></li>
-						</ul>
-					</li>
-					<li class="menu-item-has-children">
-						<div class="mobile-parent-wrapper">
-							<a href="<?php echo esc_url(home_url('/herbal-manufacturer/')); ?>"><?php esc_html_e('SERVICES', 'nitya-naturals'); ?></a>
-							<button type="button" class="submenu-toggle-btn" aria-label="<?php esc_attr_e('Toggle Submenu', 'nitya-naturals'); ?>">
-								<i class="fa-solid fa-chevron-down"></i>
-							</button>
-						</div>
-						<ul class="sub-menu">
-							<li><a href="<?php echo esc_url(home_url('/herbal-manufacturer/')); ?>"><?php esc_html_e('Planning & Selection', 'nitya-naturals'); ?></a></li>
-							<li><a href="<?php echo esc_url(home_url('/third-party-manufacturing/')); ?>"><?php esc_html_e('Manufacturing', 'nitya-naturals'); ?></a></li>
-							<li><a href="<?php echo esc_url(home_url('/private-label/')); ?>"><?php esc_html_e('Packaging & Labeling', 'nitya-naturals'); ?></a></li>
-							<li><a href="<?php echo esc_url(home_url('/export-medicine/')); ?>"><?php esc_html_e('Fulfillment & Transportation', 'nitya-naturals'); ?></a></li>
-						</ul>
-					</li>
-					<li><a href="<?php echo esc_url(home_url('/start-your-own-supplement-business/')); ?>"><?php esc_html_e('CONTACT US', 'nitya-naturals'); ?></a></li>
-				</ul>
-
-				<div class="mobile-menu-footer">
-					<a href="<?php echo esc_url(home_url('/start-your-own-supplement-business/')); ?>" class="mobile-cta-btn">
-						<i class="fa-solid fa-paper-plane"></i> <?php esc_html_e('Get In Touch', 'nitya-naturals'); ?>
-					</a>
-					<div class="mobile-contact-info">
-						<a href="tel:+917524098888"><i class="fa-solid fa-phone"></i> +91 75240 98888</a>
-						<a href="mailto:exports@nityanaturals.com"><i class="fa-solid fa-envelope"></i> exports@nityanaturals.com</a>
-					</div>
-				</div>
-			</div>
-		</div>
-
+	    <div class="nav-cta">
+	      <a class="btn btn--solid" href="<?php echo esc_url(is_front_page() ? '#factory' : home_url('/#factory')); ?>"><?php esc_html_e('Book a Factory Visit', 'nitya-naturals'); ?></a>
+	      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span></button>
+	    </div>
+	  </div>
+	  <div class="mobile-panel" id="mobilePanel">
+	    <a href="<?php echo esc_url(is_front_page() ? '#about' : home_url('/#about')); ?>"><?php esc_html_e('About Us', 'nitya-naturals'); ?></a>
+	    <a href="<?php echo esc_url(is_front_page() ? '#products' : home_url('/#products')); ?>"><?php esc_html_e('Products', 'nitya-naturals'); ?></a>
+	    <a href="<?php echo esc_url(is_front_page() ? '#services' : home_url('/#services')); ?>"><?php esc_html_e('Services', 'nitya-naturals'); ?></a>
+	    <a href="<?php echo esc_url(is_front_page() ? '#contact' : home_url('/#contact')); ?>"><?php esc_html_e('Contact Us', 'nitya-naturals'); ?></a>
+	    <a href="<?php echo esc_url(is_front_page() ? '#factory' : home_url('/#factory')); ?>"><?php esc_html_e('Book a Factory Visit', 'nitya-naturals'); ?></a>
+	  </div>
 	</header>
