@@ -283,8 +283,11 @@ img {
 }
 
 .logo-img {
-  max-height: 48px;
+  max-height: 42px;
+  max-width: 220px;
   width: auto;
+  height: auto;
+  object-fit: contain;
   transition: all 0.35s ease-in-out;
   filter: brightness(0) saturate(100%) invert(24%) sepia(18%) saturate(1207%) hue-rotate(58deg) brightness(94%) contrast(89%);
 }
@@ -1116,7 +1119,9 @@ body.mobile-menu-open {
   }
 
   .logo-img {
-    max-height: 36px;
+    max-height: 32px;
+    max-width: 160px;
+    object-fit: contain;
   }
 
   .site-header.is-sticky .header-inner {
