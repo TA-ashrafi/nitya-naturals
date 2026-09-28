@@ -13,25 +13,25 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e('Skip to content', 'nitya-naturals'); ?></a>
 
-	<header id="masthead" class="site-header">
-		<div class="header-inner">
+	<!-- TOP CONTACT BAR -->
+	<div class="header-top-bar">
+		<div class="container header-top-inner">
+			<div class="top-bar-left">
+				<span class="top-info-item"><i class="fa-solid fa-award"></i> Baidyanath Export Division</span>
+				<span class="top-info-item"><i class="fa-solid fa-shield-halved"></i> cGMP & US FDA Compliant Facility</span>
+			</div>
+			<div class="top-bar-right">
+				<a href="tel:+917524098888" class="top-contact-link"><i class="fa-solid fa-phone"></i> +91 75240 98888</a>
+				<a href="mailto:exports@nityanaturals.com" class="top-contact-link"><i class="fa-solid fa-envelope"></i> exports@nityanaturals.com</a>
+			</div>
+		</div>
+	</div>
 
-			<!-- LEFT NAVIGATION (ABOUT US + PRODUCTS) -->
-			<nav class="nav-left">
-				<ul class="menu">
-					<li><a href="<?php echo esc_url(home_url('/about-us/')); ?>"><?php esc_html_e('ABOUT US', 'nitya-naturals'); ?></a></li>
-					<li class="menu-item-has-children">
-						<a href="#"><?php esc_html_e('PRODUCTS', 'nitya-naturals'); ?></a>
-						<ul class="sub-menu">
-							<li><a href="<?php echo esc_url(home_url('/ayurvedic-medicine-manufacturer/')); ?>"><?php esc_html_e('Product Range', 'nitya-naturals'); ?></a></li>
-							<li><a href="<?php echo esc_url(home_url('/best-manufacturer-of-ayurved-medicines/')); ?>"><?php esc_html_e('Product Categories', 'nitya-naturals'); ?></a></li>
-							<li><a href="<?php echo esc_url(home_url('/how-to-register-ayurvedic-medicine-in-india/')); ?>"><?php esc_html_e('Product Development Form', 'nitya-naturals'); ?></a></li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
+	<!-- MAIN STICKY HEADER -->
+	<header id="masthead" class="site-header modern-header">
+		<div class="header-inner container">
 
-			<!-- CENTER LOGO -->
+			<!-- LEFT BRAND LOGO -->
 			<div class="site-logo">
 				<?php
 				if (has_custom_logo()) {
@@ -47,11 +47,20 @@
 				?>
 			</div>
 
-			<!-- RIGHT NAVIGATION (SERVICES + CONTACT US) -->
-			<nav class="nav-right">
+			<!-- CENTER MAIN NAVIGATION -->
+			<nav class="nav-center">
 				<ul class="menu">
+					<li><a href="<?php echo esc_url(home_url('/about-us/')); ?>"><?php esc_html_e('ABOUT US', 'nitya-naturals'); ?></a></li>
 					<li class="menu-item-has-children">
-						<a href="#"><?php esc_html_e('SERVICES', 'nitya-naturals'); ?></a>
+						<a href="#"><?php esc_html_e('PRODUCTS', 'nitya-naturals'); ?> <i class="fa-solid fa-chevron-down nav-arrow"></i></a>
+						<ul class="sub-menu">
+							<li><a href="<?php echo esc_url(home_url('/ayurvedic-medicine-manufacturer/')); ?>"><?php esc_html_e('Product Range', 'nitya-naturals'); ?></a></li>
+							<li><a href="<?php echo esc_url(home_url('/best-manufacturer-of-ayurved-medicines/')); ?>"><?php esc_html_e('Product Categories', 'nitya-naturals'); ?></a></li>
+							<li><a href="<?php echo esc_url(home_url('/how-to-register-ayurvedic-medicine-in-india/')); ?>"><?php esc_html_e('Product Development Form', 'nitya-naturals'); ?></a></li>
+						</ul>
+					</li>
+					<li class="menu-item-has-children">
+						<a href="#"><?php esc_html_e('SERVICES', 'nitya-naturals'); ?> <i class="fa-solid fa-chevron-down nav-arrow"></i></a>
 						<ul class="sub-menu">
 							<li><a href="<?php echo esc_url(home_url('/herbal-manufacturer/')); ?>"><?php esc_html_e('Planning & Selection', 'nitya-naturals'); ?></a></li>
 							<li><a href="<?php echo esc_url(home_url('/third-party-manufacturing/')); ?>"><?php esc_html_e('Manufacturing', 'nitya-naturals'); ?></a></li>
@@ -62,6 +71,13 @@
 					<li><a href="<?php echo esc_url(home_url('/start-your-own-supplement-business/')); ?>"><?php esc_html_e('CONTACT US', 'nitya-naturals'); ?></a></li>
 				</ul>
 			</nav>
+
+			<!-- RIGHT HEADER CTA BUTTON -->
+			<div class="header-action-col">
+				<a href="<?php echo esc_url(home_url('/start-your-own-supplement-business/')); ?>" class="header-btn-quote">
+					<i class="fa-solid fa-paper-plane"></i> Get Quote
+				</a>
+			</div>
 
 			<!-- MOBILE TOGGLE -->
 			<button class="mobile-menu-toggle" aria-controls="mobile-menu-wrapper" aria-expanded="false" aria-label="<?php esc_attr_e('Toggle Navigation', 'nitya-naturals'); ?>">

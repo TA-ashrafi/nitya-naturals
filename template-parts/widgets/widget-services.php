@@ -7,55 +7,55 @@ $desc  = isset($args['desc']) ? $args['desc'] : get_theme_mod('nitya_home_servic
 ?>
 <section class="section nitya-widget-services">
 	<div class="container">
-		<div class="section-header-center">
-			<span class="sub-heading-tag"><i class="fa-solid fa-diagram-project"></i> STREAMLINED PROCESS</span>
-			<h2 class="section-title"><?php echo esc_html($title); ?></h2>
-			<p class="section-subtitle-text"><?php echo esc_html($desc); ?></p>
+		<div class="section-heading-box">
+			<span class="sub-heading-badge"><i class="fa-solid fa-diagram-project"></i> STREAMLINED PROCESS</span>
+			<h2 class="section-title-center"><?php echo esc_html($title); ?></h2>
+			<p class="section-desc-center"><?php echo esc_html($desc); ?></p>
 		</div>
 
-		<div class="services-process-timeline">
+		<div class="services-process-cards">
 			<!-- STEP 1 -->
-			<div class="process-step-card">
-				<div class="process-step-num">01</div>
-				<div class="process-icon-wrapper">
+			<div class="service-process-card">
+				<span class="process-number-tag">01</span>
+				<div class="process-icon-circle">
 					<i class="fa-regular fa-calendar-check"></i>
 				</div>
 				<h3><a href="<?php echo esc_url(home_url('/herbal-manufacturer/')); ?>"><?php esc_html_e('Planning & Formulation', 'nitya-naturals'); ?></a></h3>
 				<p><?php esc_html_e('Select from stock formulations or collaborate with our R&D team on custom botanical ingredients.', 'nitya-naturals'); ?></p>
-				<a href="<?php echo esc_url(home_url('/herbal-manufacturer/')); ?>" class="process-link"><?php esc_html_e('Learn More', 'nitya-naturals'); ?> <i class="fa-solid fa-chevron-right"></i></a>
+				<a href="<?php echo esc_url(home_url('/herbal-manufacturer/')); ?>" class="process-link-btn"><?php esc_html_e('Learn More', 'nitya-naturals'); ?> <i class="fa-solid fa-chevron-right"></i></a>
 			</div>
 
 			<!-- STEP 2 -->
-			<div class="process-step-card">
-				<div class="process-step-num">02</div>
-				<div class="process-icon-wrapper">
+			<div class="service-process-card">
+				<span class="process-number-tag">02</span>
+				<div class="process-icon-circle">
 					<i class="fa-solid fa-gears"></i>
 				</div>
 				<h3><a href="<?php echo esc_url(home_url('/third-party-manufacturing/')); ?>"><?php esc_html_e('cGMP Manufacturing', 'nitya-naturals'); ?></a></h3>
 				<p><?php esc_html_e('High-precision manufacturing across tablets, capsules, syrups, oils, and traditional pastes.', 'nitya-naturals'); ?></p>
-				<a href="<?php echo esc_url(home_url('/third-party-manufacturing/')); ?>" class="process-link"><?php esc_html_e('Learn More', 'nitya-naturals'); ?> <i class="fa-solid fa-chevron-right"></i></a>
+				<a href="<?php echo esc_url(home_url('/third-party-manufacturing/')); ?>" class="process-link-btn"><?php esc_html_e('Learn More', 'nitya-naturals'); ?> <i class="fa-solid fa-chevron-right"></i></a>
 			</div>
 
 			<!-- STEP 3 -->
-			<div class="process-step-card">
-				<div class="process-step-num">03</div>
-				<div class="process-icon-wrapper">
+			<div class="service-process-card">
+				<span class="process-number-tag">03</span>
+				<div class="process-icon-circle">
 					<i class="fa-solid fa-box-open"></i>
 				</div>
 				<h3><a href="<?php echo esc_url(home_url('/private-label/')); ?>"><?php esc_html_e('Packaging & Labeling', 'nitya-naturals'); ?></a></h3>
 				<p><?php esc_html_e('Custom food-grade containers, compliant label design, barcode creation, and safety seals.', 'nitya-naturals'); ?></p>
-				<a href="<?php echo esc_url(home_url('/private-label/')); ?>" class="process-link"><?php esc_html_e('Learn More', 'nitya-naturals'); ?> <i class="fa-solid fa-chevron-right"></i></a>
+				<a href="<?php echo esc_url(home_url('/private-label/')); ?>" class="process-link-btn"><?php esc_html_e('Learn More', 'nitya-naturals'); ?> <i class="fa-solid fa-chevron-right"></i></a>
 			</div>
 
 			<!-- STEP 4 -->
-			<div class="process-step-card">
-				<div class="process-step-num">04</div>
-				<div class="process-icon-wrapper">
+			<div class="service-process-card">
+				<span class="process-number-tag">04</span>
+				<div class="process-icon-circle">
 					<i class="fa-solid fa-truck-fast"></i>
 				</div>
 				<h3><a href="<?php echo esc_url(home_url('/export-medicine/')); ?>"><?php esc_html_e('Global Fulfillment', 'nitya-naturals'); ?></a></h3>
 				<p><?php esc_html_e('International export documentation, customs clearance, and worldwide freight dispatch.', 'nitya-naturals'); ?></p>
-				<a href="<?php echo esc_url(home_url('/export-medicine/')); ?>" class="process-link"><?php esc_html_e('Learn More', 'nitya-naturals'); ?> <i class="fa-solid fa-chevron-right"></i></a>
+				<a href="<?php echo esc_url(home_url('/export-medicine/')); ?>" class="process-link-btn"><?php esc_html_e('Learn More', 'nitya-naturals'); ?> <i class="fa-solid fa-chevron-right"></i></a>
 			</div>
 		</div>
 	</div>

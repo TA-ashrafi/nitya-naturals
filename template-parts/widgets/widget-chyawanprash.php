@@ -9,38 +9,38 @@ $img   = isset($args['img']) ? $args['img'] : get_theme_mod('nitya_home_chyawanp
 ?>
 <section class="section section-bg-light nitya-widget-chyawanprash">
 	<div class="container">
-		<div class="facility-showcase-grid">
-			<div class="facility-content-col">
-				<span class="sub-heading-tag"><i class="fa-solid fa-industry"></i> PRAYAGRAJ MANUFACTURING UNIT</span>
-				<h2 class="section-heading-left"><?php echo esc_html($title); ?></h2>
-				<p class="facility-lead-p"><?php echo esc_html($text); ?></p>
+		<div class="facility-card-grid">
+			<div class="facility-text-block">
+				<span class="sub-heading-badge"><i class="fa-solid fa-industry"></i> PRAYAGRAJ MANUFACTURING UNIT</span>
+				<h2><?php echo esc_html($title); ?></h2>
+				<p class="facility-lead"><?php echo esc_html($text); ?></p>
 
-				<div class="facility-perks-grid">
-					<div class="perk-item">
-						<div class="perk-icon"><i class="fa-solid fa-tree"></i></div>
-						<div class="perk-info">
+				<div class="facility-highlights-row">
+					<div class="facility-feature-item">
+						<div class="feature-icon-box"><i class="fa-solid fa-tree"></i></div>
+						<div class="feature-info">
 							<h4>Fresh Organic Amla Sourcing</h4>
 							<p>Direct proximity to wild forest groves ensures nutrient-rich raw materials.</p>
 						</div>
 					</div>
-					<div class="perk-item">
-						<div class="perk-icon"><i class="fa-solid fa-vial-circle-check"></i></div>
-						<div class="perk-info">
+					<div class="facility-feature-item">
+						<div class="feature-icon-box"><i class="fa-solid fa-vial-circle-check"></i></div>
+						<div class="feature-info">
 							<h4>cGMP Kettle Processing</h4>
 							<p>Automated temperature control preserving active botanical phytochemicals.</p>
 						</div>
 					</div>
 				</div>
 
-				<a href="<?php echo esc_url(home_url('/start-your-own-supplement-business/')); ?>" class="btn-hero-primary" style="display: inline-flex; margin-top: 15px;">
-					<i class="fa-solid fa-calendar-check"></i> Schedule Facility Visit
+				<a href="<?php echo esc_url(home_url('/start-your-own-supplement-business/')); ?>" class="btn-card-action-link" style="margin-top: 10px;">
+					Schedule Facility Visit <i class="fa-solid fa-arrow-right"></i>
 				</a>
 			</div>
 
 			<?php if ($img) : ?>
-			<div class="facility-media-col">
-				<div class="facility-image-wrapper">
-					<img src="<?php echo esc_url($img); ?>" alt="<?php esc_attr_e('Chyawanprash Manufacturing Facility Prayagraj - Nitya Naturals', 'nitya-naturals'); ?>" class="facility-img">
+			<div class="facility-media-block">
+				<div class="facility-img-frame">
+					<img src="<?php echo esc_url($img); ?>" alt="<?php esc_attr_e('Chyawanprash Manufacturing Facility Prayagraj - Nitya Naturals', 'nitya-naturals'); ?>" class="facility-graphic-img">
 				</div>
 			</div>
 			<?php endif; ?>

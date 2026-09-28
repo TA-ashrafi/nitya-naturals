@@ -24,23 +24,21 @@ get_header();
 	<!-- BOOK FACTORY VISIT / CONTACT CALLOUT SECTION -->
 	<section class="visit-callout-section">
 		<div class="container">
-			<div class="visit-callout-card">
-				<div class="visit-callout-content">
-					<span class="visit-badge"><i class="fa-solid fa-building-user"></i> DIRECT MANUFACTURER ACCESS</span>
-					<h2 class="visit-title"><?php echo esc_html(get_theme_mod('nitya_home_visit_title', 'BOOK A FACTORY VISIT & CONSULTATION')); ?></h2>
-					<p class="visit-desc">
-						Tour our state-of-the-art Prayagraj facility, review raw material sourcing, and discuss custom product development with our technical leadership team.
-					</p>
+			<div class="visit-callout-card-frame">
+				<span class="sub-heading-badge badge-light-bg"><i class="fa-solid fa-building-user"></i> DIRECT MANUFACTURER ACCESS</span>
+				<h2 class="visit-title-text"><?php echo esc_html(get_theme_mod('nitya_home_visit_title', 'BOOK A FACTORY VISIT & CONSULTATION')); ?></h2>
+				<p class="visit-desc-text">
+					Tour our state-of-the-art Prayagraj facility, review raw material sourcing, and discuss custom product development with our technical leadership team.
+				</p>
 
-					<div class="visit-cta-group">
-						<?php $whatsapp_num = get_theme_mod('nitya_whatsapp', '919935556123'); ?>
-						<a href="https://wa.me/<?php echo esc_attr($whatsapp_num); ?>" target="_blank" rel="noopener noreferrer" class="btn-visit-whatsapp">
-							<i class="fa-brands fa-whatsapp"></i> <?php esc_html_e('Connect on WhatsApp', 'nitya-naturals'); ?>
-						</a>
-						<a href="mailto:<?php echo esc_attr(get_theme_mod('nitya_email', 'exports@nityanaturals.com')); ?>" class="btn-visit-email">
-							<i class="fa-solid fa-envelope"></i> <?php esc_html_e('Email Sales Team', 'nitya-naturals'); ?>
-						</a>
-					</div>
+				<div class="visit-cta-button-group">
+					<?php $whatsapp_num = get_theme_mod('nitya_whatsapp', '919935556123'); ?>
+					<a href="https://wa.me/<?php echo esc_attr($whatsapp_num); ?>" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-cta">
+						<i class="fa-brands fa-whatsapp"></i> <?php esc_html_e('Connect on WhatsApp', 'nitya-naturals'); ?>
+					</a>
+					<a href="mailto:<?php echo esc_attr(get_theme_mod('nitya_email', 'exports@nityanaturals.com')); ?>" class="btn-email-cta">
+						<i class="fa-solid fa-envelope"></i> <?php esc_html_e('Email Sales Team', 'nitya-naturals'); ?>
+					</a>
 				</div>
 			</div>
 		</div>

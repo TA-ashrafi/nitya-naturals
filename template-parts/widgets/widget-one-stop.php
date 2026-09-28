@@ -8,15 +8,15 @@ $text = isset($args['text']) ? $args['text'] : get_theme_mod('nitya_home_special
 ?>
 <section class="section section-bg-light nitya-widget-one-stop">
 	<div class="container">
-		<div class="section-header-center">
-			<span class="sub-heading-tag"><i class="fa-solid fa-cube"></i> COMPLETE TURNKEY SOLUTION</span>
-			<h2 class="section-title">Your Complete Ayurvedic Manufacturing Partner</h2>
-			<p class="section-subtitle-text"><?php echo esc_html($text); ?></p>
+		<div class="section-heading-box">
+			<span class="sub-heading-badge"><i class="fa-solid fa-cube"></i> COMPLETE TURNKEY SOLUTION</span>
+			<h2 class="section-title-center">Your Complete Ayurvedic Manufacturing Partner</h2>
+			<p class="section-desc-center"><?php echo esc_html($text); ?></p>
 		</div>
 
 		<?php if ($img) : ?>
-		<div class="one-stop-graphic-card">
-			<img src="<?php echo esc_url($img); ?>" alt="<?php esc_attr_e('Turnkey Manufacturing Capabilities - Nitya Naturals', 'nitya-naturals'); ?>" class="one-stop-banner-img">
+		<div class="one-stop-card-frame">
+			<img src="<?php echo esc_url($img); ?>" alt="<?php esc_attr_e('Turnkey Manufacturing Capabilities - Nitya Naturals', 'nitya-naturals'); ?>" class="one-stop-graphic-img">
 		</div>
 		<?php endif; ?>
 	</div>

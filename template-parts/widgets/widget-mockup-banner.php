@@ -8,22 +8,22 @@ if ($mockup_img) :
 ?>
 <section class="section section-bg-light nitya-widget-mockup">
 	<div class="container">
-		<div class="mockup-showcase-card">
-			<div class="mockup-media-col">
-				<img src="<?php echo esc_url($mockup_img); ?>" alt="<?php esc_attr_e('Premium Packaging & Private Label Mockups - Nitya Naturals', 'nitya-naturals'); ?>" class="mockup-img">
+		<div class="mockup-showcase-frame">
+			<div class="mockup-media-box">
+				<img src="<?php echo esc_url($mockup_img); ?>" alt="<?php esc_attr_e('Custom Packaging & Private Label Mockups - Nitya Naturals', 'nitya-naturals'); ?>" class="mockup-graphic-img">
 			</div>
-			<div class="mockup-content-col">
-				<span class="sub-heading-tag"><i class="fa-solid fa-box-open"></i> CUSTOM PACKAGING & LABELING</span>
+			<div class="mockup-content-box">
+				<span class="sub-heading-badge"><i class="fa-solid fa-box-open"></i> CUSTOM PACKAGING & LABELING</span>
 				<h2>Custom Brand Packaging & Label Design</h2>
 				<p>Stand out in international markets with premium food-grade containers, dropper bottles, blister packs, amber glass jars, and custom label design complying with global regulatory guidelines.</p>
 
-				<ul class="mockup-features-list">
-					<li><i class="fa-solid fa-check"></i> Custom Bottle & Container Sizing</li>
-					<li><i class="fa-solid fa-check"></i> Multi-language Regulatory Compliance Labeling</li>
-					<li><i class="fa-solid fa-check"></i> Tamper-evident Safety Seals & Eco-Friendly Boxes</li>
-				</ul>
+				<div class="mockup-checklist-group">
+					<div class="checklist-item"><i class="fa-solid fa-circle-check"></i> Custom Bottle & Container Sizing</div>
+					<div class="checklist-item"><i class="fa-solid fa-circle-check"></i> Multi-language Regulatory Labeling</div>
+					<div class="checklist-item"><i class="fa-solid fa-circle-check"></i> Tamper-evident Safety Seals & Boxes</div>
+				</div>
 
-				<a href="<?php echo esc_url(home_url('/private-label/')); ?>" class="btn-read-more">
+				<a href="<?php echo esc_url(home_url('/private-label/')); ?>" class="btn-card-action-link">
 					Explore Packaging Options <i class="fa-solid fa-arrow-right"></i>
 				</a>
 			</div>

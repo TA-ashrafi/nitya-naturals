@@ -20,71 +20,71 @@ $npd_items = is_array($npd_items_raw) ? $npd_items_raw : array_filter(array_map(
 ?>
 <section class="section nitya-widget-capabilities">
 	<div class="container">
-		<div class="section-header-center">
-			<span class="sub-heading-tag"><i class="fa-solid fa-gears"></i> MANUFACTURING CAPABILITIES</span>
-			<h2 class="section-title">Comprehensive Production Expertise</h2>
-			<p class="section-subtitle-text">Whether expanding your current supplement line or launching a custom herbal innovation, Nitya Naturals provides full-spectrum manufacturing capabilities.</p>
+		<div class="section-heading-box">
+			<span class="sub-heading-badge"><i class="fa-solid fa-gears"></i> MANUFACTURING CAPABILITIES</span>
+			<h2 class="section-title-center">Comprehensive Production Expertise</h2>
+			<p class="section-desc-center">Whether expanding your current supplement line or launching a custom herbal innovation, Nitya Naturals provides full-spectrum manufacturing capabilities.</p>
 		</div>
 
-		<div class="capabilities-grid">
+		<div class="capabilities-grid-cards">
 			<!-- CARD 1: DOSAGE FORMS -->
-			<div class="capability-card">
-				<div class="card-icon-header">
-					<div class="card-icon"><i class="fa-solid fa-capsules"></i></div>
-					<span class="card-step-badge">01</span>
+			<div class="capability-card-item">
+				<div class="card-header-row">
+					<div class="card-icon-circle"><i class="fa-solid fa-capsules"></i></div>
+					<span class="step-badge-tag">01</span>
 				</div>
 				<h3><?php echo esc_html($dosage_title); ?></h3>
-				<p class="card-desc"><?php echo esc_html($dosage_desc); ?></p>
+				<p class="card-description"><?php echo esc_html($dosage_desc); ?></p>
 				<?php if (!empty($dosage_items)) : ?>
-					<div class="pill-tags-list">
+					<div class="pill-tag-container">
 						<?php foreach ($dosage_items as $item) : ?>
-							<span class="pill-tag"><i class="fa-solid fa-check"></i> <?php echo esc_html($item); ?></span>
+							<span class="pill-item-tag"><i class="fa-solid fa-check"></i> <?php echo esc_html($item); ?></span>
 						<?php endforeach; ?>
 					</div>
 				<?php endif; ?>
 			</div>
 
 			<!-- CARD 2: EXISTING PRODUCTS -->
-			<div class="capability-card featured-card">
-				<div class="card-icon-header">
-					<div class="card-icon"><i class="fa-solid fa-leaf"></i></div>
-					<span class="card-step-badge">02</span>
+			<div class="capability-card-item featured-capability-card">
+				<div class="card-header-row">
+					<div class="card-icon-circle"><i class="fa-solid fa-leaf"></i></div>
+					<span class="step-badge-tag">02</span>
 				</div>
 				<h3><?php echo esc_html($existing_title); ?></h3>
-				<p class="card-desc"><?php echo esc_html($existing_desc); ?></p>
+				<p class="card-description"><?php echo esc_html($existing_desc); ?></p>
 				<?php if (!empty($existing_items)) : ?>
-					<div class="pill-tags-list">
+					<div class="pill-tag-container">
 						<?php foreach ($existing_items as $item) : ?>
-							<a href="<?php echo esc_url(home_url('/best-manufacturer-of-ayurved-medicines/')); ?>" class="pill-tag link-tag">
+							<a href="<?php echo esc_url(home_url('/best-manufacturer-of-ayurved-medicines/')); ?>" class="pill-item-tag link-pill-tag">
 								<i class="fa-solid fa-tag"></i> <?php echo esc_html($item); ?>
 							</a>
 						<?php endforeach; ?>
 					</div>
 				<?php endif; ?>
-				<div class="card-action-btn">
-					<a href="<?php echo esc_url(home_url('/best-manufacturer-of-ayurved-medicines/')); ?>" class="btn-card-link">
+				<div class="card-action-wrap">
+					<a href="<?php echo esc_url(home_url('/best-manufacturer-of-ayurved-medicines/')); ?>" class="btn-card-action-link">
 						Browse All Categories <i class="fa-solid fa-arrow-right"></i>
 					</a>
 				</div>
 			</div>
 
 			<!-- CARD 3: NEW PRODUCT DEVELOPMENT -->
-			<div class="capability-card">
-				<div class="card-icon-header">
-					<div class="card-icon"><i class="fa-solid fa-flask"></i></div>
-					<span class="card-step-badge">03</span>
+			<div class="capability-card-item">
+				<div class="card-header-row">
+					<div class="card-icon-circle"><i class="fa-solid fa-flask"></i></div>
+					<span class="step-badge-tag">03</span>
 				</div>
 				<h3><?php echo esc_html($npd_title); ?></h3>
-				<p class="card-desc"><?php echo esc_html($npd_desc); ?></p>
+				<p class="card-description"><?php echo esc_html($npd_desc); ?></p>
 				<?php if (!empty($npd_items)) : ?>
-					<div class="pill-tags-list">
+					<div class="pill-tag-container">
 						<?php foreach ($npd_items as $item) : ?>
-							<span class="pill-tag"><i class="fa-solid fa-vial"></i> <?php echo esc_html($item); ?></span>
+							<span class="pill-item-tag"><i class="fa-solid fa-vial"></i> <?php echo esc_html($item); ?></span>
 						<?php endforeach; ?>
 					</div>
 				<?php endif; ?>
-				<div class="card-action-btn">
-					<a href="<?php echo esc_url(home_url('/how-to-register-ayurvedic-medicine-in-india/')); ?>" class="btn-card-link">
+				<div class="card-action-wrap">
+					<a href="<?php echo esc_url(home_url('/how-to-register-ayurvedic-medicine-in-india/')); ?>" class="btn-card-action-link">
 						Submit R&D Request <i class="fa-solid fa-arrow-right"></i>
 					</a>
 				</div>
