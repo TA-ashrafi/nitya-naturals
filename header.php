@@ -13,8 +13,9 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e('Skip to content', 'nitya-naturals'); ?></a>
 
-	<header id="masthead" class="site-header">
-		<div class="header-inner">
+	<!-- FLOATING GLASSMORPHISM HEADER -->
+	<header id="masthead" class="site-header floating-header">
+		<div class="header-inner container-fluid">
 
 			<!-- LEFT NAVIGATION (ABOUT US + PRODUCTS) -->
 			<nav class="nav-left">

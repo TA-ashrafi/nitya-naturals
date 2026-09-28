@@ -1,6 +1,6 @@
 <?php
 /**
- * Front Page Template - Modularized with Widgets
+ * Front Page Template - Redesigned Modular Layout
  */
 
 get_header();
@@ -21,18 +21,25 @@ get_header();
 		<?php get_template_part('template-parts/widgets/widget-chyawanprash'); ?>
 	<?php endif; ?>
 
-	<!-- Book Factory Visit Callout -->
+	<!-- BOOK FACTORY VISIT / CONTACT CALLOUT SECTION -->
 	<section class="visit-callout-section">
 		<div class="container">
-			<div class="visit-callout-card">
-				<h2 class="visit-callout-title"><?php echo esc_html(get_theme_mod('nitya_home_visit_title', 'BOOK A FACTORY VISIT NOW')); ?></h2>
-				<p class="visit-callout-text">
-					<?php echo esc_html(get_theme_mod('nitya_home_visit_text', 'Contact us on WhatsApp @ +91 75240 98888 or email us at ald.nitya@gmail.com')); ?>
+			<div class="visit-glass-card">
+				<span class="visit-badge-pill"><i class="fa-solid fa-building-user"></i> DIRECT MANUFACTURER ACCESS</span>
+				<h2 class="visit-card-title"><?php echo esc_html(get_theme_mod('nitya_home_visit_title', 'BOOK A FACTORY VISIT & CONSULTATION')); ?></h2>
+				<p class="visit-card-desc">
+					Tour our state-of-the-art Prayagraj facility, review raw material sourcing, and discuss custom product development with our technical leadership team.
 				</p>
-				<?php $whatsapp_num = get_theme_mod('nitya_whatsapp', '919935556123'); ?>
-				<a href="https://wa.me/<?php echo esc_attr($whatsapp_num); ?>" target="_blank" rel="noopener noreferrer" class="btn-visit-whatsapp">
-					<i class="fa-brands fa-whatsapp"></i> <?php esc_html_e('Connect on WhatsApp', 'nitya-naturals'); ?>
-				</a>
+
+				<div class="visit-btn-group">
+					<?php $whatsapp_num = get_theme_mod('nitya_whatsapp', '919935556123'); ?>
+					<a href="https://wa.me/<?php echo esc_attr($whatsapp_num); ?>" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-action">
+						<i class="fa-brands fa-whatsapp"></i> <?php esc_html_e('Connect on WhatsApp', 'nitya-naturals'); ?>
+					</a>
+					<a href="mailto:<?php echo esc_attr(get_theme_mod('nitya_email', 'exports@nityanaturals.com')); ?>" class="btn-email-action">
+						<i class="fa-solid fa-envelope"></i> <?php esc_html_e('Email Sales Team', 'nitya-naturals'); ?>
+					</a>
+				</div>
 			</div>
 		</div>
 	</section>

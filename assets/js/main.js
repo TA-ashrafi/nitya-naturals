@@ -1,15 +1,15 @@
 /**
  * Nitya Naturals Theme - Main JavaScript
- * Split Navigation Header + Sticky Shrink Effect + Mobile Navigation Accordion
+ * Floating Glassmorphism Header + Sticky Shrink Effect + Scroll Animations
  */
 
 document.addEventListener('DOMContentLoaded', function () {
 
   // ============================================
-  // 1. STICKY HEADER WITH SHRINK EFFECT
+  // 1. STICKY / FLOATING HEADER SHRINK EFFECT
   // ============================================
   const header = document.querySelector('.site-header');
-  const scrollThreshold = 80;
+  const scrollThreshold = 60;
 
   function handleStickyHeader() {
     if (!header) return;
@@ -19,12 +19,10 @@ document.addEventListener('DOMContentLoaded', function () {
     if (scrollY > scrollThreshold) {
       if (!header.classList.contains('is-sticky')) {
         header.classList.add('is-sticky');
-        document.body.style.paddingTop = header.offsetHeight + 'px';
       }
     } else {
       if (header.classList.contains('is-sticky')) {
         header.classList.remove('is-sticky');
-        document.body.style.paddingTop = '0px';
       }
     }
   }
@@ -41,12 +39,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   handleStickyHeader();
-
-  window.addEventListener('resize', function () {
-    if (header && header.classList.contains('is-sticky')) {
-      document.body.style.paddingTop = header.offsetHeight + 'px';
-    }
-  });
 
   // ============================================
   // 2. MOBILE MENU TOGGLE & ACCORDION
