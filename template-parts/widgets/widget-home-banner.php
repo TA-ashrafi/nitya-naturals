@@ -1,11 +1,11 @@
 <?php
 /**
- * Widget Template: Premium Hero Banner Section
+ * Widget Template: Premium Fullscreen Hero Banner Section
  */
 $theme_uri = get_template_directory_uri();
 $hero_img  = isset($args['hero_img']) ? $args['hero_img'] : get_theme_mod('nitya_home_hero_img', $theme_uri . '/assets/images/Nitya-Naturals-Brand-Book01-1.jpg');
 ?>
-<section class="premium-hero-section">
+<section class="premium-hero-section fullscreen-hero">
 	<div class="hero-bg-media" style="background-image: url('<?php echo esc_url($hero_img); ?>');"></div>
 	<div class="hero-gradient-overlay"></div>
 
@@ -15,20 +15,25 @@ $hero_img  = isset($args['hero_img']) ? $args['hero_img'] : get_theme_mod('nitya
 		</span>
 
 		<h1 class="hero-main-title">
-			Pioneering Authentic Ayurvedic Formulations & Private Label Manufacturing
+			We manufacture the <em>Ayurvedic brand</em> you are building.
 		</h1>
 
 		<p class="hero-main-desc">
-			Backed by pioneers of Ayurveda since 1917, Nitya Naturals provides turnkey herbal contract manufacturing, cGMP production, and global export fulfillment for healthcare brands worldwide.
+			Nitya Naturals gives brand owners a one-stop solution for manufacturing — so you can concentrate on marketing. Your formulas, your label, our cGMP line. On time, within budget, faster than the competition.
 		</p>
 
 		<div class="hero-button-group">
-			<a href="<?php echo esc_url(home_url('/ayurvedic-medicine-manufacturer/')); ?>" class="btn-hero-solid">
-				<i class="fa-solid fa-boxes-stacked"></i> Explore Product Range
+			<a href="#develop" class="btn-hero-solid">
+				<i class="fa-solid fa-paper-plane"></i> Request a Quote
 			</a>
-			<a href="<?php echo esc_url(home_url('/start-your-own-supplement-business/')); ?>" class="btn-hero-outline">
-				<i class="fa-solid fa-paper-plane"></i> Request Custom Quote
+			<a href="https://wa.me/917524098888" target="_blank" rel="noopener noreferrer" class="btn-hero-outline">
+				<i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
 			</a>
 		</div>
+
+		<!-- SCROLL INDICATOR -->
+		<a href="#about" class="hero-scroll-down" aria-label="<?php esc_attr_e('Scroll to content', 'nitya-naturals'); ?>">
+			<i class="fa-solid fa-chevron-down"></i>
+		</a>
 	</div>
 </section>

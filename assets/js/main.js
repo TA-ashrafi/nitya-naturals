@@ -195,4 +195,92 @@ document.addEventListener('DOMContentLoaded', function () {
     filterProducts();
   }
 
+  // ============================================
+  // 5. NEW PRODUCT DEVELOPMENT BRIEF FORM (WHATSAPP HANDOFF)
+  // ============================================
+  const rfqForm = document.getElementById('rfqForm');
+  const formSuccess = document.getElementById('formSuccess');
+  const waFallback = document.getElementById('waFallback');
+
+  if (rfqForm) {
+    function getValue(id) {
+      const el = document.getElementById(id);
+      return el ? el.value.trim() : '';
+    }
+
+    function setFieldError(id, isError) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const parent = el.closest('.field-item');
+      if (parent) {
+        if (isError) {
+          parent.classList.add('has-error');
+        } else {
+          parent.classList.remove('has-error');
+        }
+      }
+    }
+
+    rfqForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const pname = getValue('pname');
+      const company = getValue('company');
+      const email = getValue('email');
+      const phone = getValue('phone');
+      const composition = getValue('composition');
+      const dosageForm = getValue('form');
+      const moq = getValue('moq');
+      const brief = getValue('brief');
+
+      const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+      const phoneValid = phone.replace(/\D/g, '').length >= 8;
+
+      let hasError = false;
+
+      if (!pname) { setFieldError('pname', true); hasError = true; } else { setFieldError('pname', false); }
+      if (!company) { setFieldError('company', true); hasError = true; } else { setFieldError('company', false); }
+      if (!emailValid) { setFieldError('email', true); hasError = true; } else { setFieldError('email', false); }
+      if (!phoneValid) { setFieldError('phone', true); hasError = true; } else { setFieldError('phone', false); }
+      if (!moq) { setFieldError('moq', true); hasError = true; } else { setFieldError('moq', false); }
+
+      if (hasError) {
+        const firstErr = rfqForm.querySelector('.has-error input, .has-error textarea');
+        if (firstErr) firstErr.focus();
+        return;
+      }
+
+      const rawMsg =
+        'New product development brief — Nitya Naturals\n\n' +
+        'Product name: ' + pname + '\n' +
+        'Company: ' + company + '\n' +
+        'Email: ' + email + '\n' +
+        'Phone: ' + phone + '\n' +
+        'Composition: ' + (composition || '—') + '\n' +
+        'Dosage form: ' + dosageForm + '\n' +
+        'MOQ / volume: ' + moq + '\n' +
+        'Functions & position: ' + (brief || '—');
+
+      const waUrl = 'https://wa.me/917524098888?text=' + encodeURIComponent(rawMsg);
+
+      if (waFallback) {
+        waFallback.href = waUrl;
+      }
+
+      window.open(waUrl, '_blank');
+
+      rfqForm.style.display = 'none';
+      if (formSuccess) {
+        formSuccess.classList.add('is-on');
+        formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+
+    rfqForm.addEventListener('input', function (e) {
+      if (e.target && e.target.id) {
+        setFieldError(e.target.id, false);
+      }
+    });
+  }
+
 });

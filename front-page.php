@@ -11,13 +11,31 @@ get_header();
 	<?php if (is_active_sidebar('home-widgets')) : ?>
 		<?php dynamic_sidebar('home-widgets'); ?>
 	<?php else : ?>
-		<!-- Default Fallback Widgets for Home Page -->
+		<!-- Fullscreen Hero Banner -->
 		<?php get_template_part('template-parts/widgets/widget-home-banner'); ?>
+
+		<!-- Dedicated Trust & Statistics Bar -->
 		<?php get_template_part('template-parts/widgets/widget-home-about'); ?>
+
+		<!-- One-Stop Turnkey Showcase -->
 		<?php get_template_part('template-parts/widgets/widget-one-stop'); ?>
+
+		<!-- Manufacturing Capabilities Cards -->
 		<?php get_template_part('template-parts/widgets/widget-capabilities'); ?>
+
+		<!-- Existing Products Stock Categories -->
+		<?php get_template_part('template-parts/widgets/widget-existing-products'); ?>
+
+		<!-- New Product Development Form -->
+		<?php get_template_part('template-parts/widgets/widget-product-development'); ?>
+
+		<!-- Packaging & Mockups Banner -->
 		<?php get_template_part('template-parts/widgets/widget-mockup-banner'); ?>
+
+		<!-- Services Process Cards -->
 		<?php get_template_part('template-parts/widgets/widget-services'); ?>
+
+		<!-- Prayagraj Facility Showcase -->
 		<?php get_template_part('template-parts/widgets/widget-chyawanprash'); ?>
 	<?php endif; ?>
 
