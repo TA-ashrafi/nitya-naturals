@@ -1,6 +1,6 @@
 /**
  * Nitya Naturals Theme - Main JavaScript
- * Split Navigation Header + Sticky Shrink Effect
+ * Split Navigation Header + Parallax Hero + Mobile Accordion
  */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -29,11 +29,25 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  // ============================================
+  // 2. PARALLAX HERO BACKGROUND SCROLL EFFECT
+  // ============================================
+  const heroBgOverlay = document.querySelector('.hero-bg-overlay');
+
+  function handleHeroParallax() {
+    if (!heroBgOverlay) return;
+    const scrollY = window.scrollY || window.pageYOffset;
+    if (scrollY < 800) {
+      heroBgOverlay.style.transform = `scale(1.05) translateY(${scrollY * 0.25}px)`;
+    }
+  }
+
   let ticking = false;
   window.addEventListener('scroll', function () {
     if (!ticking) {
       window.requestAnimationFrame(function () {
         handleStickyHeader();
+        handleHeroParallax();
         ticking = false;
       });
       ticking = true;
@@ -41,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   handleStickyHeader();
+  handleHeroParallax();
 
   window.addEventListener('resize', function () {
     if (header && header.classList.contains('is-sticky')) {
@@ -49,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // ============================================
-  // 2. MOBILE MENU TOGGLE & ACCORDION
+  // 3. MOBILE MENU TOGGLE & ACCORDION
   // ============================================
   const menuToggle = document.querySelector('.mobile-menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu-wrapper');
@@ -94,17 +109,14 @@ document.addEventListener('DOMContentLoaded', function () {
       mobileOverlay.addEventListener('click', closeMobileMenu);
     }
 
-    // Keyboard navigation: Close menu on Escape key
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && mobileMenu.classList.contains('is-active')) {
         closeMobileMenu();
       }
     });
 
-    // Mobile Submenu Accordion Handler
     const mobileDropdownItems = mobileMenu.querySelectorAll('li.menu-item-has-children');
     mobileDropdownItems.forEach(function (item) {
-      const parentWrapper = item.querySelector('.mobile-parent-wrapper');
       const btn = item.querySelector('.submenu-toggle-btn');
 
       function toggleSubmenu(e) {
@@ -114,7 +126,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         const isCurrentlyOpen = item.classList.contains('is-open');
 
-        // Close sibling open dropdowns
         mobileDropdownItems.forEach(function(otherItem) {
           if (otherItem !== item) {
             otherItem.classList.remove('is-open');
@@ -133,7 +144,6 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
 
-    // Close menu when clicking any navigation link inside mobile menu
     const mobileNavLinks = mobileMenu.querySelectorAll('a');
     mobileNavLinks.forEach(function (navLink) {
       navLink.addEventListener('click', function () {
@@ -141,7 +151,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
 
-    // Close on resize to desktop
     window.addEventListener('resize', function () {
       if (window.innerWidth > 991 && mobileMenu.classList.contains('is-active')) {
         closeMobileMenu();
@@ -150,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ============================================
-  // 3. BACK TO TOP BUTTON
+  // 4. BACK TO TOP BUTTON
   // ============================================
   const backToTop = document.querySelector('.back-to-top');
   if (backToTop) {
@@ -170,56 +179,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   }
-
-  // ============================================
-  // 4. GENERIC IMAGE CAROUSEL / SLIDER
-  // ============================================
-  const carousels = document.querySelectorAll('.carousel-container');
-  carousels.forEach(function (carousel) {
-    const slides = carousel.querySelector('.carousel-slides');
-    const slideItems = carousel.querySelectorAll('.carousel-slide');
-    const prevBtn = carousel.querySelector('.carousel-prev');
-    const nextBtn = carousel.querySelector('.carousel-next');
-
-    if (!slides || slideItems.length === 0) return;
-
-    let currentIndex = 0;
-    const totalSlides = slideItems.length;
-
-    function updateCarousel() {
-      slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener('click', function () {
-        currentIndex = (currentIndex + 1) % totalSlides;
-        updateCarousel();
-      });
-    }
-
-    if (prevBtn) {
-      prevBtn.addEventListener('click', function () {
-        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-        updateCarousel();
-      });
-    }
-
-    let autoSlide = setInterval(function () {
-      currentIndex = (currentIndex + 1) % totalSlides;
-      updateCarousel();
-    }, 5000);
-
-    carousel.addEventListener('mouseenter', function () {
-      clearInterval(autoSlide);
-    });
-
-    carousel.addEventListener('mouseleave', function () {
-      autoSlide = setInterval(function () {
-        currentIndex = (currentIndex + 1) % totalSlides;
-        updateCarousel();
-      }, 5000);
-    });
-  });
 
   // ============================================
   // 5. LIVE PRODUCT SEARCH FILTER
