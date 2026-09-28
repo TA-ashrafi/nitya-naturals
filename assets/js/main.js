@@ -1,6 +1,6 @@
 /**
  * Nitya Naturals Theme - Main JavaScript
- * Split Navigation Header + Parallax Hero + Mobile Accordion
+ * Split Navigation Header + Sticky Shrink Effect + Mobile Navigation Accordion
  */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -29,25 +29,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // ============================================
-  // 2. PARALLAX HERO BACKGROUND SCROLL EFFECT
-  // ============================================
-  const heroBgOverlay = document.querySelector('.hero-bg-overlay');
-
-  function handleHeroParallax() {
-    if (!heroBgOverlay) return;
-    const scrollY = window.scrollY || window.pageYOffset;
-    if (scrollY < 800) {
-      heroBgOverlay.style.transform = `scale(1.05) translateY(${scrollY * 0.25}px)`;
-    }
-  }
-
   let ticking = false;
   window.addEventListener('scroll', function () {
     if (!ticking) {
       window.requestAnimationFrame(function () {
         handleStickyHeader();
-        handleHeroParallax();
         ticking = false;
       });
       ticking = true;
@@ -55,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   handleStickyHeader();
-  handleHeroParallax();
 
   window.addEventListener('resize', function () {
     if (header && header.classList.contains('is-sticky')) {
@@ -64,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // ============================================
-  // 3. MOBILE MENU TOGGLE & ACCORDION
+  // 2. MOBILE MENU TOGGLE & ACCORDION
   // ============================================
   const menuToggle = document.querySelector('.mobile-menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu-wrapper');
@@ -159,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ============================================
-  // 4. BACK TO TOP BUTTON
+  // 3. BACK TO TOP BUTTON
   // ============================================
   const backToTop = document.querySelector('.back-to-top');
   if (backToTop) {
@@ -181,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ============================================
-  // 5. LIVE PRODUCT SEARCH FILTER
+  // 4. LIVE PRODUCT SEARCH FILTER
   // ============================================
   const productSearch = document.getElementById('productSearch');
   const productTable = document.getElementById('productTable');
