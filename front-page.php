@@ -16,9 +16,9 @@ get_header();
 		<?php get_template_part('template-parts/widgets/widget-home-about'); ?>
 		<?php get_template_part('template-parts/widgets/widget-capabilities'); ?>
 		<?php get_template_part('template-parts/widgets/widget-product-range'); ?>
-		<?php get_template_part('template-parts/widgets/widget-one-stop'); ?>
 		<?php get_template_part('template-parts/widgets/widget-services'); ?>
 		<?php get_template_part('template-parts/widgets/widget-chyawanprash'); ?>
+		<?php get_template_part('template-parts/widgets/widget-one-stop'); ?>
 	<?php endif; ?>
 
 	<!-- ============ CONTACT ============ -->

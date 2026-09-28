@@ -49,16 +49,19 @@ document.addEventListener('DOMContentLoaded', function () {
   var burger = document.getElementById("burger");
   var panel = document.getElementById("mobilePanel");
   if (burger && panel) {
-    burger.addEventListener("click", function () {
+    burger.addEventListener("click", function (e) {
+      e.preventDefault();
       var open = panel.classList.toggle("is-open");
       burger.classList.toggle("is-open", open);
       burger.setAttribute("aria-expanded", open ? "true" : "false");
+      document.body.classList.toggle("mobile-menu-open", open);
     });
     panel.addEventListener("click", function (e) {
-      if (e.target.tagName === "A") {
+      if (e.target.tagName === "A" || e.target.closest("a")) {
         panel.classList.remove("is-open");
         burger.classList.remove("is-open");
         burger.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("mobile-menu-open");
       }
     });
   }
