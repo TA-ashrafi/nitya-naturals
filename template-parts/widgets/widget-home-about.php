@@ -1,17 +1,62 @@
 <?php
 /**
- * Widget Template: Home About Summary
+ * Widget Template: Home About Summary + Dedicated Trust & Statistics Bar
  */
-$title = isset($args['title']) ? $args['title'] : get_theme_mod('nitya_home_about_title', __('ABOUT US', 'nitya-naturals'));
-$text  = isset($args['text']) ? $args['text'] : get_theme_mod('nitya_home_about_text', __('Nitya Naturals Private Limited is a private labeling and contract manufacturing company as well as the export division of Baidyanath Ayurveda Naini. Nitya Naturals is backed by the pioneers of Ayurveda since 1917 and headed by the President of Baidyanath (Mr. Dhananjay Sharma). Our GMP certified facility is equipped with modern machinery and the staff is trained for compliance of CGMP enforced by US FDA covering 21CFR211, 21CFR 210, 21CFR 820, ICH Q7 & ISO 9001:2008. Nitya Naturals has been manufacturing Herbal Dietary Supplements for brand owners for the last 15 years. We have made it easier for brand owners by providing them one-stop-solution for the manufacturing needs so that they can concentrate on marketing, provide products on time, within budget and faster than the competition.', 'nitya-naturals'));
+$theme_uri = get_template_directory_uri();
+$title = isset($args['title']) ? $args['title'] : get_theme_mod('nitya_home_about_title', __('ABOUT NITYA NATURALS', 'nitya-naturals'));
+$text  = isset($args['text']) ? $args['text'] : get_theme_mod('nitya_home_about_text', __('Nitya Naturals Private Limited is the export division and contract manufacturing wing of Baidyanath Ayurveda Naini. Backed by over a century of Ayurvedic excellence since 1917, we deliver comprehensive herbal product solutions for brand owners globally.', 'nitya-naturals'));
 ?>
-<section class="section nitya-widget-about-summary">
+
+<!-- DEDICATED TRUST & STATISTICS BAR -->
+<div class="trust-stats-bar">
+	<div class="container trust-stats-grid">
+		<div class="trust-stat-card">
+			<div class="stat-number">100+</div>
+			<div class="stat-title">Years of Heritage</div>
+			<div class="stat-desc">Legacy of Baidyanath Pioneers</div>
+		</div>
+		<div class="trust-stat-card">
+			<div class="stat-number">15+</div>
+			<div class="stat-title">Years Exporting Globally</div>
+			<div class="stat-desc">Supplying Worldwide Brands</div>
+		</div>
+		<div class="trust-stat-card">
+			<div class="stat-number">cGMP</div>
+			<div class="stat-title">US FDA Compliant Facility</div>
+			<div class="stat-desc">21 CFR 210/211 Certified</div>
+		</div>
+		<div class="trust-stat-card">
+			<div class="stat-number">100%</div>
+			<div class="stat-title">Natural Formulations</div>
+			<div class="stat-desc">Pure Organic Botanical Ingredients</div>
+		</div>
+	</div>
+</div>
+
+<section id="about-section" class="section nitya-widget-about-summary">
 	<div class="container">
-		<?php if ($title) : ?><h1 class="section-title"><?php echo esc_html($title); ?></h1><?php endif; ?>
-		<?php if ($text) : ?>
-		<p style="text-align: center; max-width: 950px; margin: 0 auto 20px;">
-			<?php echo esc_html($text); ?>
-		</p>
-		<?php endif; ?>
+		<div class="about-grid-wrapper">
+			<div class="about-text-col">
+				<span class="sub-heading-badge"><i class="fa-solid fa-shield-halved"></i> TRUSTED SINCE 1917</span>
+				<h2 class="about-section-heading"><?php echo esc_html($title); ?></h2>
+
+				<p class="about-lead-paragraph">
+					<?php echo esc_html($text); ?>
+				</p>
+				<p class="about-body-paragraph">
+					Our cGMP certified manufacturing facility is equipped with state-of-the-art machinery and trained staff ensuring full compliance with US FDA CGMP (21 CFR 210/211) standards. We empower supplement brand owners with turnkey private labeling so you can expand your product catalog rapidly and confidently.
+				</p>
+
+				<a href="<?php echo esc_url(home_url('/about-us/')); ?>" class="btn-read-more-link">
+					Learn More About Our Legacy <i class="fa-solid fa-arrow-right"></i>
+				</a>
+			</div>
+
+			<div class="about-media-col">
+				<div class="about-graphic-card">
+					<img src="<?php echo esc_url($theme_uri . '/assets/images/Nitya-Naturals-Brand-Book01-1.pdf-1-1536x768.jpg'); ?>" alt="<?php esc_attr_e('Nitya Naturals Facility & Heritage', 'nitya-naturals'); ?>" class="about-graphic-img">
+				</div>
+			</div>
+		</div>
 	</div>
 </section>
