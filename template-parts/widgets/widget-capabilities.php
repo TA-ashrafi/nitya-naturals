@@ -2,17 +2,17 @@
 /**
  * Widget Template: Capabilities Cards (Dosage Form, Existing Products, NPD)
  */
-$dosage_title = isset($args['dosage_title']) ? $args['dosage_title'] : get_theme_mod('nitya_home_dosage_title', 'VERSATILE DOSAGE FORMS');
-$dosage_desc  = isset($args['dosage_desc']) ? $args['dosage_desc'] : get_theme_mod('nitya_home_dosage_desc', 'State-of-the-art production across diverse delivery formats catered to consumer preferences:');
-$dosage_items_raw = isset($args['dosage_items']) ? $args['dosage_items'] : get_theme_mod('nitya_home_dosage_items', "Capsules\nTablets\nSyrups & Liquids\nHerbal Oils\nCreams & Ointments\nTraditional Pastes");
+$dosage_title = isset($args['dosage_title']) ? $args['dosage_title'] : get_theme_mod('nitya_home_dosage_title', 'DOSAGE FORM');
+$dosage_desc  = isset($args['dosage_desc']) ? $args['dosage_desc'] : get_theme_mod('nitya_home_dosage_desc', 'Nitya Naturals can produce a variety of nutraceutical product forms that meet the needs of your target market and end consumer:');
+$dosage_items_raw = isset($args['dosage_items']) ? $args['dosage_items'] : get_theme_mod('nitya_home_dosage_items', "Capsules\nTablets\nSyrups\nOils\nCreams\nPastes");
 
-$existing_title = isset($args['existing_title']) ? $args['existing_title'] : get_theme_mod('nitya_home_existing_title', 'READY-TO-MARKET CATEGORIES');
-$existing_desc  = isset($args['existing_desc']) ? $args['existing_desc'] : get_theme_mod('nitya_home_existing_desc', 'Choose from over 50+ pre-formulated, lab-tested Ayurvedic wellness categories:');
-$existing_items_raw = isset($args['existing_items']) ? $args['existing_items'] : get_theme_mod('nitya_home_existing_items', "Immunity & Vitality\nDiabetes & Metabolism\nJoint & Ortho Care\nSkin & Hair Health\nKidney & Liver Support\nCardiac & Circulation");
+$existing_title = isset($args['existing_title']) ? $args['existing_title'] : get_theme_mod('nitya_home_existing_title', 'EXISTING PRODUCTS');
+$existing_desc  = isset($args['existing_desc']) ? $args['existing_desc'] : get_theme_mod('nitya_home_existing_desc', 'Choose from our pre-formulated stock product categories including:');
+$existing_items_raw = isset($args['existing_items']) ? $args['existing_items'] : get_theme_mod('nitya_home_existing_items', "Allergy\nCholesterol\nDiabetes\nImmunity\nKidney Care\nWeight Management");
 
-$npd_title = isset($args['npd_title']) ? $args['npd_title'] : get_theme_mod('nitya_home_npd_title', 'CUSTOM PRODUCT DEVELOPMENT');
-$npd_desc  = isset($args['npd_desc']) ? $args['npd_desc'] : get_theme_mod('nitya_home_npd_desc', 'Collaborate with our R&D specialists to create proprietary, market-ready formulas:');
-$npd_items_raw = isset($args['npd_items']) ? $args['npd_items'] : get_theme_mod('nitya_home_npd_items', "Custom Herbal Formulations\nStandardized Botanical Extracts\nBioavailability Enhancement\nPackaging & Label Design\nRegulatory Compliance Guidance");
+$npd_title = isset($args['npd_title']) ? $args['npd_title'] : get_theme_mod('nitya_home_npd_title', 'NEW PRODUCT DEVELOPMENT');
+$npd_desc  = isset($args['npd_desc']) ? $args['npd_desc'] : get_theme_mod('nitya_home_npd_desc', 'With the knowledge and expertise of our team, we help you custom create any product according to your requirements:');
+$npd_items_raw = isset($args['npd_items']) ? $args['npd_items'] : get_theme_mod('nitya_home_npd_items', "New Product Name\nIntended Composition\nProduct Functions\nProduct Position\nDosage Form & MOQ");
 
 $dosage_items = is_array($dosage_items_raw) ? $dosage_items_raw : array_filter(array_map('trim', explode("\n", $dosage_items_raw)));
 $existing_items = is_array($existing_items_raw) ? $existing_items_raw : array_filter(array_map('trim', explode("\n", $existing_items_raw)));
@@ -20,74 +20,45 @@ $npd_items = is_array($npd_items_raw) ? $npd_items_raw : array_filter(array_map(
 ?>
 <section class="section nitya-widget-capabilities">
 	<div class="container">
-		<div class="section-center-head">
-			<span class="sub-heading-pill"><i class="fa-solid fa-gears"></i> MANUFACTURING CAPABILITIES</span>
-			<h2 class="section-heading-center">Comprehensive Production Expertise</h2>
-			<p class="section-lead-desc">Whether expanding your current supplement line or launching a custom herbal innovation, Nitya Naturals provides full-spectrum manufacturing capabilities.</p>
-		</div>
-
-		<div class="capabilities-modern-grid">
-			<!-- CARD 1 -->
-			<div class="capability-modern-card">
-				<div class="card-head-row">
-					<div class="card-icon-box"><i class="fa-solid fa-capsules"></i></div>
-					<span class="step-num-tag">01</span>
-				</div>
+		<div class="feature-grid">
+			<div class="feature-card">
+				<div class="feature-icon"><i class="fa-solid fa-capsules"></i></div>
 				<h3><?php echo esc_html($dosage_title); ?></h3>
-				<p class="card-lead"><?php echo esc_html($dosage_desc); ?></p>
+				<p><?php echo esc_html($dosage_desc); ?></p>
 				<?php if (!empty($dosage_items)) : ?>
-					<div class="pill-badge-cloud">
+					<ul style="text-align: left; padding-left: 20px; list-style: disc; margin-top: 10px;">
 						<?php foreach ($dosage_items as $item) : ?>
-							<span class="badge-pill"><i class="fa-solid fa-check"></i> <?php echo esc_html($item); ?></span>
+							<li><?php echo esc_html($item); ?></li>
 						<?php endforeach; ?>
-					</div>
+					</ul>
 				<?php endif; ?>
 			</div>
 
-			<!-- CARD 2 -->
-			<div class="capability-modern-card featured-card">
-				<div class="card-head-row">
-					<div class="card-icon-box"><i class="fa-solid fa-leaf"></i></div>
-					<span class="step-num-tag">02</span>
-				</div>
+			<div class="feature-card">
+				<div class="feature-icon"><i class="fa-solid fa-leaf"></i></div>
 				<h3><?php echo esc_html($existing_title); ?></h3>
-				<p class="card-lead"><?php echo esc_html($existing_desc); ?></p>
+				<p><?php echo esc_html($existing_desc); ?></p>
 				<?php if (!empty($existing_items)) : ?>
-					<div class="pill-badge-cloud">
+					<ul style="text-align: left; padding-left: 20px; list-style: disc; margin-top: 10px;">
 						<?php foreach ($existing_items as $item) : ?>
-							<a href="<?php echo esc_url(home_url('/best-manufacturer-of-ayurved-medicines/')); ?>" class="badge-pill link-pill">
-								<i class="fa-solid fa-tag"></i> <?php echo esc_html($item); ?>
-							</a>
+							<li><a href="<?php echo esc_url(home_url('/best-manufacturer-of-ayurved-medicines/')); ?>"><?php echo esc_html($item); ?></a></li>
 						<?php endforeach; ?>
-					</div>
+					</ul>
 				<?php endif; ?>
-				<div class="card-footer-action">
-					<a href="<?php echo esc_url(home_url('/best-manufacturer-of-ayurved-medicines/')); ?>" class="btn-card-action">
-						Browse All Categories <i class="fa-solid fa-arrow-right"></i>
-					</a>
-				</div>
 			</div>
 
-			<!-- CARD 3 -->
-			<div class="capability-modern-card">
-				<div class="card-head-row">
-					<div class="card-icon-box"><i class="fa-solid fa-flask"></i></div>
-					<span class="step-num-tag">03</span>
-				</div>
+			<div class="feature-card">
+				<div class="feature-icon"><i class="fa-solid fa-flask"></i></div>
 				<h3><?php echo esc_html($npd_title); ?></h3>
-				<p class="card-lead"><?php echo esc_html($npd_desc); ?></p>
+				<p><?php echo esc_html($npd_desc); ?></p>
 				<?php if (!empty($npd_items)) : ?>
-					<div class="pill-badge-cloud">
+					<ul style="text-align: left; padding-left: 20px; list-style: disc; margin-top: 10px;">
 						<?php foreach ($npd_items as $item) : ?>
-							<span class="badge-pill"><i class="fa-solid fa-vial"></i> <?php echo esc_html($item); ?></span>
+							<li><?php echo esc_html($item); ?></li>
 						<?php endforeach; ?>
-					</div>
+					</ul>
 				<?php endif; ?>
-				<div class="card-footer-action">
-					<a href="<?php echo esc_url(home_url('/how-to-register-ayurvedic-medicine-in-india/')); ?>" class="btn-card-action">
-						Submit R&D Request <i class="fa-solid fa-arrow-right"></i>
-					</a>
-				</div>
+				<p style="margin-top: 15px;"><a href="<?php echo esc_url(home_url('/how-to-register-ayurvedic-medicine-in-india/')); ?>" class="btn-submit" style="padding: 8px 18px; font-size: 13px;"><?php esc_html_e('Fill Development Form', 'nitya-naturals'); ?></a></p>
 			</div>
 		</div>
 	</div>

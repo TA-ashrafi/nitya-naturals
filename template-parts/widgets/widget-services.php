@@ -1,61 +1,39 @@
 <?php
 /**
- * Widget Template: Our Services Section (4-Step Timeline Workflow)
+ * Widget Template: Our Services Section
  */
-$title = isset($args['title']) ? $args['title'] : get_theme_mod('nitya_home_services_title', 'OUR END-TO-END SERVICES');
-$desc  = isset($args['desc']) ? $args['desc'] : get_theme_mod('nitya_home_services_desc', 'A structured, transparent 4-step workflow to bring your herbal product vision to market efficiently.');
+$title = isset($args['title']) ? $args['title'] : get_theme_mod('nitya_home_services_title', 'OUR SERVICES');
+$desc  = isset($args['desc']) ? $args['desc'] : get_theme_mod('nitya_home_services_desc', 'Our team assists you with a step-by-step process to give you and your brand a stress-free and reliable method for fulfilling all your manufacturing and private labeling requirements.');
 ?>
 <section class="section nitya-widget-services">
 	<div class="container">
-		<div class="section-center-head">
-			<span class="sub-heading-pill"><i class="fa-solid fa-diagram-project"></i> STREAMLINED PROCESS</span>
-			<h2 class="section-heading-center"><?php echo esc_html($title); ?></h2>
-			<p class="section-lead-desc"><?php echo esc_html($desc); ?></p>
-		</div>
+		<?php if ($title) : ?><h2 class="section-title"><?php echo esc_html($title); ?></h2><?php endif; ?>
+		<?php if ($desc) : ?>
+		<p style="text-align: center; max-width: 800px; margin: 0 auto 30px;">
+			<?php echo esc_html($desc); ?>
+		</p>
+		<?php endif; ?>
 
-		<div class="services-workflow-grid">
-			<!-- STEP 1 -->
-			<div class="workflow-step-card">
-				<span class="workflow-step-number">01</span>
-				<div class="workflow-icon-box">
-					<i class="fa-regular fa-calendar-check"></i>
-				</div>
-				<h3><a href="<?php echo esc_url(home_url('/herbal-manufacturer/')); ?>"><?php esc_html_e('Planning & Formulation', 'nitya-naturals'); ?></a></h3>
-				<p><?php esc_html_e('Select from stock formulations or collaborate with our R&D team on custom botanical ingredients.', 'nitya-naturals'); ?></p>
-				<a href="<?php echo esc_url(home_url('/herbal-manufacturer/')); ?>" class="workflow-action-link"><?php esc_html_e('Learn More', 'nitya-naturals'); ?> <i class="fa-solid fa-chevron-right"></i></a>
+		<div class="feature-grid">
+			<div class="feature-card">
+				<div class="feature-icon"><i class="fa-regular fa-calendar-check"></i></div>
+				<h3><a href="<?php echo esc_url(home_url('/herbal-manufacturer/')); ?>"><?php esc_html_e('Planning & Selection', 'nitya-naturals'); ?></a></h3>
+				<p><?php esc_html_e('Select existing formulas or collaborate on custom formulations suited to your market.', 'nitya-naturals'); ?></p>
 			</div>
-
-			<!-- STEP 2 -->
-			<div class="workflow-step-card">
-				<span class="workflow-step-number">02</span>
-				<div class="workflow-icon-box">
-					<i class="fa-solid fa-gears"></i>
-				</div>
-				<h3><a href="<?php echo esc_url(home_url('/third-party-manufacturing/')); ?>"><?php esc_html_e('cGMP Manufacturing', 'nitya-naturals'); ?></a></h3>
-				<p><?php esc_html_e('High-precision manufacturing across tablets, capsules, syrups, oils, and traditional pastes.', 'nitya-naturals'); ?></p>
-				<a href="<?php echo esc_url(home_url('/third-party-manufacturing/')); ?>" class="workflow-action-link"><?php esc_html_e('Learn More', 'nitya-naturals'); ?> <i class="fa-solid fa-chevron-right"></i></a>
+			<div class="feature-card">
+				<div class="feature-icon"><i class="fa-solid fa-gears"></i></div>
+				<h3><a href="<?php echo esc_url(home_url('/third-party-manufacturing/')); ?>"><?php esc_html_e('Manufacturing', 'nitya-naturals'); ?></a></h3>
+				<p><?php esc_html_e('State-of-the-art cGMP production across tablets, capsules, liquids, and pastes.', 'nitya-naturals'); ?></p>
 			</div>
-
-			<!-- STEP 3 -->
-			<div class="workflow-step-card">
-				<span class="workflow-step-number">03</span>
-				<div class="workflow-icon-box">
-					<i class="fa-solid fa-box-open"></i>
-				</div>
+			<div class="feature-card">
+				<div class="feature-icon"><i class="fa-solid fa-box-open"></i></div>
 				<h3><a href="<?php echo esc_url(home_url('/private-label/')); ?>"><?php esc_html_e('Packaging & Labeling', 'nitya-naturals'); ?></a></h3>
-				<p><?php esc_html_e('Custom food-grade containers, compliant label design, barcode creation, and safety seals.', 'nitya-naturals'); ?></p>
-				<a href="<?php echo esc_url(home_url('/private-label/')); ?>" class="workflow-action-link"><?php esc_html_e('Learn More', 'nitya-naturals'); ?> <i class="fa-solid fa-chevron-right"></i></a>
+				<p><?php esc_html_e('Full design and compliance labeling support in food-grade containers.', 'nitya-naturals'); ?></p>
 			</div>
-
-			<!-- STEP 4 -->
-			<div class="workflow-step-card">
-				<span class="workflow-step-number">04</span>
-				<div class="workflow-icon-box">
-					<i class="fa-solid fa-truck-fast"></i>
-				</div>
-				<h3><a href="<?php echo esc_url(home_url('/export-medicine/')); ?>"><?php esc_html_e('Global Fulfillment', 'nitya-naturals'); ?></a></h3>
-				<p><?php esc_html_e('International export documentation, customs clearance, and worldwide freight dispatch.', 'nitya-naturals'); ?></p>
-				<a href="<?php echo esc_url(home_url('/export-medicine/')); ?>" class="workflow-action-link"><?php esc_html_e('Learn More', 'nitya-naturals'); ?> <i class="fa-solid fa-chevron-right"></i></a>
+			<div class="feature-card">
+				<div class="feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
+				<h3><a href="<?php echo esc_url(home_url('/export-medicine/')); ?>"><?php esc_html_e('Fulfillment & Transport', 'nitya-naturals'); ?></a></h3>
+				<p><?php esc_html_e('Seamless logistics and export delivery across international markets.', 'nitya-naturals'); ?></p>
 			</div>
 		</div>
 	</div>
