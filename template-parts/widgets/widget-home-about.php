@@ -2,20 +2,23 @@
 /**
  * Widget Template: Home About Section
  */
+$title = get_theme_mod('nitya_about_title', __('The export division of Baidyanath Ayurveda Naini.', 'nitya-naturals'));
+$quote = get_theme_mod('nitya_about_quote', __('“Backed by the pioneers of Ayurveda since 1917.”', 'nitya-naturals'));
+$lead  = get_theme_mod('nitya_about_lead', __('Nitya Naturals Private Limited is a private labeling and contract manufacturing company, and the export division of Baidyanath Ayurveda Naini. For the last fifteen years we have manufactured herbal dietary supplements for brand owners across the world.', 'nitya-naturals'));
 ?>
 <section class="section" id="about">
   <div class="wrap cols">
     <div class="sticky-h" data-reveal>
       <div class="eyebrow-rule"><span class="kicker"><?php esc_html_e('About Us', 'nitya-naturals'); ?></span></div>
-      <h2 class="h2"><?php esc_html_e('The export division of', 'nitya-naturals'); ?> <em><?php esc_html_e('Baidyanath Ayurveda Naini.', 'nitya-naturals'); ?></em></h2>
+      <h2 class="h2"><?php echo wp_kses_post($title); ?></h2>
       <div class="quote-line">
-        <p>“<?php esc_html_e('Backed by the pioneers of Ayurveda since 1917.', 'nitya-naturals'); ?>”</p>
+        <p><?php echo esc_html($quote); ?></p>
         <span><?php esc_html_e('Headed by Mr. Dhananjay Sharma, President — Baidyanath', 'nitya-naturals'); ?></span>
       </div>
     </div>
 
     <div data-reveal>
-      <p class="lead"><?php esc_html_e('Nitya Naturals Private Limited is a private labeling and contract manufacturing company, and the export division of Baidyanath Ayurveda Naini. For the last fifteen years we have manufactured herbal dietary supplements for brand owners across the world.', 'nitya-naturals'); ?></p>
+      <p class="lead"><?php echo esc_html($lead); ?></p>
       <div style="margin-top:34px">
         <div class="fact">
           <span class="fact-i">01</span>
