@@ -7,8 +7,27 @@ $mockup_img = isset($args['mockup_img']) ? $args['mockup_img'] : get_theme_mod('
 if ($mockup_img) :
 ?>
 <section class="section section-bg-light nitya-widget-mockup">
-	<div class="container" style="text-align: center;">
-		<img src="<?php echo esc_url($mockup_img); ?>" alt="<?php esc_attr_e('Nitya Naturals Oils & Liquids', 'nitya-naturals'); ?>" style="margin: 0 auto; max-width: 750px; border-radius: 8px;">
+	<div class="container">
+		<div class="mockup-showcase-card">
+			<div class="mockup-media-col">
+				<img src="<?php echo esc_url($mockup_img); ?>" alt="<?php esc_attr_e('Premium Packaging & Private Label Mockups - Nitya Naturals', 'nitya-naturals'); ?>" class="mockup-img">
+			</div>
+			<div class="mockup-content-col">
+				<span class="sub-heading-tag"><i class="fa-solid fa-box-open"></i> CUSTOM PACKAGING & LABELING</span>
+				<h2>Custom Brand Packaging & Label Design</h2>
+				<p>Stand out in international markets with premium food-grade containers, dropper bottles, blister packs, amber glass jars, and custom label design complying with global regulatory guidelines.</p>
+
+				<ul class="mockup-features-list">
+					<li><i class="fa-solid fa-check"></i> Custom Bottle & Container Sizing</li>
+					<li><i class="fa-solid fa-check"></i> Multi-language Regulatory Compliance Labeling</li>
+					<li><i class="fa-solid fa-check"></i> Tamper-evident Safety Seals & Eco-Friendly Boxes</li>
+				</ul>
+
+				<a href="<?php echo esc_url(home_url('/private-label/')); ?>" class="btn-read-more">
+					Explore Packaging Options <i class="fa-solid fa-arrow-right"></i>
+				</a>
+			</div>
+		</div>
 	</div>
 </section>
 <?php endif; ?>
