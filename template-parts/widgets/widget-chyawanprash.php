@@ -17,7 +17,7 @@ $img   = isset($args['img']) ? $args['img'] : get_theme_mod('nitya_home_chyawanp
 		<?php endif; ?>
 		<?php if ($img) : ?>
 		<div style="text-align: center; margin-top: 30px;">
-			<img src="<?php echo esc_url($img); ?>" alt="<?php esc_attr_e('Chyawanprash Facility', 'nitya-naturals'); ?>" style="margin: 0 auto; max-width: 850px; border-radius: 8px;">
+			<img src="<?php echo esc_url($img); ?>" alt="<?php esc_attr_e('Chyawanprash Facility', 'nitya-naturals'); ?>" style="margin: 0 auto; max-width: 100%; height: auto; border-radius: 8px;">
 		</div>
 		<?php endif; ?>
 	</div>

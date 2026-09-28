@@ -49,55 +49,102 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // ============================================
-  // 2. MOBILE MENU TOGGLE
+  // 2. MOBILE MENU TOGGLE & ACCORDION
   // ============================================
   const menuToggle = document.querySelector('.mobile-menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu-wrapper');
+  const mobileOverlay = document.getElementById('mobile-menu-overlay');
+  const mobileCloseBtn = document.getElementById('mobile-menu-close');
+
+  function openMobileMenu() {
+    if (!mobileMenu) return;
+    mobileMenu.classList.add('is-active');
+    if (mobileOverlay) mobileOverlay.classList.add('is-active');
+    if (menuToggle) menuToggle.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('mobile-menu-open');
+  }
+
+  function closeMobileMenu() {
+    if (!mobileMenu) return;
+    mobileMenu.classList.remove('is-active');
+    if (mobileOverlay) mobileOverlay.classList.remove('is-active');
+    if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('mobile-menu-open');
+  }
 
   if (menuToggle && mobileMenu) {
     menuToggle.addEventListener('click', function (e) {
       e.preventDefault();
-      const isActive = mobileMenu.classList.toggle('is-active');
-      menuToggle.setAttribute('aria-expanded', isActive);
-
-      if (isActive) {
-        menuToggle.innerHTML = '<i class="fa-solid fa-times"></i>';
+      e.stopPropagation();
+      if (mobileMenu.classList.contains('is-active')) {
+        closeMobileMenu();
       } else {
-        menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        openMobileMenu();
       }
     });
 
-    // Mobile Submenu Accordion
+    if (mobileCloseBtn) {
+      mobileCloseBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        closeMobileMenu();
+      });
+    }
+
+    if (mobileOverlay) {
+      mobileOverlay.addEventListener('click', closeMobileMenu);
+    }
+
+    // Keyboard navigation: Close menu on Escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('is-active')) {
+        closeMobileMenu();
+      }
+    });
+
+    // Mobile Submenu Accordion Handler
     const mobileDropdownItems = mobileMenu.querySelectorAll('li.menu-item-has-children');
     mobileDropdownItems.forEach(function (item) {
-      const link = item.querySelector('a');
-      if (link) {
-        link.addEventListener('click', function (e) {
-          if (window.innerWidth <= 991 && item.querySelector('.sub-menu')) {
-            e.preventDefault();
-            item.classList.toggle('is-open');
+      const parentWrapper = item.querySelector('.mobile-parent-wrapper');
+      const btn = item.querySelector('.submenu-toggle-btn');
+
+      function toggleSubmenu(e) {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        const isCurrentlyOpen = item.classList.contains('is-open');
+
+        // Close sibling open dropdowns
+        mobileDropdownItems.forEach(function(otherItem) {
+          if (otherItem !== item) {
+            otherItem.classList.remove('is-open');
           }
         });
+
+        if (!isCurrentlyOpen) {
+          item.classList.add('is-open');
+        } else {
+          item.classList.remove('is-open');
+        }
+      }
+
+      if (btn) {
+        btn.addEventListener('click', toggleSubmenu);
       }
     });
 
-    // Close on outside click
-    document.addEventListener('click', function (e) {
-      if (!mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-        if (mobileMenu.classList.contains('is-active')) {
-          mobileMenu.classList.remove('is-active');
-          menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
-          menuToggle.setAttribute('aria-expanded', 'false');
-        }
-      }
+    // Close menu when clicking any navigation link inside mobile menu
+    const mobileNavLinks = mobileMenu.querySelectorAll('a');
+    mobileNavLinks.forEach(function (navLink) {
+      navLink.addEventListener('click', function () {
+        closeMobileMenu();
+      });
     });
 
     // Close on resize to desktop
     window.addEventListener('resize', function () {
       if (window.innerWidth > 991 && mobileMenu.classList.contains('is-active')) {
-        mobileMenu.classList.remove('is-active');
-        menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
-        menuToggle.setAttribute('aria-expanded', 'false');
+        closeMobileMenu();
       }
     });
   }

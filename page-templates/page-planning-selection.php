@@ -18,7 +18,7 @@ $theme_uri = get_template_directory_uri();
 	<section class="section">
 		<div class="container">
 			<div style="text-align: center; margin-bottom: 35px;">
-				<img src="<?php echo esc_url($theme_uri . '/assets/images/What-Makes-it-Special.png'); ?>" alt="Planning & Selection Banner" style="margin: 0 auto; max-width: 850px; border-radius: 8px;">
+				<img src="<?php echo esc_url($theme_uri . '/assets/images/What-Makes-it-Special.png'); ?>" alt="Planning & Selection Banner" style="margin: 0 auto; max-width: 100%; height: auto; border-radius: 8px;">
 			</div>
 
 			<div style="max-width: 900px; margin: 0 auto;">
