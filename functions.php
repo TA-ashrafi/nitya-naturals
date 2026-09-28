@@ -144,8 +144,8 @@ function nitya_naturals_save_product_gallery($post_id) {
 add_action('save_post_product', 'nitya_naturals_save_product_gallery');
 
 function nitya_naturals_scripts() {
-    // Fonts
-    wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Mulish:wght@300;400;600;700&display=swap', array(), null);
+    // Fonts - Cormorant Garamond & Karla
+    wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..600&family=Karla:ital,wght@0,300..800;1,300..600&display=swap', array(), null);
     // Font Awesome / Icons
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css', array(), '6.4.0');
     // Main stylesheet
