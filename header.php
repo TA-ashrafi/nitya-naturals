@@ -53,7 +53,7 @@ $wa_num     = get_theme_mod('nitya_whatsapp', '917524098888');
 
 	      <!-- Products Dropdown -->
 	      <div class="nav-item dropdown">
-	        <a href="<?php echo esc_url(home_url('/ayurvedic-medicine-manufacturer/')); ?>" class="dropdown-toggle"><?php esc_html_e('Products', 'nitya-naturals'); ?> <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></a>
+	        <a href="javascript:void(0)" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"><?php esc_html_e('Products', 'nitya-naturals'); ?> <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></a>
 	        <div class="dropdown-menu">
 	          <a href="<?php echo esc_url(home_url('/ayurvedic-medicine-manufacturer/')); ?>"><?php esc_html_e('Product Range', 'nitya-naturals'); ?></a>
 	          <a href="<?php echo esc_url(home_url('/best-manufacturer-of-ayurved-medicines/')); ?>"><?php esc_html_e('Product Categories', 'nitya-naturals'); ?></a>
@@ -63,7 +63,7 @@ $wa_num     = get_theme_mod('nitya_whatsapp', '917524098888');
 
 	      <!-- Services Dropdown -->
 	      <div class="nav-item dropdown">
-	        <a href="<?php echo esc_url(home_url('/third-party-manufacturing/')); ?>" class="dropdown-toggle"><?php esc_html_e('Services', 'nitya-naturals'); ?> <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></a>
+	        <a href="javascript:void(0)" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"><?php esc_html_e('Services', 'nitya-naturals'); ?> <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></a>
 	        <div class="dropdown-menu">
 	          <a href="<?php echo esc_url(home_url('/herbal-manufacturer/')); ?>"><?php esc_html_e('Planning & Selection', 'nitya-naturals'); ?></a>
 	          <a href="<?php echo esc_url(home_url('/third-party-manufacturing/')); ?>"><?php esc_html_e('Manufacturing', 'nitya-naturals'); ?></a>

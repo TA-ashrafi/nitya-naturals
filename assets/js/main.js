@@ -15,6 +15,36 @@ document.addEventListener('DOMContentLoaded', function () {
     onScroll();
   }
 
+  /* Header Dropdown click toggle functionality */
+  var dropdowns = document.querySelectorAll('.nav-item.dropdown');
+  dropdowns.forEach(function (dropdown) {
+    var toggle = dropdown.querySelector('.dropdown-toggle');
+    if (toggle) {
+      toggle.addEventListener('click', function (e) {
+        // Toggle dropdown open class
+        var isOpen = dropdown.classList.contains('is-open');
+        // Close other dropdowns
+        dropdowns.forEach(function (other) {
+          if (other !== dropdown) other.classList.remove('is-open');
+        });
+        if (isOpen) {
+          dropdown.classList.remove('is-open');
+        } else {
+          dropdown.classList.add('is-open');
+        }
+      });
+    }
+  });
+
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.nav-item.dropdown')) {
+      dropdowns.forEach(function (dropdown) {
+        dropdown.classList.remove('is-open');
+      });
+    }
+  });
+
   /* Mobile burger menu panel toggle */
   var burger = document.getElementById("burger");
   var panel = document.getElementById("mobilePanel");

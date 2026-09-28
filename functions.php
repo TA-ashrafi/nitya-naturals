@@ -144,14 +144,16 @@ function nitya_naturals_save_product_gallery($post_id) {
 add_action('save_post_product', 'nitya_naturals_save_product_gallery');
 
 function nitya_naturals_scripts() {
+    $ver = file_exists(get_template_directory() . '/style.css') ? filemtime(get_template_directory() . '/style.css') : '1.0.4';
     // Fonts - Cormorant Garamond & Karla
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..600&family=Karla:ital,wght@0,300..800;1,300..600&display=swap', array(), null);
     // Font Awesome / Icons
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css', array(), '6.4.0');
     // Main stylesheet
-    wp_enqueue_style('nitya-style', get_stylesheet_uri(), array(), '1.0.3');
+    wp_enqueue_style('nitya-style', get_stylesheet_uri(), array(), $ver);
     // Main JS
-    wp_enqueue_script('nitya-main', get_template_directory_uri() . '/assets/js/main.js', array(), '1.0.3', true);
+    $js_ver = file_exists(get_template_directory() . '/assets/js/main.js') ? filemtime(get_template_directory() . '/assets/js/main.js') : '1.0.4';
+    wp_enqueue_script('nitya-main', get_template_directory_uri() . '/assets/js/main.js', array(), $js_ver, true);
 }
 add_action('wp_enqueue_scripts', 'nitya_naturals_scripts');
 
@@ -456,11 +458,18 @@ function nitya_naturals_customize_register($wp_customize) {
     $wp_customize->add_setting('nitya_address', array('default' => '1, Mirzapur Rd, Naini, Allahabad, Uttar Pradesh', 'sanitize_callback' => 'sanitize_textarea_field'));
     $wp_customize->add_control('nitya_address', array('label' => __('Company Address', 'nitya-naturals'), 'section' => 'nitya_contact_info', 'type' => 'textarea'));
 
-    // Footer Copyright Text
+    // Footer Copyright Text and Footer Logo
     $wp_customize->add_section('nitya_footer_section', array(
         'title'    => __('Footer Options', 'nitya-naturals'),
         'priority' => 35,
     ));
+
+    $wp_customize->add_setting('nitya_footer_logo', array('default' => '', 'sanitize_callback' => 'esc_url_raw'));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'nitya_footer_logo', array(
+        'label'    => __('Custom Footer Logo', 'nitya-naturals'),
+        'section'  => 'nitya_footer_section',
+        'settings' => 'nitya_footer_logo',
+    )));
 
     $wp_customize->add_setting('nitya_copyright_text', array('default' => '© Copyright 2026 | All Rights Reserved | Nitya Naturals', 'sanitize_callback' => 'sanitize_text_field'));
     $wp_customize->add_control('nitya_copyright_text', array('label' => __('Copyright Text', 'nitya-naturals'), 'section' => 'nitya_footer_section', 'type' => 'text'));
