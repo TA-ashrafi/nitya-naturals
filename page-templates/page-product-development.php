@@ -7,119 +7,105 @@ get_header();
 ?>
 
 <main id="primary" class="site-main">
-	<div class="page-header-banner">
-		<div class="container">
-			<h1><?php esc_html_e('Product Development Form', 'nitya-naturals'); ?></h1>
-			<p><?php esc_html_e('How to register ayurvedic medicine in India - Custom Formulation Form', 'nitya-naturals'); ?></p>
-		</div>
-	</div>
+  <div class="page-header-banner">
+    <div class="wrap">
+      <div class="eyebrow-rule"><span class="kicker kicker--gold"><?php esc_html_e('Custom Formulation', 'nitya-naturals'); ?></span></div>
+      <h1><?php esc_html_e('New Product Development', 'nitya-naturals'); ?></h1>
+      <p class="lead" style="color: var(--cream-deep); max-width: 60ch;"><?php esc_html_e('Custom formulation, regulatory guidance, and end-to-end manufacturing for your Ayurvedic product line.', 'nitya-naturals'); ?></p>
+    </div>
+  </div>
 
-	<section class="section">
-		<div class="container">
-			<p style="text-align: center; max-width: 850px; margin: 0 auto 30px;">
-				<?php esc_html_e('With the knowledge and expertise of our team, we can help you custom create any product according to your needs and guide you on how to register ayurvedic medicine in India and abroad. In order to get started, please fill out the form below:', 'nitya-naturals'); ?>
-			</p>
+  <section class="section">
+    <div class="wrap">
+      <div class="panel" style="margin-bottom: 50px;">
+        <div class="panel-grid">
+          <div>
+            <span class="kicker kicker--gold"><?php esc_html_e('Custom Formulation & Guidance', 'nitya-naturals'); ?></span>
+            <h2 class="h2" style="margin-top: 18px; color: var(--cream);"><?php esc_html_e('Tell us what you want to launch.', 'nitya-naturals'); ?></h2>
+            <p class="lead" style="margin-top: 18px; color: rgba(245,240,228,.78);"><?php esc_html_e('With the knowledge and expertise of our team, we help you custom-create any product according to your requirements. Send your brief and we will reply with feasibility, cost, and timeline.', 'nitya-naturals'); ?></p>
 
-			<form class="custom-form" method="post" action="">
-				<div class="form-group">
-					<label for="first-name"><?php esc_html_e('Name *', 'nitya-naturals'); ?></label>
-					<input type="text" id="first-name" name="first-name" class="form-control" required>
-				</div>
+            <ul class="steps">
+              <li><b>01</b> <?php esc_html_e('New product name & concept', 'nitya-naturals'); ?></li>
+              <li><b>02</b> <?php esc_html_e('Intended composition & active herbs', 'nitya-naturals'); ?></li>
+              <li><b>03</b> <?php esc_html_e('Product functions & target ailment', 'nitya-naturals'); ?></li>
+              <li><b>04</b> <?php esc_html_e('Target audience & positioning', 'nitya-naturals'); ?></li>
+              <li><b>05</b> <?php esc_html_e('Preferred dosage form & MOQ', 'nitya-naturals'); ?></li>
+            </ul>
+          </div>
 
-				<div class="form-group">
-					<label for="email-address"><?php esc_html_e('Email Address *', 'nitya-naturals'); ?></label>
-					<input type="email" id="email-address" name="email-361" class="form-control" required>
-				</div>
+          <div>
+            <form id="rfqForm" novalidate>
+              <div class="field-row">
+                <div class="field">
+                  <label for="pname"><?php esc_html_e('New Product Name *', 'nitya-naturals'); ?></label>
+                  <input id="pname" name="pname" placeholder="<?php esc_attr_e('e.g. Amla Immunity Gummies', 'nitya-naturals'); ?>" required />
+                  <span class="err"><?php esc_html_e('Please enter a product name.', 'nitya-naturals'); ?></span>
+                </div>
+                <div class="field">
+                  <label for="company"><?php esc_html_e('Company / Brand *', 'nitya-naturals'); ?></label>
+                  <input id="company" name="company" placeholder="<?php esc_attr_e('Brand or company name', 'nitya-naturals'); ?>" required />
+                  <span class="err"><?php esc_html_e('Please enter your company name.', 'nitya-naturals'); ?></span>
+                </div>
+              </div>
 
-				<h3 style="margin-top: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; color: var(--primary-color);"><?php esc_html_e('Product Name', 'nitya-naturals'); ?></h3>
+              <div class="field-row">
+                <div class="field">
+                  <label for="email"><?php esc_html_e('Email Address *', 'nitya-naturals'); ?></label>
+                  <input id="email" name="email" type="email" placeholder="<?php esc_attr_e('you@company.com', 'nitya-naturals'); ?>" required />
+                  <span class="err"><?php esc_html_e('Please enter a valid email address.', 'nitya-naturals'); ?></span>
+                </div>
+                <div class="field">
+                  <label for="phone"><?php esc_html_e('WhatsApp / Phone *', 'nitya-naturals'); ?></label>
+                  <input id="phone" name="phone" placeholder="<?php esc_attr_e('+91 75240 98888', 'nitya-naturals'); ?>" required />
+                  <span class="err"><?php esc_html_e('Please enter a contact number.', 'nitya-naturals'); ?></span>
+                </div>
+              </div>
 
-				<div class="form-group">
-					<label for="product-new"><?php esc_html_e('New Product Name', 'nitya-naturals'); ?></label>
-					<input type="text" id="product-new" name="product-new" class="form-control">
-				</div>
+              <div class="field">
+                <label for="composition"><?php esc_html_e('Intended Composition & Actives', 'nitya-naturals'); ?></label>
+                <textarea id="composition" name="composition" placeholder="<?php esc_attr_e('List herbs, actives, strengths, or ingredients to avoid', 'nitya-naturals'); ?>"></textarea>
+              </div>
 
-				<div class="form-group">
-					<label for="product-composition"><?php esc_html_e('Intended Composition', 'nitya-naturals'); ?></label>
-					<input type="text" id="product-composition" name="product-composition" class="form-control" placeholder="<?php esc_attr_e('Separate Ingredients with Comma', 'nitya-naturals'); ?>">
-				</div>
+              <div class="field-row">
+                <div class="field">
+                  <label for="form"><?php esc_html_e('Dosage Form', 'nitya-naturals'); ?></label>
+                  <select id="form" name="form">
+                    <option><?php esc_html_e('Capsules', 'nitya-naturals'); ?></option>
+                    <option><?php esc_html_e('Tablets', 'nitya-naturals'); ?></option>
+                    <option><?php esc_html_e('Syrups', 'nitya-naturals'); ?></option>
+                    <option><?php esc_html_e('Oils', 'nitya-naturals'); ?></option>
+                    <option><?php esc_html_e('Creams', 'nitya-naturals'); ?></option>
+                    <option><?php esc_html_e('Pastes / Chyawanprash', 'nitya-naturals'); ?></option>
+                    <option><?php esc_html_e('Not sure yet', 'nitya-naturals'); ?></option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="moq"><?php esc_html_e('Target MOQ / Volume *', 'nitya-naturals'); ?></label>
+                  <input id="moq" name="moq" placeholder="<?php esc_attr_e('e.g. 5,000 units per month', 'nitya-naturals'); ?>" required />
+                  <span class="err"><?php esc_html_e('Please enter target volume.', 'nitya-naturals'); ?></span>
+                </div>
+              </div>
 
-				<div class="form-group">
-					<label for="product-ingredient"><?php esc_html_e('Ingredients to be avoided', 'nitya-naturals'); ?></label>
-					<input type="text" id="product-ingredient" name="product-ingredient" class="form-control">
-				</div>
+              <div class="field">
+                <label for="brief"><?php esc_html_e('Product Functions, Purpose & Registrations', 'nitya-naturals'); ?></label>
+                <textarea id="brief" name="brief" placeholder="<?php esc_attr_e('Describe intended users, target age, ailment/function, and registration notes', 'nitya-naturals'); ?>"></textarea>
+              </div>
 
-				<div class="form-group">
-					<label for="product-quality"><?php esc_html_e('Appropriate Quality Standards', 'nitya-naturals'); ?></label>
-					<input type="text" id="product-quality" name="product-quality" class="form-control" placeholder="<?php esc_attr_e('(List with Specification and Units)', 'nitya-naturals'); ?>">
-				</div>
+              <button class="btn btn--gold" type="submit"><?php esc_html_e('Send Development Brief', 'nitya-naturals'); ?>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+              <p class="form-note"><?php esc_html_e('Submitting opens WhatsApp with your brief pre-filled. You can also email us at', 'nitya-naturals'); ?> <a href="mailto:<?php echo esc_attr(get_theme_mod('nitya_email_alt', 'ald.nitya@gmail.com')); ?>" style="color:var(--gold)"><?php echo esc_html(get_theme_mod('nitya_email_alt', 'ald.nitya@gmail.com')); ?></a>.</p>
+            </form>
 
-				<h3 style="margin-top: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; color: var(--primary-color);"><?php esc_html_e('Product Function', 'nitya-naturals'); ?></h3>
-
-				<div class="form-group">
-					<label for="product-purpose"><?php esc_html_e('Purpose', 'nitya-naturals'); ?></label>
-					<input type="text" id="product-purpose" name="product-Purpose" class="form-control">
-				</div>
-
-				<div class="form-group">
-					<label for="product-ailment"><?php esc_html_e('Proposed Product Action / Ailment', 'nitya-naturals'); ?></label>
-					<input type="text" id="product-ailment" name="product-Ailment" class="form-control">
-				</div>
-
-				<div class="form-group">
-					<label for="product-strength"><?php esc_html_e('Strength', 'nitya-naturals'); ?></label>
-					<input type="text" id="product-strength" name="product-Strength" class="form-control">
-				</div>
-
-				<h3 style="margin-top: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; color: var(--primary-color);"><?php esc_html_e('Product Position', 'nitya-naturals'); ?></h3>
-
-				<div class="form-group">
-					<label for="intended-user"><?php esc_html_e('Intended User', 'nitya-naturals'); ?></label>
-					<input type="text" id="intended-user" name="intended-User" class="form-control">
-				</div>
-
-				<div class="form-group">
-					<label for="product-age"><?php esc_html_e('Target Age', 'nitya-naturals'); ?></label>
-					<input type="text" id="product-age" name="product-Age" class="form-control">
-				</div>
-
-				<div class="form-group">
-					<label for="product-sex"><?php esc_html_e('Sex', 'nitya-naturals'); ?></label>
-					<select id="product-sex" name="menu-761" class="form-control">
-						<option value="Male"><?php esc_html_e('Male', 'nitya-naturals'); ?></option>
-						<option value="Female"><?php esc_html_e('Female', 'nitya-naturals'); ?></option>
-						<option value="Both" selected><?php esc_html_e('Both', 'nitya-naturals'); ?></option>
-					</select>
-				</div>
-
-				<div class="form-group">
-					<label><?php esc_html_e('Dosage Form', 'nitya-naturals'); ?></label>
-					<div class="checkbox-group">
-						<label class="checkbox-item"><input type="checkbox" name="dosage-form[]" value="Syrup"> Syrup</label>
-						<label class="checkbox-item"><input type="checkbox" name="dosage-form[]" value="Oil"> Oil</label>
-						<label class="checkbox-item"><input type="checkbox" name="dosage-form[]" value="Capsule"> Capsule</label>
-						<label class="checkbox-item"><input type="checkbox" name="dosage-form[]" value="Tablet"> Tablet</label>
-						<label class="checkbox-item"><input type="checkbox" name="dosage-form[]" value="Cream"> Cream</label>
-					</div>
-				</div>
-
-				<h3 style="margin-top: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; color: var(--primary-color);"><?php esc_html_e('Additional Information', 'nitya-naturals'); ?></h3>
-
-				<div class="form-group">
-					<label for="product-moq"><?php esc_html_e('Target Minimum Order Quantity (MOQ)', 'nitya-naturals'); ?></label>
-					<input type="text" id="product-moq" name="product-MOQ" class="form-control">
-				</div>
-
-				<div class="form-group">
-					<label for="registrations"><?php esc_html_e('Registrations Requirement Notes', 'nitya-naturals'); ?></label>
-					<input type="text" id="registrations" name="Registrations" class="form-control" placeholder="<?php esc_attr_e('(Registrations in India for new product takes a minimum of 100 days)', 'nitya-naturals'); ?>">
-				</div>
-
-				<div style="text-align: center; margin-top: 25px;">
-					<button type="submit" class="btn-submit"><?php esc_html_e('Submit Requirement', 'nitya-naturals'); ?></button>
-				</div>
-			</form>
-		</div>
-	</section>
+            <div class="form-success" id="formSuccess" role="status">
+              <h4><?php esc_html_e('Brief Ready to Send!', 'nitya-naturals'); ?></h4>
+              <p><?php esc_html_e('WhatsApp has opened with your pre-filled brief. If not,', 'nitya-naturals'); ?> <a id="waFallback" href="#"><?php esc_html_e('click here to send via WhatsApp', 'nitya-naturals'); ?></a> <?php esc_html_e('or email us directly.', 'nitya-naturals'); ?></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <?php

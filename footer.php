@@ -4,14 +4,22 @@
 	    <div class="foot-grid">
 	      <div>
 	        <div class="foot-brand">
-	          <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
-	            <circle cx="24" cy="24" r="22.5" stroke="#C9A227" stroke-width="1.2"/>
-	            <path d="M24 37c0-9 5-15 12-17-1 10-6 15-12 17Z" fill="#6B8F71"/>
-	            <path d="M24 37c0-9-5-15-12-17 1 10 6 15 12 17Z" fill="#2A5747"/>
-	            <path d="M24 37V19" stroke="#F5F0E4" stroke-width="1.4" stroke-linecap="round"/>
-	            <circle cx="24" cy="14" r="3.4" fill="#C9A227"/>
-	          </svg>
-	          <span><span class="brand-name">NITYA</span><span class="brand-sub">Naturals</span></span>
+	          <?php
+	          $footer_logo = get_theme_mod('nitya_footer_logo');
+	          if ($footer_logo) : ?>
+	            <img src="<?php echo esc_url($footer_logo); ?>" alt="Nitya Naturals" style="max-height: 48px; width: auto;" />
+	          <?php elseif (has_custom_logo()) : ?>
+	            <?php the_custom_logo(); ?>
+	          <?php else : ?>
+	            <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+	              <circle cx="24" cy="24" r="22.5" stroke="#C9A227" stroke-width="1.2"/>
+	              <path d="M24 37c0-9 5-15 12-17-1 10-6 15-12 17Z" fill="#6B8F71"/>
+	              <path d="M24 37c0-9-5-15-12-17 1 10 6 15 12 17Z" fill="#2A5747"/>
+	              <path d="M24 37V19" stroke="#F5F0E4" stroke-width="1.4" stroke-linecap="round"/>
+	              <circle cx="24" cy="14" r="3.4" fill="#C9A227"/>
+	            </svg>
+	            <span><span class="brand-name">NITYA</span><span class="brand-sub">Naturals</span></span>
+	          <?php endif; ?>
 	        </div>
 	        <p><?php esc_html_e('Nitya Naturals Private Limited is a Private Labeling and Contract Manufacturing company as well as the export division of Baidyanath Ayurveda Naini.', 'nitya-naturals'); ?></p>
 	      </div>
