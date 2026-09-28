@@ -80,7 +80,9 @@
 					<?php
 					$mobile_logo = get_template_directory_uri() . '/assets/images/Nitya-Naturals_FINAL-WhiteLogo.png';
 					?>
-					<img src="<?php echo esc_url($mobile_logo); ?>" alt="<?php bloginfo('name'); ?>" class="mobile-logo-img">
+					<a href="<?php echo esc_url(home_url('/')); ?>">
+						<img src="<?php echo esc_url($mobile_logo); ?>" alt="<?php bloginfo('name'); ?>" class="mobile-logo-img">
+					</a>
 				</div>
 				<button class="mobile-menu-close" id="mobile-menu-close" aria-label="<?php esc_attr_e('Close Menu', 'nitya-naturals'); ?>">
 					<i class="fa-solid fa-xmark"></i>
@@ -92,7 +94,7 @@
 					<li><a href="<?php echo esc_url(home_url('/about-us/')); ?>"><?php esc_html_e('ABOUT US', 'nitya-naturals'); ?></a></li>
 					<li class="menu-item-has-children">
 						<div class="mobile-parent-wrapper">
-							<a href="<?php echo esc_url(home_url('/ayurvedic-medicine-manufacturer/')); ?>"><?php esc_html_e('PRODUCTS', 'nitya-naturals'); ?></a>
+							<a href="javascript:void(0);" class="parent-link"><?php esc_html_e('PRODUCTS', 'nitya-naturals'); ?></a>
 							<button type="button" class="submenu-toggle-btn" aria-label="<?php esc_attr_e('Toggle Submenu', 'nitya-naturals'); ?>">
 								<i class="fa-solid fa-chevron-down"></i>
 							</button>
@@ -105,7 +107,7 @@
 					</li>
 					<li class="menu-item-has-children">
 						<div class="mobile-parent-wrapper">
-							<a href="<?php echo esc_url(home_url('/herbal-manufacturer/')); ?>"><?php esc_html_e('SERVICES', 'nitya-naturals'); ?></a>
+							<a href="javascript:void(0);" class="parent-link"><?php esc_html_e('SERVICES', 'nitya-naturals'); ?></a>
 							<button type="button" class="submenu-toggle-btn" aria-label="<?php esc_attr_e('Toggle Submenu', 'nitya-naturals'); ?>">
 								<i class="fa-solid fa-chevron-down"></i>
 							</button>

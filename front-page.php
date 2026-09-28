@@ -19,6 +19,7 @@ get_header();
 		<?php get_template_part('template-parts/widgets/widget-mockup-banner'); ?>
 		<?php get_template_part('template-parts/widgets/widget-services'); ?>
 		<?php get_template_part('template-parts/widgets/widget-chyawanprash'); ?>
+		<?php get_template_part('template-parts/widgets/widget-npd-form'); ?>
 	<?php endif; ?>
 
 	<!-- Book Factory Visit Callout -->
