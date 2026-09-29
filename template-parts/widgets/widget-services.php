@@ -3,7 +3,7 @@
  * Widget Template: Our Services Section
  */
 $title = isset($args['title']) ? $args['title'] : get_theme_mod('nitya_home_services_title', 'OUR SERVICES');
-$desc  = isset($args['desc']) ? $args['desc'] : get_theme_mod('nitya_home_services_desc', 'Our team assists you with a step-by-step process to give you and your brand a stress-free and reliable method for fulfilling all your manufacturing and private labeling requirements.');
+$desc  = isset($args['desc']) ? $args['desc'] : get_theme_mod('nitya_home_services_desc', 'Our team assists you with a step by step process to give you and your brand a stress free and reliable method for fulfilling all your requirements for manufacturing and private labeling. These steps are as follows:');
 ?>
 <section class="section nitya-widget-services">
 	<div class="container">

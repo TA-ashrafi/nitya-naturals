@@ -105,7 +105,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const mobileDropdownItems = mobileMenu.querySelectorAll('li.menu-item-has-children');
     mobileDropdownItems.forEach(function (item) {
       const parentWrapper = item.querySelector('.mobile-parent-wrapper');
-      const btn = item.querySelector('.submenu-toggle-btn');
 
       function toggleSubmenu(e) {
         if (e) {
@@ -128,13 +127,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }
 
-      if (btn) {
-        btn.addEventListener('click', toggleSubmenu);
+      if (parentWrapper) {
+        parentWrapper.addEventListener('click', toggleSubmenu);
       }
     });
 
-    // Close menu when clicking any navigation link inside mobile menu
-    const mobileNavLinks = mobileMenu.querySelectorAll('a');
+    // Close menu when clicking any actual navigation link (excluding parent accordion toggles)
+    const mobileNavLinks = mobileMenu.querySelectorAll('a:not(.parent-link)');
     mobileNavLinks.forEach(function (navLink) {
       navLink.addEventListener('click', function () {
         closeMobileMenu();
@@ -222,7 +221,40 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // ============================================
-  // 5. LIVE PRODUCT SEARCH FILTER
+  // 5. NPD BRIEF FORM WHATSAPP SUBMISSION
+  // ============================================
+  const npdForm = document.getElementById('npdBriefForm');
+  if (npdForm) {
+    npdForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const whatsappNum = npdForm.getAttribute('data-whatsapp') || '917524098888';
+      const productName = document.getElementById('npd_product_name') ? document.getElementById('npd_product_name').value.trim() : '';
+      const company = document.getElementById('npd_company') ? document.getElementById('npd_company').value.trim() : '';
+      const email = document.getElementById('npd_email') ? document.getElementById('npd_email').value.trim() : '';
+      const phone = document.getElementById('npd_phone') ? document.getElementById('npd_phone').value.trim() : '';
+      const composition = document.getElementById('npd_composition') ? document.getElementById('npd_composition').value.trim() : '';
+      const dosage = document.getElementById('npd_dosage') ? document.getElementById('npd_dosage').value : '';
+      const targetMoq = document.getElementById('npd_target_moq') ? document.getElementById('npd_target_moq').value.trim() : '';
+      const functionsPosition = document.getElementById('npd_functions_position') ? document.getElementById('npd_functions_position').value.trim() : '';
+
+      let message = `*New Product Development Brief*\n\n`;
+      message += `*Product Name:* ${productName}\n`;
+      message += `*Company:* ${company}\n`;
+      message += `*Email:* ${email}\n`;
+      message += `*WhatsApp/Phone:* ${phone}\n`;
+      if (dosage) message += `*Dosage Form:* ${dosage}\n`;
+      if (targetMoq) message += `*Target MOQ / Volume:* ${targetMoq}\n`;
+      if (composition) message += `\n*Intended Composition:*\n${composition}\n`;
+      if (functionsPosition) message += `\n*Product Functions & Position:*\n${functionsPosition}\n`;
+
+      const whatsappUrl = `https://wa.me/${whatsappNum}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    });
+  }
+
+  // ============================================
+  // 6. LIVE PRODUCT SEARCH FILTER
   // ============================================
   const productSearch = document.getElementById('productSearch');
   const productTable = document.getElementById('productTable');

@@ -3,15 +3,15 @@
  * Widget Template: Capabilities Cards (Dosage Form, Existing Products, NPD)
  */
 $dosage_title = isset($args['dosage_title']) ? $args['dosage_title'] : get_theme_mod('nitya_home_dosage_title', 'DOSAGE FORM');
-$dosage_desc  = isset($args['dosage_desc']) ? $args['dosage_desc'] : get_theme_mod('nitya_home_dosage_desc', 'Nitya Naturals can produce a variety of nutraceutical product forms that meet the needs of your target market and end consumer:');
+$dosage_desc  = isset($args['dosage_desc']) ? $args['dosage_desc'] : get_theme_mod('nitya_home_dosage_desc', 'In order to get started we first need to know your requirements and how we can fulfil them. You can choose from a list of our existing products and dosage forms or we can help you custom create a product of your need.');
 $dosage_items_raw = isset($args['dosage_items']) ? $args['dosage_items'] : get_theme_mod('nitya_home_dosage_items', "Capsules\nTablets\nSyrups\nOils\nCreams\nPastes");
 
 $existing_title = isset($args['existing_title']) ? $args['existing_title'] : get_theme_mod('nitya_home_existing_title', 'EXISTING PRODUCTS');
-$existing_desc  = isset($args['existing_desc']) ? $args['existing_desc'] : get_theme_mod('nitya_home_existing_desc', 'Choose from our pre-formulated stock product categories including:');
+$existing_desc  = isset($args['existing_desc']) ? $args['existing_desc'] : get_theme_mod('nitya_home_existing_desc', 'Nitya Naturals offers pre-formulated products, and is constantly updating our stock formulation list. Choose from categories like');
 $existing_items_raw = isset($args['existing_items']) ? $args['existing_items'] : get_theme_mod('nitya_home_existing_items', "Allergy\nCholesterol\nDiabetes\nImmunity\nKidney Care\nWeight Management");
 
 $npd_title = isset($args['npd_title']) ? $args['npd_title'] : get_theme_mod('nitya_home_npd_title', 'NEW PRODUCT DEVELOPMENT');
-$npd_desc  = isset($args['npd_desc']) ? $args['npd_desc'] : get_theme_mod('nitya_home_npd_desc', 'With the knowledge and expertise of our team, we help you custom create any product according to your requirements:');
+$npd_desc  = isset($args['npd_desc']) ? $args['npd_desc'] : get_theme_mod('nitya_home_npd_desc', 'With the knowledge and expertise of our team we can help you custom create any product according to your needs. Just fill out the form below:');
 $npd_items_raw = isset($args['npd_items']) ? $args['npd_items'] : get_theme_mod('nitya_home_npd_items', "New Product Name\nIntended Composition\nProduct Functions\nProduct Position\nDosage Form & MOQ");
 
 $dosage_items = is_array($dosage_items_raw) ? $dosage_items_raw : array_filter(array_map('trim', explode("\n", $dosage_items_raw)));

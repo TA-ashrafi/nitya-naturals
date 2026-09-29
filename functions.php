@@ -63,7 +63,6 @@ function nitya_naturals_register_product_cpt() {
 
     register_post_type('product', $args);
 
-    // Register Product Category Taxonomy
     $cat_labels = array(
         'name'              => _x('Product Categories', 'taxonomy general name', 'nitya-naturals'),
         'singular_name'     => _x('Product Category', 'taxonomy singular name', 'nitya-naturals'),
@@ -143,21 +142,30 @@ function nitya_naturals_save_product_gallery($post_id) {
 }
 add_action('save_post_product', 'nitya_naturals_save_product_gallery');
 
+/**
+ * Enqueue Theme Styles and Scripts
+ * NOTE: CSS version uses filemtime() so cache busts automatically on every save.
+ */
 function nitya_naturals_scripts() {
+    $style_path = get_stylesheet_directory() . '/style.css';
+    $style_ver  = file_exists($style_path) ? filemtime($style_path) : '1.0.3';
+
     // Fonts
-    wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Mulish:wght@300;400;600;700&display=swap', array(), null);
+    wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Mulish:wght@300;400;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap', array(), null);
+
     // Font Awesome / Icons
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css', array(), '6.4.0');
-    // Main stylesheet
-    wp_enqueue_style('nitya-style', get_stylesheet_uri(), array(), '1.0.3');
+
+    // Main stylesheet (auto cache-bust)
+    wp_enqueue_style('nitya-style', get_stylesheet_uri(), array(), $style_ver);
+
     // Main JS
-    wp_enqueue_script('nitya-main', get_template_directory_uri() . '/assets/js/main.js', array(), '1.0.3', true);
+    wp_enqueue_script('nitya-main', get_template_directory_uri() . '/assets/js/main.js', array(), $style_ver, true);
 }
 add_action('wp_enqueue_scripts', 'nitya_naturals_scripts');
 
 /**
  * Auto-create Pages on Theme Activation
- * (Menu auto-create hata diya kyunki ab navigation hardcoded hai)
  */
 function nitya_naturals_auto_setup_pages() {
     $pages = array(
@@ -196,13 +204,11 @@ function nitya_naturals_auto_setup_pages() {
         $page_ids[$data['slug']] = $page_id;
     }
 
-    // Set static front page
     if (isset($page_ids['home'])) {
         update_option('show_on_front', 'page');
         update_option('page_on_front', $page_ids['home']);
     }
 
-    // Auto Create Product Categories and Sample Products
     $all_cats = array(
         'Allergy', 'Antacid', 'Anti-Viral', 'Blood Circulation', 'Blood Purifier',
         'Blood Thinner', 'Cardiac care', 'Cholesterol', 'Cyst', 'Diabetes',
@@ -233,7 +239,6 @@ function nitya_naturals_auto_setup_pages() {
         $term_id = is_array($term) ? $term['term_id'] : (is_object($term) ? $term->term_id : 0);
 
         if ($term_id && !is_wp_error($term_id)) {
-            // Check if products exist for this category
             $existing = new WP_Query(array(
                 'post_type'      => 'product',
                 'posts_per_page' => 1,
@@ -274,7 +279,6 @@ function nitya_naturals_auto_setup_pages() {
                     }
                 }
             } else {
-                // Fix double "Care Care" titles in existing products if present
                 $all_cat_prods = new WP_Query(array(
                     'post_type'      => 'product',
                     'posts_per_page' => -1,
@@ -305,14 +309,12 @@ function nitya_naturals_auto_setup_pages() {
         }
     }
 
-    // Clean up invalid/dummy widget IDs in sidebars_widgets if they don't have actual option settings
     $sidebars_widgets = get_option('sidebars_widgets');
     if (is_array($sidebars_widgets)) {
         foreach (array('home-widgets', 'about-widgets', 'categories-widgets', 'product-range-widgets') as $sb_id) {
             if (!empty($sidebars_widgets[$sb_id]) && is_array($sidebars_widgets[$sb_id])) {
                 $valid_widgets = array();
                 foreach ($sidebars_widgets[$sb_id] as $w_id) {
-                    // Extract widget base ID (e.g. nitya_home_banner_widget)
                     $parts = explode('-', $w_id);
                     array_pop($parts);
                     $base_id = implode('-', $parts);
@@ -346,7 +348,6 @@ add_action('admin_init', 'nitya_naturals_ensure_data_seeded');
  * Register Widget Areas
  */
 function nitya_naturals_widgets_init() {
-    // Home Page Widgets Sidebar
     register_sidebar(array(
         'name'          => __('Home Page Widget Area', 'nitya-naturals'),
         'id'            => 'home-widgets',
@@ -357,7 +358,6 @@ function nitya_naturals_widgets_init() {
         'after_title'   => '</h2>',
     ));
 
-    // About Us Page Widgets Sidebar
     register_sidebar(array(
         'name'          => __('About Us Page Widget Area', 'nitya-naturals'),
         'id'            => 'about-widgets',
@@ -368,9 +368,8 @@ function nitya_naturals_widgets_init() {
         'after_title'   => '</h2>',
     ));
 
-    // Product Categories Page Widgets Sidebar
     register_sidebar(array(
-        'name'          => __('Product Categories Widget Area', 'nitya-naturals'),
+        'name'          => __('Product Categories Page Widget Area', 'nitya-naturals'),
         'id'            => 'categories-widgets',
         'description'   => __('Add widgets here for the Product Categories page.', 'nitya-naturals'),
         'before_widget' => '<div id="%1$s" class="nitya-page-widget %2$s">',
@@ -379,7 +378,6 @@ function nitya_naturals_widgets_init() {
         'after_title'   => '</h2>',
     ));
 
-    // Product Range Page Widgets Sidebar
     register_sidebar(array(
         'name'          => __('Product Range Widget Area', 'nitya-naturals'),
         'id'            => 'product-range-widgets',
@@ -390,7 +388,6 @@ function nitya_naturals_widgets_init() {
         'after_title'   => '</h2>',
     ));
 
-    // General Sidebar Area
     register_sidebar(array(
         'name'          => __('Main Sidebar', 'nitya-naturals'),
         'id'            => 'sidebar-1',
@@ -435,13 +432,11 @@ add_action('widgets_init', 'nitya_naturals_widgets_init');
  * WordPress Customizer Settings
  */
 function nitya_naturals_customize_register($wp_customize) {
-    // Contact Info Section
     $wp_customize->add_section('nitya_contact_info', array(
         'title'    => __('Company Contact Details', 'nitya-naturals'),
         'priority' => 30,
     ));
 
-    // Phone
     $wp_customize->add_setting('nitya_phone', array(
         'default'           => '+91 75240 98888',
         'sanitize_callback' => 'sanitize_text_field',
@@ -452,9 +447,8 @@ function nitya_naturals_customize_register($wp_customize) {
         'type'    => 'text',
     ));
 
-    // WhatsApp Number
     $wp_customize->add_setting('nitya_whatsapp', array(
-        'default'           => '919935556123',
+        'default'           => '917524098888',
         'sanitize_callback' => 'sanitize_text_field',
     ));
     $wp_customize->add_control('nitya_whatsapp', array(
@@ -463,7 +457,6 @@ function nitya_naturals_customize_register($wp_customize) {
         'type'    => 'text',
     ));
 
-    // Email
     $wp_customize->add_setting('nitya_email', array(
         'default'           => 'exports@nityanaturals.com',
         'sanitize_callback' => 'sanitize_email',
@@ -474,7 +467,6 @@ function nitya_naturals_customize_register($wp_customize) {
         'type'    => 'email',
     ));
 
-    // Secondary Email
     $wp_customize->add_setting('nitya_email_alt', array(
         'default'           => 'ald.nitya@gmail.com',
         'sanitize_callback' => 'sanitize_email',
@@ -485,7 +477,6 @@ function nitya_naturals_customize_register($wp_customize) {
         'type'    => 'email',
     ));
 
-    // Address
     $wp_customize->add_setting('nitya_address', array(
         'default'           => '1, Mirzapur Rd, Naini, Allahabad, Uttar Pradesh',
         'sanitize_callback' => 'sanitize_textarea_field',
@@ -496,7 +487,6 @@ function nitya_naturals_customize_register($wp_customize) {
         'type'    => 'textarea',
     ));
 
-    // Social Links
     $wp_customize->add_setting('nitya_linkedin', array(
         'default'           => 'https://www.linkedin.com/company/nitya-naturals',
         'sanitize_callback' => 'esc_url_raw',
@@ -507,7 +497,17 @@ function nitya_naturals_customize_register($wp_customize) {
         'type'    => 'url',
     ));
 
-    // Footer Copyright Text
+    // Instagram
+    $wp_customize->add_setting('nitya_instagram', array(
+        'default'           => 'https://www.instagram.com/thirdpartymanufacturing?stkn=eXh6aHRrZGN0MDJk',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('nitya_instagram', array(
+        'label'   => __('Instagram URL', 'nitya-naturals'),
+        'section' => 'nitya_contact_info',
+        'type'    => 'url',
+    ));
+
     $wp_customize->add_section('nitya_footer_section', array(
         'title'    => __('Footer Options', 'nitya-naturals'),
         'priority' => 35,
@@ -523,14 +523,12 @@ function nitya_naturals_customize_register($wp_customize) {
         'type'    => 'text',
     ));
 
-    // Color & Hover Customization Section
     $wp_customize->add_section('nitya_colors_section', array(
         'title'    => __('Theme Colors & Hover Effects', 'nitya-naturals'),
         'priority' => 22,
         'description' => __('Customize primary, secondary, text, background, header, footer, and hover colors across the entire website.', 'nitya-naturals'),
     ));
 
-    // Primary Brand Color
     $wp_customize->add_setting('nitya_primary_color', array(
         'default'           => '#42512b',
         'sanitize_callback' => 'sanitize_hex_color',
@@ -540,7 +538,6 @@ function nitya_naturals_customize_register($wp_customize) {
         'section'  => 'nitya_colors_section',
     )));
 
-    // Secondary Brand Color
     $wp_customize->add_setting('nitya_secondary_color', array(
         'default'           => '#0e7d46',
         'sanitize_callback' => 'sanitize_hex_color',
@@ -550,7 +547,6 @@ function nitya_naturals_customize_register($wp_customize) {
         'section'  => 'nitya_colors_section',
     )));
 
-    // Accent Color
     $wp_customize->add_setting('nitya_accent_color', array(
         'default'           => '#40904c',
         'sanitize_callback' => 'sanitize_hex_color',
@@ -560,7 +556,6 @@ function nitya_naturals_customize_register($wp_customize) {
         'section'  => 'nitya_colors_section',
     )));
 
-    // Heading Text Color
     $wp_customize->add_setting('nitya_heading_color', array(
         'default'           => '#222222',
         'sanitize_callback' => 'sanitize_hex_color',
@@ -570,7 +565,6 @@ function nitya_naturals_customize_register($wp_customize) {
         'section'  => 'nitya_colors_section',
     )));
 
-    // Body Text Color
     $wp_customize->add_setting('nitya_body_color', array(
         'default'           => '#747474',
         'sanitize_callback' => 'sanitize_hex_color',
@@ -580,7 +574,6 @@ function nitya_naturals_customize_register($wp_customize) {
         'section'  => 'nitya_colors_section',
     )));
 
-    // Header Background Color
     $wp_customize->add_setting('nitya_header_bg_color', array(
         'default'           => '#ffffff',
         'sanitize_callback' => 'sanitize_hex_color',
@@ -590,7 +583,6 @@ function nitya_naturals_customize_register($wp_customize) {
         'section'  => 'nitya_colors_section',
     )));
 
-    // Footer Background Color
     $wp_customize->add_setting('nitya_footer_bg_color', array(
         'default'           => '#1c2419',
         'sanitize_callback' => 'sanitize_hex_color',
@@ -600,7 +592,6 @@ function nitya_naturals_customize_register($wp_customize) {
         'section'  => 'nitya_colors_section',
     )));
 
-    // Link & Hover Color
     $wp_customize->add_setting('nitya_hover_color', array(
         'default'           => '#42512b',
         'sanitize_callback' => 'sanitize_hex_color',
@@ -610,7 +601,6 @@ function nitya_naturals_customize_register($wp_customize) {
         'section'  => 'nitya_colors_section',
     )));
 
-    // Button Background Color
     $wp_customize->add_setting('nitya_button_bg_color', array(
         'default'           => '#0e7d46',
         'sanitize_callback' => 'sanitize_hex_color',
@@ -620,7 +610,6 @@ function nitya_naturals_customize_register($wp_customize) {
         'section'  => 'nitya_colors_section',
     )));
 
-    // Button Hover Background Color
     $wp_customize->add_setting('nitya_button_hover_bg_color', array(
         'default'           => '#42512b',
         'sanitize_callback' => 'sanitize_hex_color',
@@ -630,7 +619,6 @@ function nitya_naturals_customize_register($wp_customize) {
         'section'  => 'nitya_colors_section',
     )));
 
-    // Typography Settings Section
     $wp_customize->add_section('nitya_typography_section', array(
         'title'    => __('Typography & Font Sizes', 'nitya-naturals'),
         'priority' => 25,
@@ -660,15 +648,12 @@ function nitya_naturals_customize_register($wp_customize) {
         'input_attrs' => array('min' => 18, 'max' => 50, 'step' => 1),
     ));
 
-    // Panel for Page Customization
     $wp_customize->add_panel('nitya_pages_panel', array(
         'title'       => __('Page Content Customization', 'nitya-naturals'),
         'description' => __('Manage content and images for Home Page and About Us Page.', 'nitya-naturals'),
         'priority'    => 20,
     ));
 
-    // --- HOME PAGE SECTIONS ---
-    // Section: Home Page - Hero & Intro
     $wp_customize->add_section('nitya_home_hero_section', array(
         'title'    => __('Home: Hero & About Summary', 'nitya-naturals'),
         'panel'    => 'nitya_pages_panel',
@@ -703,7 +688,6 @@ function nitya_naturals_customize_register($wp_customize) {
         'type'    => 'textarea',
     ));
 
-    // Section: Home Page - Special / One Stop Shop
     $wp_customize->add_section('nitya_home_special_section', array(
         'title'    => __('Home: One Stop Shop Section', 'nitya-naturals'),
         'panel'    => 'nitya_pages_panel',
@@ -728,13 +712,11 @@ function nitya_naturals_customize_register($wp_customize) {
         'type'    => 'textarea',
     ));
 
-    // Section: Home Page - Capabilities (Dosage, Existing, NPD)
     $wp_customize->add_section('nitya_home_capabilities_section', array(
         'title'    => __('Home: Capabilities (Dosage, Products, NPD)', 'nitya-naturals'),
         'panel'    => 'nitya_pages_panel',
     ));
 
-    // Dosage Form
     $wp_customize->add_setting('nitya_home_dosage_title', array('default' => 'DOSAGE FORM', 'sanitize_callback' => 'sanitize_text_field'));
     $wp_customize->add_control('nitya_home_dosage_title', array('label' => __('Dosage Form Title', 'nitya-naturals'), 'section' => 'nitya_home_capabilities_section', 'type' => 'text'));
 
@@ -744,7 +726,6 @@ function nitya_naturals_customize_register($wp_customize) {
     $wp_customize->add_setting('nitya_home_dosage_items', array('default' => "Capsules\nTablets\nSyrups\nOils\nCreams\nPastes", 'sanitize_callback' => 'sanitize_textarea_field'));
     $wp_customize->add_control('nitya_home_dosage_items', array('label' => __('Dosage Form Items (One per line)', 'nitya-naturals'), 'section' => 'nitya_home_capabilities_section', 'type' => 'textarea'));
 
-    // Existing Products
     $wp_customize->add_setting('nitya_home_existing_title', array('default' => 'EXISTING PRODUCTS', 'sanitize_callback' => 'sanitize_text_field'));
     $wp_customize->add_control('nitya_home_existing_title', array('label' => __('Existing Products Title', 'nitya-naturals'), 'section' => 'nitya_home_capabilities_section', 'type' => 'text'));
 
@@ -754,7 +735,6 @@ function nitya_naturals_customize_register($wp_customize) {
     $wp_customize->add_setting('nitya_home_existing_items', array('default' => "Allergy\nCholesterol\nDiabetes\nImmunity\nKidney Care\nWeight Management", 'sanitize_callback' => 'sanitize_textarea_field'));
     $wp_customize->add_control('nitya_home_existing_items', array('label' => __('Existing Products Items (One per line)', 'nitya-naturals'), 'section' => 'nitya_home_capabilities_section', 'type' => 'textarea'));
 
-    // New Product Development
     $wp_customize->add_setting('nitya_home_npd_title', array('default' => 'NEW PRODUCT DEVELOPMENT', 'sanitize_callback' => 'sanitize_text_field'));
     $wp_customize->add_control('nitya_home_npd_title', array('label' => __('New Product Development Title', 'nitya-naturals'), 'section' => 'nitya_home_capabilities_section', 'type' => 'text'));
 
@@ -764,7 +744,6 @@ function nitya_naturals_customize_register($wp_customize) {
     $wp_customize->add_setting('nitya_home_npd_items', array('default' => "New Product Name\nIntended Composition\nProduct Functions\nProduct Position\nDosage Form & MOQ", 'sanitize_callback' => 'sanitize_textarea_field'));
     $wp_customize->add_control('nitya_home_npd_items', array('label' => __('NPD Items (One per line)', 'nitya-naturals'), 'section' => 'nitya_home_capabilities_section', 'type' => 'textarea'));
 
-    // Section: Home Page - Mockup Showcase & Chyawanprash
     $wp_customize->add_section('nitya_home_showcase_section', array(
         'title'    => __('Home: Showcase & Chyawanprash', 'nitya-naturals'),
         'panel'    => 'nitya_pages_panel',
@@ -806,7 +785,6 @@ function nitya_naturals_customize_register($wp_customize) {
     $wp_customize->add_setting('nitya_home_visit_text', array('default' => 'Contact us on WhatsApp @ +91 75240 98888 or email us at ald.nitya@gmail.com', 'sanitize_callback' => 'sanitize_text_field'));
     $wp_customize->add_control('nitya_home_visit_text', array('label' => __('Book Factory Visit Text', 'nitya-naturals'), 'section' => 'nitya_home_showcase_section', 'type' => 'text'));
 
-    // --- ABOUT US PAGE SECTIONS ---
     $wp_customize->add_section('nitya_about_page_section', array(
         'title'    => __('About Us Page Settings', 'nitya-naturals'),
         'panel'    => 'nitya_pages_panel',
@@ -818,7 +796,6 @@ function nitya_naturals_customize_register($wp_customize) {
     $wp_customize->add_setting('nitya_about_header_sub', array('default' => 'One Stop Solution for Herbal Preparations, Packaging & Delivery', 'sanitize_callback' => 'sanitize_text_field'));
     $wp_customize->add_control('nitya_about_header_sub', array('label' => __('Header Subtitle', 'nitya-naturals'), 'section' => 'nitya_about_page_section', 'type' => 'text'));
 
-    // Main Content Paragraphs
     $wp_customize->add_setting('nitya_about_p1', array('default' => 'About Us – Nitya Naturals Private Limited is a One Stop Solution for Herbal Preparations, Packaging & Delivery. Nitya Naturals Private Limited is a private labeling / third-party / contract manufacturing company as well as the export division of Baidyanath Ayurveda Naini. Nitya Naturals is backed by the pioneers of Ayurveda, since 1917. It is a comprehensive and scientific system of natural health care unit headed by the President of Baidyanath (Mr. Dhananjay Sharma). Nitya Naturals focuses on the complete revival of ancient Ayurveda to preserve health.', 'sanitize_callback' => 'sanitize_textarea_field'));
     $wp_customize->add_control('nitya_about_p1', array('label' => __('Main Section Paragraph 1', 'nitya-naturals'), 'section' => 'nitya_about_page_section', 'type' => 'textarea'));
 
@@ -831,7 +808,6 @@ function nitya_naturals_customize_register($wp_customize) {
     $wp_customize->add_setting('nitya_about_p4', array('default' => 'Though we employ the most modern techniques, we still take care to see that the preparation adheres strictly to the norms and procedures laid out in the ancient books of Ayurveda. This discipline, experience of four generations and quality in our output makes us the most preferred brand for contact manufacturing of ayurvedic medicines.', 'sanitize_callback' => 'sanitize_textarea_field'));
     $wp_customize->add_control('nitya_about_p4', array('label' => __('Main Section Paragraph 4', 'nitya-naturals'), 'section' => 'nitya_about_page_section', 'type' => 'textarea'));
 
-    // Our Legacy
     $wp_customize->add_setting('nitya_about_legacy_title', array('default' => 'Our Legacy', 'sanitize_callback' => 'sanitize_text_field'));
     $wp_customize->add_control('nitya_about_legacy_title', array('label' => __('Legacy Section Title', 'nitya-naturals'), 'section' => 'nitya_about_page_section', 'type' => 'text'));
 
@@ -844,7 +820,6 @@ function nitya_naturals_customize_register($wp_customize) {
     $wp_customize->add_setting('nitya_about_legacy_p3', array('default' => 'With this legacy we work towards creating a disease free society. The formulations and the medicines we create are sustainably grown and harvested by local farmers. We are committed towards responsible and environment friendly practices.', 'sanitize_callback' => 'sanitize_textarea_field'));
     $wp_customize->add_control('nitya_about_legacy_p3', array('label' => __('Legacy Paragraph 3', 'nitya-naturals'), 'section' => 'nitya_about_page_section', 'type' => 'textarea'));
 
-    // Our Founder
     $wp_customize->add_setting('nitya_about_founder_title', array('default' => 'Our Founder', 'sanitize_callback' => 'sanitize_text_field'));
     $wp_customize->add_control('nitya_about_founder_title', array('label' => __('Founder Section Title', 'nitya-naturals'), 'section' => 'nitya_about_page_section', 'type' => 'text'));
 
@@ -860,7 +835,6 @@ function nitya_naturals_customize_register($wp_customize) {
     $wp_customize->add_setting('nitya_about_founder_desc', array('default' => 'Mr. Dhananjay (Founder) is a graduate from premiere institute of India and did his Masters from Bentley University USA. With an experience of more than 30 years, Mr. Dhananjay is a prolific entrepreneur and a business leader. He takes pride in Corporate Responsibilities that he holds in Baidyanath Ayurveda India’s oldest Ayurveda company. He has worked extensively to inspire the western world to adopt Ayurveda and thus, he has established a goodwill in Ayurveda and health care industry across the globe. Nitya Naturals was one of the initiatives by Mr. Dhananjay to spread Ayurveda outside India. He has vast global exposure and he has travelled extensively to more than 50 countries.', 'sanitize_callback' => 'sanitize_textarea_field'));
     $wp_customize->add_control('nitya_about_founder_desc', array('label' => __('Founder Description', 'nitya-naturals'), 'section' => 'nitya_about_page_section', 'type' => 'textarea'));
 
-    // Management
     $wp_customize->add_setting('nitya_about_mgmt_title', array('default' => 'Additions to our Management', 'sanitize_callback' => 'sanitize_text_field'));
     $wp_customize->add_control('nitya_about_mgmt_title', array('label' => __('Management Section Title', 'nitya-naturals'), 'section' => 'nitya_about_page_section', 'type' => 'text'));
 

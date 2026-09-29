@@ -461,6 +461,33 @@ class Nitya_Product_Range_Widget extends WP_Widget {
 }
 
 /**
+ * 13. NPD Brief Form Widget
+ */
+class Nitya_NPD_Form_Widget extends WP_Widget {
+    public function __construct() {
+        parent::__construct(
+            'nitya_npd_form_widget',
+            __('Nitya: NPD Brief Form Section', 'nitya-naturals'),
+            array('description' => __('Displays New Product Development Brief Form.', 'nitya-naturals'))
+        );
+    }
+
+    public function widget($args, $instance) {
+        get_template_part('template-parts/widgets/widget-npd-form', null, $instance);
+    }
+
+    public function form($instance) {
+        ?>
+        <p><?php esc_html_e('No configuration required. Automatically renders New Product Development form section.', 'nitya-naturals'); ?></p>
+        <?php
+    }
+
+    public function update($new_instance, $old_instance) {
+        return $old_instance;
+    }
+}
+
+/**
  * Register All Nitya Widgets
  */
 function nitya_naturals_register_custom_widgets() {
@@ -476,5 +503,6 @@ function nitya_naturals_register_custom_widgets() {
     register_widget('Nitya_Our_Founder_Widget');
     register_widget('Nitya_Management_Widget');
     register_widget('Nitya_Product_Range_Widget');
+    register_widget('Nitya_NPD_Form_Widget');
 }
 add_action('widgets_init', 'nitya_naturals_register_custom_widgets');
